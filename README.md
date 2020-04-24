@@ -1,3 +1,5 @@
+NOTE: A 256-colour terminal is recommended. On Windows, you many use [Terminus](https://eugeny.github.io/terminus/)
+
 1. Install zsh
 2. Install [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh)
 3. Install [powerlevel10k](https://github.com/romkatv/powerlevel10k)
