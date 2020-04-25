@@ -1,4 +1,4 @@
-NOTE: A 256-colour terminal is recommended. On Windows, you many use [Terminus](https://eugeny.github.io/terminus/)
+NOTE: A 256-colour terminal is recommended. On Windows, you may use [Terminus](https://eugeny.github.io/terminus/)
 
 1. Install zsh
 2. Install [oh-my-zsh](https://github.com/ohmyzsh/ohmyzsh)
