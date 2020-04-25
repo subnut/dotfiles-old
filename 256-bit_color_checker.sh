@@ -1,5 +1,7 @@
 #!/bin/bash
 
+# Source: curl -s https://gist.githubusercontent.com/HaleTom/89ffe32783f89f403bba96bd7bcd1263/raw/
+
 echo # Add a newline before output
 
 # Tom Hale, 2016. MIT Licence.
