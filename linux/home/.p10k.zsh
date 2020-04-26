@@ -508,8 +508,8 @@
 
   #######################[ background_jobs: presence of background jobs ]#######################
   # Background jobs color.
-  # typeset -g POWERLEVEL9K_BACKGROUND_JOBS_FOREGROUND=6
-  # typeset -g POWERLEVEL9K_BACKGROUND_JOBS_BACKGROUND=0
+  typeset -g POWERLEVEL9K_BACKGROUND_JOBS_FOREGROUND=0
+  typeset -g POWERLEVEL9K_BACKGROUND_JOBS_BACKGROUND=6
   # Show the number of background jobs.
   typeset -g POWERLEVEL9K_BACKGROUND_JOBS_VERBOSE=true
   # Custom icon.
@@ -1506,7 +1506,7 @@
   # typeset -g POWERLEVEL9K_TIME_FOREGROUND=0
   # typeset -g POWERLEVEL9K_TIME_BACKGROUND=7
   # Format for the current time: 09:51:02. See `man 3 strftime`.
-  typeset -g POWERLEVEL9K_TIME_FORMAT='%D{%H:%M}'
+  typeset -g POWERLEVEL9K_TIME_FORMAT='%D{%H:%M:%S}'
   # If set to true, time will update when you hit enter. This way prompts for the past
   # commands will contain the start times of their commands as opposed to the default
   # behavior where they contain the end times of their preceding commands.
@@ -1524,6 +1524,10 @@
   # Type `p10k help segment` for documentation and a more sophisticated example.
   function prompt_example() {
     p10k segment -b 1 -f 3 -i '⭐' -t 'hello, %n'
+  }
+
+  function prompt_curtime() {
+    
   }
 
   # User-defined prompt segments may optionally provide an instant_prompt_* function. Its job

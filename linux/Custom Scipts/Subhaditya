@@ -1,0 +1,5 @@
+clear
+printf "\e[1;5;4;31mError 404\e[24m:\e[25m\n"
+printf "\e[0mThe person you are searching for is currently unavailable\n"
+printf "You may try searching for him later \e[2m(Although I don't think you are gonna find him ever again)\e[0m\n"
+exit 127

@@ -75,7 +75,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git pyenv zsh-syntax-highlighting)
+plugins=(git pyenv zsh-autosuggestions fzf zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -110,4 +110,7 @@ source $ZSH/oh-my-zsh.sh
 
 # Add Games to PATH
 export PATH=/usr/games:$PATH
+
+## fzf Fuzzy Finder
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
