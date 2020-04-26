@@ -113,4 +113,3 @@ export PATH=/usr/games:$PATH
 
 ## fzf Fuzzy Finder
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-
