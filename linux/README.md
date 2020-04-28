@@ -9,6 +9,8 @@ NOTE: A 256-colour terminal is recommended. On Windows, you may use [Terminus](h
 7. Install [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions/blob/master/INSTALL.md#oh-my-zsh)
 8. Install [fzf](https://github.com/junegunn/fzf)
 9. Install [pyenv](https://github.com/pyenv/pyenv#basic-github-checkout)
+10. Install [bat](https://github.com/sharkdp/bat#installation)
+11. Install [fd](https://github.com/sharkdp/fd#installation)
 
 For runnning cowsays.sh:
 Install fortune, cowsay, lolcat
