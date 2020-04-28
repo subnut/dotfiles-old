@@ -35,6 +35,7 @@
     os_icon                 # os identifier
     dir                     # current directory
     vcs                     # git status
+    virtualenv              # python virtual environment (https://docs.python.org/3/library/venv.html)
     # =========================[ Line #2 ]=========================
     newline                 # \n
     prompt_char           # prompt symbol
@@ -50,9 +51,7 @@
     command_execution_time  # duration of the last command
     direnv                  # direnv status (https://direnv.net/)
     asdf                    # asdf version manager (https://github.com/asdf-vm/asdf)
-    virtualenv              # python virtual environment (https://docs.python.org/3/library/venv.html)
     anaconda                # conda environment (https://conda.io/)
-    pyenv                   # python environment (https://github.com/pyenv/pyenv)
     goenv                   # go environment (https://github.com/syndbg/goenv)
     nodenv                  # node.js version from nodenv (https://github.com/nodenv/nodenv)
     nvm                     # node.js version from nvm (https://github.com/nvm-sh/nvm)
@@ -101,6 +100,7 @@
     newline
     background_jobs         # presence of background jobs
     # ip                    # ip address and bandwidth usage for a specified network interface
+    pyenv                   # python environment (https://github.com/pyenv/pyenv)
     # public_ip             # public IP address
     # proxy                 # system-wide http/https/ftp proxy
     # battery               # internal battery
@@ -509,7 +509,7 @@
   #######################[ background_jobs: presence of background jobs ]#######################
   # Background jobs color.
   typeset -g POWERLEVEL9K_BACKGROUND_JOBS_FOREGROUND=0
-  typeset -g POWERLEVEL9K_BACKGROUND_JOBS_BACKGROUND=6
+  typeset -g POWERLEVEL9K_BACKGROUND_JOBS_BACKGROUND=1
   # Show the number of background jobs.
   typeset -g POWERLEVEL9K_BACKGROUND_JOBS_VERBOSE=true
   # Custom icon.
@@ -871,8 +871,8 @@
 
   ###[ virtualenv: python virtual environment (https://docs.python.org/3/library/venv.html) ]###
   # Python virtual environment color.
-  # typeset -g POWERLEVEL9K_VIRTUALENV_FOREGROUND=0
-  # typeset -g POWERLEVEL9K_VIRTUALENV_BACKGROUND=4
+  typeset -g POWERLEVEL9K_VIRTUALENV_FOREGROUND=12
+  typeset -g POWERLEVEL9K_VIRTUALENV_BACKGROUND=0
   # Don't show Python version next to the virtual environment name.
   typeset -g POWERLEVEL9K_VIRTUALENV_SHOW_PYTHON_VERSION=false
   # Separate environment name from Python version only with a space.
@@ -893,8 +893,8 @@
 
   ################[ pyenv: python environment (https://github.com/pyenv/pyenv) ]################
   # Pyenv color.
-  # typeset -g POWERLEVEL9K_PYENV_FOREGROUND=0
-  # typeset -g POWERLEVEL9K_PYENV_BACKGROUND=4
+typeset -g POWERLEVEL9K_PYENV_FOREGROUND=0
+typeset -g POWERLEVEL9K_PYENV_BACKGROUND=12
   # Hide python version if it doesn't come from one of these sources.
   typeset -g POWERLEVEL9K_PYENV_SOURCES=(shell local global)
   # If set to false, hide python version if it's the same as global:
