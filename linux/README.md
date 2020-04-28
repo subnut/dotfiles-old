@@ -16,3 +16,8 @@ For runnning cowsays.sh:
 Install fortune, cowsay, lolcat
 
 Included powerlevel10k/internal/p10k.zsh file has been patched to update the terminal prompt clock at the start of every minute
+
+#A few tips:
+###Pyenv:
+pyenv shell $( pyenv versions | fzf --tac )
+pyenv install $( pyenv install -l | fzf --tac )
