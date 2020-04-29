@@ -39,7 +39,7 @@
     # =========================[ Line #2 ]=========================
     newline                 # \n
     prompt_char           # prompt symbol
-  )
+)
 
   # The list of segments shown on the right. Fill it with less important segments.
   # Right prompt on the last prompt line (where you are typing your commands) gets
