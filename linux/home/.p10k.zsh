@@ -103,7 +103,7 @@
     pyenv                   # python environment (https://github.com/pyenv/pyenv)
     # public_ip             # public IP address
     # proxy                 # system-wide http/https/ftp proxy
-    # battery               # internal battery
+    battery               # internal battery
     # wifi                  # wifi speed
     # example               # example user-defined segment (see prompt_example function below)
   )
