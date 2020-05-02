@@ -118,3 +118,7 @@ export PATH=/usr/games:$PATH
 export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 
+# colorls
+export PATH="$PATH:/home/subhaditya/.gem/ruby/2.7.0/bin/"
+
+alias ls="colorls"

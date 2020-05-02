@@ -11,6 +11,7 @@ NOTE: A 256-colour terminal is recommended. On Windows, you may use [Terminus](h
 9. Install [pyenv](https://github.com/pyenv/pyenv#basic-github-checkout)
 10. Install [bat](https://github.com/sharkdp/bat#installation)
 11. Install [fd](https://github.com/sharkdp/fd#installation)
+12. Install [colorls](https://github.com/athityakumar/colorls)
 
 For runnning cowsays.sh:
 Install fortune, cowsay, lolcat

@@ -105,7 +105,7 @@
     # proxy                 # system-wide http/https/ftp proxy
     battery               # internal battery
     # wifi                  # wifi speed
-    # example               # example user-defined segment (see prompt_example function below)
+    example               # example user-defined segment (see prompt_example function below)
   )
 
   # Defines character set used by powerlevel10k. It's best to let `p10k configure` set it for you.
@@ -1525,12 +1525,40 @@ typeset -g POWERLEVEL9K_PYENV_BACKGROUND=12
   #
   # Type `p10k help segment` for documentation and a more sophisticated example.
   function prompt_example() {
-    p10k segment -b 1 -f 3 -i '⭐' -t 'hello, %n'
+    #p10k segment -b 1 -f 3 -i '⭐' -t 'hello, %n'
+    p10k segment -b 1 -f 3 -r -i 'battery-charging-20' -t 'hello, %n'
   }
 
-  function prompt_curtime() {
-    
-  }
+  function my_battery() {
+	MY_BATTERY_CHARGE=${$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep percentage ): 1:2}
+	MY_BATTERY_STATUS=${$(upower -i /org/freedesktop/UPower/devices/battery_BAT0 | grep state ): 1:2}
+	case "$MY_BATTERY_STATUS" in
+		charging)
+			MY_BATTERY_BACKGROUND=2;
+			MY_BATTERY_FOREGROUND=7;; 	
+		discharging)
+		MY_BATTERY_BACKGROUND=0;
+			case "$MY_BATTERY_CHARGE" in 
+				[100-65])
+					MY_BATTERY_FOREGROUND=2;;
+				[65-40])
+					MY_BATTERY_FOREGROUND=3;;
+				[40-20])
+					MY_BATTERY_FOREGROUND=1;;
+				[20-0])
+					MY_BATTERY_BACKGROUND=1; MY_BATTERY_FOREGROUND=0;;
+				*);;
+			esac;;
+		*);;
+	esac
+	icon="battery_"
+	if [[ $MY_BATTERY_STATUS = "charging" ]]
+	then icon=$(echo -n $icon"charging_")
+	fi
+
+
+			
+	      		}
 
   # User-defined prompt segments may optionally provide an instant_prompt_* function. Its job
   # is to generate the prompt segment for display in instant prompt. See
