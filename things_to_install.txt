@@ -3,4 +3,4 @@ vlc
 sudo pacman -S kdeadmin kdebase kmix kwave kamoso kdeconnect kdebindings dolphin dolphin-plugins kcalc kompare konsole yakuake krdc ktouch kwrite okular spectacle 
 tlp
 code
-
+# change Display Manager to SDDM in Eos-welcome
