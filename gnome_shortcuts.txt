@@ -1,0 +1,5 @@
+Super+D		Hide all normal windows
+Ctrl+F11	Toggle Fullscreen mode
+
+Custom:
+Super+E		Command: Nautilus
