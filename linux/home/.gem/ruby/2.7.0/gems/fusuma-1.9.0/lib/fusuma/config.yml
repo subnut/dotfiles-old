@@ -1,0 +1,43 @@
+swipe:
+  3:
+    down:
+      command: 'xdotool key XF86AudioPlay'
+      threshold: 1 
+      interval: 1
+  4:
+    left:
+      command: 'xdotool key XF86AudioPrev' 
+      threshold: 0.8
+      interval: 0.8
+    right:
+      command: 'xdotool key XF86AudioNext' 
+      threshold: 0.8
+      interval: 0.8
+    up:
+      command: 'xdotool key XF86AudioRaiseVolume' 
+      threshold: 0.2
+      interval: 0.1
+    down:
+      command: 'xdotool key XF86AudioLowerVolume' 
+      threshold: 0.2
+      interval: 0.1
+
+pinch:
+  2:
+    in:
+      command: 'xdotool key ctrl+plus'
+    out:
+      command: 'xdotool key ctrl+minus'
+  4:
+    in:
+      command: 'xdotool key super+a'
+    out:
+      command: 'xdotool key super+s'
+
+threshold:
+  swipe: 0.3
+  pinch: 0.1
+
+interval:
+  swipe: 1
+  pinch: 1
