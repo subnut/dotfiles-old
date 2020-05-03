@@ -12,7 +12,7 @@ NOTE: A 256-colour terminal is recommended. On Windows, you may use [Terminus](h
 10. Install [bat](https://github.com/sharkdp/bat#installation)
 11. Install [fd](https://github.com/sharkdp/fd#installation)
 12. Install [colorls](https://github.com/athityakumar/colorls)
-13. Install [libinput-gestures](https://github.com/bulletmark/libinput-gestures)
+13. Install [fusuma](https://github.com/iberianpig/fusuma)
 
 For runnning cowsays.sh:
 Install fortune, cowsay, lolcat
