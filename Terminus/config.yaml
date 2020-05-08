@@ -4,7 +4,7 @@ terminal:
     foreground: '#eceff1'
     background: 'rgba(38, 50, 56, 1)'
     selection: null
-    cursor: '#FFFFFF'
+    cursor: '#FFCC00'
     colors:
       - '#000000'
       - '#D62341'
@@ -22,24 +22,27 @@ terminal:
       - '#C792EA'
       - '#89DDFF'
       - '#ffffff'
-  font: Cascadia Mono PL Regular
+  font: Cascadia Code Regular
   ligatures: true
   cursor: block
   fallbackFont: MesloLGS NF Regular
   fontSize: 14
   environment: {}
   useConPTY: true
+  bell: 'off'
+  pasteOnMiddleClick: true
+  profile: wsl-/-arch
+  workingDirectory: ''
 hotkeys:
   shell: {}
   profile: {}
+  home: []
+  end: []
+  previous-word: []
+  next-word: []
 serial: {}
 ssh:
-  recentConnections:
-    - name: 192.168.43.71
-      group: null
-      host: 192.168.43.71
-      user: root
-      port: 22
+  recentConnections: []
   connections:
     - name: desktop-jdl3qjr
       group: null
@@ -79,5 +82,15 @@ appearance:
   vibrancyType: blur
   tabsLocation: top
   frame: thin
-  css: '/* * { color: blue !important; } */'
+  css: |-
+    /* * { color: blue !important; } */
+    tab-body {
+    background: rgba(0,0,0,0.4)
+    }
   theme: Standard
+  vibrancy: true
+  opacity: 1
+enableAnalytics: false
+enableWelcomeTab: false
+pluginBlacklist:
+  - serial
