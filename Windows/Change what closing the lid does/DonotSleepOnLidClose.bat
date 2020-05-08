@@ -1,9 +1,9 @@
-REM Sleep when lid is closed
+REM Do not sleep when lid is closed
 @echo off
 
 REM set lid action
-powercfg /setacvalueindex scheme_current sub_buttons lidaction 1
-powercfg /setdcvalueindex scheme_current sub_buttons lidaction 1
+powercfg /setacvalueindex scheme_current sub_buttons lidaction 0
+powercfg /setdcvalueindex scheme_current sub_buttons lidaction 0
 
 REM update current profile immediately
 powercfg /setactive scheme_current
