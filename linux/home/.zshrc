@@ -122,3 +122,6 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 export PATH="$PATH:/home/subhaditya/.gem/ruby/2.7.0/bin/"
 
 alias ls="colorls"
+
+my_diff () { colordiff -u $* | less }
+alias diff=my_diff
