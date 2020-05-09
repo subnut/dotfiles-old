@@ -2,8 +2,8 @@ REM Do Nothing when Power Button is pressed
 @echo off
 
 REM set lid action
-powercfg /setacvalueindex scheme_current sub_buttons lidaction 0
-powercfg /setdcvalueindex scheme_current sub_buttons lidaction 0
+powercfg /setacvalueindex scheme_current sub_buttons pbuttonaction 0
+powercfg /setdcvalueindex scheme_current sub_buttons pbuttonaction 0
 
 REM update current profile immediately
 powercfg /setactive scheme_current
