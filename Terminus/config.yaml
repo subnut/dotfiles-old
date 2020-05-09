@@ -57,7 +57,7 @@ terminal:
         - '#C792EA'
         - '#89DDFF'
         - '#ffffff'
-  background: colorScheme
+  background: theme
 hotkeys:
   shell: {}
   profile: {}
@@ -73,7 +73,7 @@ appearance:
   css: |-
     /* * { color: blue !important; } */
     tab-body {
-    background: rgba(0,0,0,0)
+    background: rgba(0,0,0,0.4)
     }
   theme: Standard
   vibrancy: true
