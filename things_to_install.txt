@@ -2,14 +2,15 @@ persepolis
 vlc
 tlp
 code
-# change Display Manager to SDDM in Eos-welcome
 alacarte
 gnome
 gnome-tweaks
 automathemely
+kvantum-qt5     -> set theme to Layan (download from internet)
+qt5ct           -> set theme to Kvantum
 
 yay:
 ----
 gnome-shell-extension-emoji-selector
 takeabreak
-
+gtk-theme-switch2

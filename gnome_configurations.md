@@ -28,3 +28,4 @@ Themes:
 -------
 GTK theme: (Layan)[https://github.com/vinceliuice/Layan-gtk-theme]
 Icon-theme: (Tela)[https://github.com/vinceliuice/Tela-icon-theme]
+Cursor: Breeze
