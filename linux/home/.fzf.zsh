@@ -31,5 +31,9 @@ _fzf_compgen_dir() {
   fd --type d --hidden --follow --exclude ".git" . "$1"
 }
 
-export FZF_DEFAULT_OPTS="--ansi --preview-window 'right:50%:hidden' --preview 'bat --color=always --style=header,grid --line-range :300 {}' --color light --bind ctrl-p:toggle-preview"
+export FZF_DEFAULT_OPTS="--ansi --preview-window 'right:50%:hidden' --preview 'bat --color=always --style=header,grid --line-range :300 {}' --color light --bind ctrl-p:toggle-preview --margin 10%,5% --cycle"
+
+export FZF_CTRL_T_OPTS="--margin 0"
+export FZF_CTRL_R_OPTS="--margin 0"
+export FZF_ALT_C_OPTS="--margin 0"
 

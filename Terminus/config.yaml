@@ -1,10 +1,10 @@
 terminal:
   colorScheme:
-    name: Material
+    name: My_dark
     foreground: '#eceff1'
-    background: 'rgba(38, 50, 56, 1)'
+    background: 'rgba(0, 0, 0, 0.4)'
     selection: null
-    cursor: '#FFFFFF'
+    cursor: '#FFCC00'
     colors:
       - '#000000'
       - '#D62341'
@@ -22,62 +22,63 @@ terminal:
       - '#C792EA'
       - '#89DDFF'
       - '#ffffff'
-  font: Cascadia Mono PL Regular
+  font: Cascadia Code Regular
   ligatures: true
   cursor: block
   fallbackFont: MesloLGS NF Regular
   fontSize: 14
   environment: {}
   useConPTY: true
+  bell: 'off'
+  pasteOnMiddleClick: true
+  profile: wsl-/-arch
+  workingDirectory: ''
+  frontend: xterm
+  customColorSchemes:
+    - name: My_dark
+      foreground: '#eceff1'
+      background: 'rgba(0, 0, 0, 0.4)'
+      selection: null
+      cursor: '#FFCC00'
+      colors:
+        - '#000000'
+        - '#D62341'
+        - '#9ECE58'
+        - '#FAED70'
+        - '#396FE2'
+        - '#BB80B3'
+        - '#2DDAFD'
+        - '#d0d0d0'
+        - 'rgba(255, 255, 255, 0.2)'
+        - '#FF5370'
+        - '#C3E88D'
+        - '#FFCB6B'
+        - '#82AAFF'
+        - '#C792EA'
+        - '#89DDFF'
+        - '#ffffff'
+  background: theme
 hotkeys:
   shell: {}
   profile: {}
+  home: []
+  end: []
+  previous-word: []
+  next-word: []
 serial: {}
-ssh:
-  recentConnections:
-    - name: 192.168.43.71
-      group: null
-      host: 192.168.43.71
-      user: root
-      port: 22
-  connections:
-    - name: desktop-jdl3qjr
-      group: null
-      host: 192.168.43.71
-      port: 22
-      user: subhaditya
-      algorithms:
-        hmac:
-          - hmac-sha2-256
-          - hmac-sha2-512
-          - hmac-sha1
-        kex:
-          - ecdh-sha2-nistp256
-          - ecdh-sha2-nistp384
-          - ecdh-sha2-nistp521
-          - diffie-hellman-group-exchange-sha256
-          - diffie-hellman-group14-sha256
-          - diffie-hellman-group16-sha512
-          - diffie-hellman-group18-sha512
-          - diffie-hellman-group14-sha1
-        cipher:
-          - aes128-ctr
-          - aes192-ctr
-          - aes256-ctr
-          - aes128-gcm
-          - aes128-gcm@openssh.com
-          - aes256-gcm
-          - aes256-gcm@openssh.com
-        serverHostKey:
-          - ssh-ed25519
-          - ecdsa-sha2-nistp256
-          - ecdsa-sha2-nistp384
-          - ecdsa-sha2-nistp521
-          - ssh-rsa
-      scripts: []
 appearance:
   vibrancyType: blur
   tabsLocation: top
   frame: thin
-  css: '/* * { color: blue !important; } */'
+  css: |-
+    /* * { color: blue !important; } */
+    tab-body {
+    background: rgba(0,0,0,0.4)
+    }
   theme: Standard
+  vibrancy: true
+  opacity: 1
+enableAnalytics: false
+enableWelcomeTab: false
+pluginBlacklist:
+  - serial

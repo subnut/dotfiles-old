@@ -12,7 +12,8 @@ NOTE: A 256-colour terminal is recommended. On Windows, you may use [Terminus](h
 10. Install [bat](https://github.com/sharkdp/bat#installation)
 11. Install [fd](https://github.com/sharkdp/fd#installation)
 12. Install [colorls](https://github.com/athityakumar/colorls)
-13. Install [fusuma](https://github.com/iberianpig/fusuma)
+# 13. Install [fusuma](https://github.com/iberianpig/fusuma)
+14. Install colordiff
 
 For runnning cowsays.sh:
 Install fortune, cowsay, lolcat
@@ -22,4 +23,4 @@ Included powerlevel10k/internal/p10k.zsh file has been patched to update the ter
 # A few tips:
 ### Pyenv:
 `pyenv shell $( pyenv versions | fzf --tac )`
-`pyenv install $( pyenv install -l | fzf --tac )`
+`pyenv shell $( pyenv install -l | fzf --tac --layout=reverse --height=40% )`
