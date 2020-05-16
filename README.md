@@ -11,3 +11,6 @@ Pro Tip: Run it and resize the window and keep it on top-left corner and configu
 You may also try using `watch` 
 
 [WordWall](https://github.com/tomocafe/wordwall)
+
+In Firefox, goto `about:config` and set `network.IDN_show_punycode` to `true`
+To read about why this is nessecary, click [here](https://www.xudongz.com/blog/2017/idn-phishing/)
