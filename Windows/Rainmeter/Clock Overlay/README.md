@@ -1,6 +1,5 @@
 For this skin to work you must have Rainmeter Installed, not Portable
-Run the Clock Overlay_1.0.0.bat Batch File
-_DONOT_ run the rmskin directly
+After installing the skin, copy the configuration from the TXT into the Rainmeter settings ini
 
 In Rainmeter, to fix blurry text, do the following
 * Go to the Rainmeter installation directory

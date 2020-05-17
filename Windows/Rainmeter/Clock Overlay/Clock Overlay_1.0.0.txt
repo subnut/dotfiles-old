@@ -1,0 +1,11 @@
+
+[Clock Overlay]
+Active=1
+WindowX=0
+WindowY=0
+ClickThrough=0
+Draggable=1
+SnapEdges=1
+KeepOnScreen=1
+AlwaysOnTop=2
+HideOnMouseOver=1
