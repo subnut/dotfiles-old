@@ -32,7 +32,7 @@ terminal:
   bell: 'off'
   pasteOnMiddleClick: true
   profile: wsl-/-arch
-  workingDirectory: ''
+  workingDirectory: \\wsl$\Arch\home\subhaditya
   frontend: xterm
   customColorSchemes:
     - name: My_dark
@@ -82,3 +82,4 @@ enableAnalytics: false
 enableWelcomeTab: false
 pluginBlacklist:
   - serial
+ssh: {}
