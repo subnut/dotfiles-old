@@ -14,3 +14,9 @@ You may also try using `watch`
 
 In Firefox, goto `about:config` and set `network.IDN_show_punycode` to `true`
 To read about why this is nessecary, click [here](https://www.xudongz.com/blog/2017/idn-phishing/)
+
+From WSL, to set LidCloseAction, use the following commands-
+
+`cat ~/dotfiles/Windows/Change\ what\ closing\ the\ lid\ does/SleepOnLidClose.bat | powershell.exe -Command "& {cmd.exe}" -`
+
+`cat ~/dotfiles/Windows/Change\ what\ closing\ the\ lid\ does/DonotSleepOnLidClose.bat | powershell.exe -Command "& {cmd.exe}" -`
