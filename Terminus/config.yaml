@@ -83,3 +83,5 @@ enableWelcomeTab: false
 pluginBlacklist:
   - serial
 ssh: {}
+qc: {}
+titleControl: {}

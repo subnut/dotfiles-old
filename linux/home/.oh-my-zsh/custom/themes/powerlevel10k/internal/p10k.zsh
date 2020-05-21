@@ -1,6 +1,6 @@
-+# Note: this file has been updated to make the ls<tab><tab> much more reliable
-+# i.e. the clock only updates when the minute starts, not every second
-+
+# Note: this file has been updated to make the ls<tab><tab> much more reliable
+# i.e. the clock only updates when the minute starts, not every second
+
 if [[ $__p9k_sourced != 12 ]]; then
   >&2 print -P ""
   >&2 print -P "[%F{1}ERROR%f]: Corrupted powerlevel10k installation."
