@@ -22,5 +22,5 @@ Included powerlevel10k/internal/p10k.zsh file has been patched to update the ter
 
 # A few tips:
 ### Pyenv:
-`pyenv shell $( pyenv versions | fzf --tac )`
-`pyenv shell $( pyenv install -l | fzf --tac --layout=reverse --height=40% )`
+`pyenv shell $( pyenv versions | fzf --tac --layout=reverse --height=40% )`
+`pyenv install $( pyenv install -l | fzf --tac )`
