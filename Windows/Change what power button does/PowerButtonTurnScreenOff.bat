@@ -1,5 +1,6 @@
-REM Turn screen off when Power Button is pressed
 @echo off
+REM Turn screen off when Power Button is pressed
+echo Turn screen off when Power Button is pressed
 
 REM set lid action
 powercfg /setacvalueindex scheme_current sub_buttons pbuttonaction 4

@@ -1,5 +1,6 @@
-REM Do Nothing when Power Button is pressed
 @echo off
+REM Do Nothing when Power Button is pressed
+echo Do Nothing when Power Button is pressed
 
 REM set lid action
 powercfg /setacvalueindex scheme_current sub_buttons pbuttonaction 0

@@ -1,5 +1,6 @@
-REM Sleep when Power Button is pressed
 @echo off
+REM Sleep when Power Button is pressed
+echo Sleep when Power Button is pressed
 
 REM set lid action
 powercfg /setacvalueindex scheme_current sub_buttons pbuttonaction 1

@@ -1,5 +1,6 @@
-REM Shut Down when Power Button is pressed
 @echo off
+REM Shut Down when Power Button is pressed
+echo Shut Down when Power Button is pressed
 
 REM set lid action
 powercfg /setacvalueindex scheme_current sub_buttons pbuttonaction 3
