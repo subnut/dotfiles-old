@@ -124,8 +124,12 @@ export PATH="$PATH:/home/subhaditya/.gem/ruby/2.7.0/bin/"
 
 alias ls="colorls"
 
+my_run_bat () { cat $1 | powershell.exe -Command "& {cmd.exe}" - }
+alias runbat=my_run_bat
+
 my_diff () { colordiff -u $* | less }
 alias diff=my_diff
+
 my_bottom() { echo "
 
 
