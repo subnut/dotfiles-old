@@ -124,9 +124,12 @@ export PATH="$PATH:/home/subhaditya/.gem/ruby/2.7.0/bin/"
 
 alias ls="colorls"
 
+alias gaav="git add --all --verbose"
+
 my_run_bat () { cat $1 | powershell.exe -Command "& {cmd.exe}" - }
 my_run_bat_2 () { cat $1 | powershell.exe -Command "& {cd c:; cmd.exe /Q}" - }
-alias runbat=my_run_bat_2
+my_run_bat_3 () { powershell.exe "cd c:; & \"$( wslpath -w $1)\"" }
+alias runbat=my_run_bat_3
 
 my_diff () { colordiff -u $* | less }
 alias diff=my_diff
