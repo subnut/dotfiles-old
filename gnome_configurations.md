@@ -25,8 +25,9 @@ Custom
 : (Transparent Window)[https://extensions.gnome.org/extension/1454/transparent-window/]
 ::
 : (rounded-corners)[https://extensions.gnome.org/extension/1514/rounded-corners/]
-:: Plank
-:	yay -Ss plank
+:: 
+: Plank
+::	yay -Ss plank
 
 Themes:
 -------
