@@ -14,6 +14,8 @@ Built-in
 :: Applications Menu
 :: Launch new instance
 :: Places Status Indicator
+:: Horizontal workspaces
+:: Windownavigator
 
 Custom
 : (Emoji-Selector)[https://github.com/maoschanz/emoji-selector-for-gnome]
