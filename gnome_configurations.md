@@ -22,10 +22,15 @@ Custom
 ::	yay -S gnome-shell-extension-arc-menu
 : (Dash-to-panel)[https://extensions.gnome.org/extension/1160/dash-to-panel/]
 ::	yay -S gnome-shell-extension-dash-to-panel
-
+: (Transparent Window)[https://extensions.gnome.org/extension/1454/transparent-window/]
+::
+: (rounded-corners)[https://extensions.gnome.org/extension/1514/rounded-corners/]
+:: Plank
+:	yay -Ss plank
 
 Themes:
 -------
 GTK theme: (Layan)[https://github.com/vinceliuice/Layan-gtk-theme]
 Icon-theme: (Tela)[https://github.com/vinceliuice/Tela-icon-theme]
 Cursor: Breeze
+Plank theme: (here)[https://github.com/vinceliuice/Orchis-theme/blob/master/src/plank/dock.theme]
