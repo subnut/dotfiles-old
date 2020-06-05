@@ -14,7 +14,6 @@ Built-in
 :: Applications Menu
 :: Launch new instance
 :: Places Status Indicator
-:: Horizontal workspaces
 :: Windownavigator
 
 Custom
