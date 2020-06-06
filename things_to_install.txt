@@ -6,8 +6,7 @@ alacarte
 gnome
 gnome-tweaks
 automathemely
-kvantum-qt5     -> set theme to Layan (download from internet)
-qt5ct           -> set theme to Kvantum
+smplayer
 
 yay:
 ----

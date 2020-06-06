@@ -22,4 +22,6 @@ From WSL, to set LidCloseAction, use the following commands-
 `cat ~/dotfiles/Windows/Change\ what\ closing\ the\ lid\ does/DonotSleepOnLidClose.bat | powershell.exe -Command "& {cmd.exe}" -`
 
 To select and delete multiple packages at once in Arch, use `sudo pacman -R $(pacman -Q | fzf --multi |  cut --fields=1 -d' ')`
-choose options using the <TAB> key
+Choose multiple options using the <TAB> key
+The equivalent command for installing repo packages is `sudo pacman -S $(pacman -Ss | cut -d' ' --fields=1 | grep .  | fzf --multi) --needed`
+For AUR, just substitute `pacman` for `yay`
