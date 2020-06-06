@@ -3,7 +3,7 @@
 killall -q sxhkd
 sxhkd &
 
-bspc monitor -d I II III IV V VI VII VIII IX X
+bspc monitor -d I II III IV V VI VII VIII IX T XI XII XIII XIV XV XVI XVII XVIII XIX XX XXI XXII
 
 bspc config border_width         0
 bspc config window_gap          12
@@ -21,4 +21,4 @@ bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
 
 
-exec picom -f --inactive-dim 0.45 --corner-radius 35 --vsync --backend glx --glx-no-stencil --fade-delta 3
+exec picom -f --inactive-dim 0.3 --corner-radius 35 --vsync --backend glx --glx-no-stencil --fade-delta 3 --detect-rounded-corners --shadow-opacity=1 --blur-background --blur-method dual_kawase --blur-strength 10 & 

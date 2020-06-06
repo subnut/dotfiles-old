@@ -7,10 +7,7 @@
 #	kitty
 
 super + {_,shift +}Return
-	{kitty,termite}
-
-super + Return
-	termite
+	kitty {_,-o background_opacity=0.6}
 
 # program launcher
 {ctrl,super} + @space
@@ -24,6 +21,8 @@ super + Escape
 super + ctrl + Return ; {f,c,t}
 	{firefox,google-chrome-stable,thunar}
 
+# pseudo window
+
 #
 # bspwm hotkeys
 #
@@ -35,6 +34,7 @@ super + alt + {q,r}
 # close and kill
 super + {_,shift + }q
 	bspc node -{c,k}
+# close
 alt + F4
 	bspc node -c
 
@@ -77,15 +77,25 @@ super + {o,i}
 	bspc wm -h on
 
 # focus or send to the given desktop
-super + {_,shift + }{1-9,0}
-	bspc {desktop -f,node -d} '^{1-9,10}'
+#super + {_,shift + }{1-9,0}
+#	bspc {desktop -f,node -d} '^{1-9,10}'
+super + {_,shift + }{1-9}
+	bspc {desktop -f,node -d} '^{1-9}'
+super + {_,shift + }{F1,F2,F3,F4,F5,F6,F7,F8,F9,F10,F11,F12}
+	bspc {desktop -f,node -d} {XI,XII,XIII,XIV,XV,XVI,XVII,XVIII,XIX,XX,XXI,XXII}
+
+
+# focus or send to the prev/next desktop
+super + {_,shift + }{Left,Right}
+	bspc {desktop -f,node -d} {prev,next}.local
+
 
 #
 # preselect
 #
 
 # preselect the direction
-super + alt + {{h,j,k,l}
+super + alt + {h,j,k,l}
 	bspc node -p {west,south,north,east}
 
 # preselect the ratio
@@ -142,4 +152,29 @@ XF86AudioMicMute
 	light -U {5,1}
 XF86Sleep
 	systemctl suspend
+
+
+#
+# opacity (picom-trans)
+#
+
+# Coarse control
+super + {minus,equal}
+	picom-trans -c {-,+}15
+
+# Shift ==> Finer control
+super + shift + {minus,equal}
+	picom-trans -c {-,+}5
+
+# Reset opacity / Make transparent
+super + {_,shift + }0 
+	picom-trans -c {100,0}
+
+
+super + d
+	if [[ $(  bspc wm -g | cut --fields=2 -d'O' | cut --fields=1 -d':' ) =~ ^T$  ]]; \
+	then bspc desktop older -f; \
+	else; \
+	bspc desktop -f T; \
+	fi
 
