@@ -1,0 +1,31 @@
+#! /bin/sh
+
+killall -q sxhkd
+sxhkd &
+
+bspc monitor -d I II III IV V VI VII VIII IX T XI XII XIII XIV XV XVI XVII XVIII XIX XX XXI XXII
+
+bspc config border_width         0
+bspc config window_gap          12
+
+bspc config split_ratio          0.52
+bspc config borderless_monocle   true
+bspc config gapless_monocle      true
+
+bspc config focus_follows_pointer true
+
+bspc rule -a Gimp desktop='^8' state=floating follow=on
+bspc rule -a Chromium desktop='^2'
+bspc rule -a mplayer2 state=floating
+bspc rule -a Kupfer.py focus=on
+bspc rule -a Screenkey manage=off
+
+if killall -q polybar;\
+then;\
+else bspc config top_padding $((`bspc config bottom_padding` + 30));\
+fi;
+polybar --config=/home/subhaditya/.config/polybar/config example &
+
+killall -q picom
+exec picom -f --inactive-dim 0.3 --corner-radius 35 --vsync --backend glx --glx-no-stencil --fade-delta 1 --detect-rounded-corners --shadow-opacity=1 --blur-background --blur-method dual_kawase --blur-strength 10 & 
+#exec picom  --inactive-dim 0.3 --corner-radius 35 --vsync --backend glx --glx-no-stencil --detect-rounded-corners --shadow-opacity=1 --blur-background --blur-method dual_kawase --blur-strength 10 & 

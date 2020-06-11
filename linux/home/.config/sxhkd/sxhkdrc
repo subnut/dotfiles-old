@@ -1,0 +1,269 @@
+#
+# wm independent hotkeys
+#
+
+# terminal emulator
+#super + Return
+#	kitty
+
+super + {_,shift +}Return
+	kitty {-o background_opacity=0.6,_}
+
+# program launcher
+{ctrl,super} + @space
+	dmenu_run
+
+# make sxhkd reload its configuration files:
+super + Escape
+	pkill -USR1 -x sxhkd
+
+# run some custom programs
+super + ctrl + Return ; {f,c,t,v,n,x}
+	{firefox,google-chrome-stable,thunar,vlc,nautilus,xdman}
+
+# pseudo window
+super + backslash
+	kitty --detach sh -c "tput civis; sleep 365d" ; \
+	sleep 0.5; \
+	picom-trans -c 0; \
+	bspc wm -h off; \
+	bspc node older -f; \
+	bspc wm -h on
+
+
+# Run using gmrun
+super + r
+	gmrun
+
+# toggle polybar
+super + p
+	killall -q polybar; \
+	polybar --config=/home/subhaditya/.config/polybar/config mybar; \
+	bspc config top_padding 30
+super + shift + p
+	killall -q polybar; \
+	bspc config top_padding 0
+
+
+#
+# bspwm hotkeys
+#
+
+# quit/restart bspwm
+super + alt + {q,r}
+	bspc {quit,wm -r}
+
+# close 
+{super + q,alt + F4}
+	bspc node -c
+
+# kill
+alt + ctrl + Delete
+	bspc node -k
+
+# alternate between the tiled and monocle layout
+super + m
+	bspc desktop -l next
+
+#
+# state/flags
+#
+
+# set the window state
+super + {t,shift + t,s,f}
+	bspc node -t {tiled,pseudo_tiled,floating || bspc node -t "~floating",fullscreen || bspc node -t "~fullscreen"}
+
+# set the node flags
+# sticky  => show on all desktops (of current monitor)
+# marked  => to send to presel'd node
+super + ctrl + {s,m}
+	bspc node -g {sticky,marked}
+
+# locked  => ignore "node --close" (super + q) 
+super + {ctrl,shift,ctrl + shift} + q
+	bspc node -g locked
+
+super + ctrl + p
+	bspc node -g private
+
+
+#
+# focus/swap
+#
+
+# focus the node in the given direction
+super + {_,shift + }{h,j,k,l}
+	bspc node -{f,s} {west,south,north,east}
+
+# focus the next/previous node/desktop in the current desktop
+{alt,super} + {_,shift + }Tab
+	bspc {node,desktop} -f {next,prev}.local
+
+# focus the last node/desktop
+{alt,super} + grave
+	bspc {node,desktop} -f last.local
+
+
+
+# focus or send to the given desktop
+#super + {_,shift + }{1-9,0}
+#	bspc {desktop -f,node -d} '^{1-9,10}'
+
+super + {_,shift + }{1-9}
+	bspc {desktop -f,node -d} '^{1-9}'
+
+super + {_,shift + }{F1,F2,F3,F4,F5,F6,F7,F8,F9,F10,F11,F12}
+	bspc {desktop -f,node -d} {XI,XII,XIII,XIV,XV,XVI,XVII,XVIII,XIX,XX,XXI,XXII}
+
+
+
+
+# focus or send to the prev/next desktop
+super + {_,shift + }{u,o}
+	bspc desktop -f {next,prev}.local.{!,_}occupied
+
+
+# send to the prev/next desktop
+super + shift {Left,Right}
+	bspc node -d {prev,next}.local
+
+# Swap current desktop with given desktop
+super + ctrl + {1-9}
+	bspc desktop -s '^{1-9}'
+
+super + ctrl + {F1,F2,F3,F4,F5,F6,F7,F8,F9,F10,F11,F12}
+	bspc desktop -s {XI,XII,XIII,XIV,XV,XVI,XVII,XVIII,XIX,XX,XXI,XXII}
+
+super + ctrl + {Left,Right}
+	bspc desktop -s {prev,next}
+
+#
+# preselect
+#
+
+# preselect the direction
+super + alt + {h,j,k,l}
+	bspc node -p {west,south,north,east}
+
+# preselect the ratio
+super + alt + {1-9}
+	bspc node -o 0.{1-9}
+
+# cancel the preselection for the focused node
+super + alt + space
+	bspc node -p cancel
+
+
+#
+# move/resize
+#
+
+# move below/above/normal in the stack
+super + {b,a,n}
+	bspc node focused -l {below,above,normal}
+
+# send the newest marked node to the newest preselected node
+super + y
+	bspc node newest.marked.local -n newest.!automatic.local
+
+# move node to presel
+super + alt + shift + {h,j,k,l}
+	bspc node -n {west,south,north,east}.!automatic
+
+# expand a window by moving one of its side outward
+super + ctrl + {h,j,k,l}
+	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+# finer control
+super + ctrl + {Left,Down,Up,Right}
+	bspc node -z {left -1 0,bottom 0 1,top 0 -1,right 1 0}
+
+# contract a window by moving one of its side inward
+super + ctrl + shift + {h,j,k,l}
+	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+# finer control
+super + ctrl + shift + {Left,Down,Up,Right}
+	bspc node -z {right -1 0,top 0 1,bottom 0 -1,left 1 0}
+
+# move a floating window
+super + {Left,Down,Up,Right}
+	bspc node -v {-20 0,0 20,0 -20,20 0}
+# finer control
+super + space + {Left,Down,Up,Right}
+	bspc node -v {-1 0,0 1,0 -1,1 0}
+
+
+#
+# opacity (picom-trans)
+#
+
+# Coarse control
+super + {minus,equal}
+	picom-trans -c {-,+}15
+
+# Shift ==> Finer control
+super + shift + {minus,equal}
+	picom-trans -c {-,+}5
+
+# Reset opacity / Make transparent
+super + {_,shift + }0 
+	picom-trans -c {100,0}
+
+
+# 
+# padding
+#
+
+# decrease/increase window_gap
+super + bracket{left,right}
+	bspc config -d focused window_gap $(( `bspc config -d focused window_gap ` {-,+} 10 ))
+
+super + comma
+	bspc config -d focused right_padding $((`bspc config -d focused right_padding` - 20 )); \
+        bspc config -d focused left_padding $((`bspc config -d focused left_padding` - 20 )); \
+        bspc config -d focused bottom_padding $((`bspc config -d focused bottom_padding` - 20 )); \
+        bspc config -d focused top_padding $((`bspc config -d focused top_padding` - 20 ));
+
+super + period
+	bspc config -d focused right_padding $((`bspc config -d focused right_padding` + 20 )); \
+        bspc config -d focused left_padding $((`bspc config -d focused left_padding` + 20 )); \
+        bspc config -d focused bottom_padding $((`bspc config -d focused bottom_padding` + 20 )); \
+        bspc config -d focused top_padding $((`bspc config -d focused top_padding` + 20 ));
+
+
+#
+# others
+#
+
+XF86AudioLowerVolume
+	pactl set-sink-volume @DEFAULT_SINK@ -5%
+XF86AudioRaiseVolume
+	pactl set-sink-volume @DEFAULT_SINK@ +5%
+XF86AudioMute
+	pactl set-sink-mute @DEFAULT_SINK@ toggle
+XF86AudioMicMute
+	pactl set-source-mute @DEFAULT_SOURCE@ toggle
+{_,ctrl +}XF86MonBrightnessUp
+	light -A {5,1}
+{_,ctrl +}XF86MonBrightnessDown
+	light -U {5,1}
+XF86Sleep
+	systemctl suspend
+XF86Favorites
+	if grep -q "suspend cause: USER" <(pacmd info); then;\
+	pacmd "suspend 0";\
+	pactl set-sink-mute 1 0;\
+	else;\
+  	pacmd "suspend 1";\
+  	pactl set-sink-mute 1 1;\
+	fi
+
+
+# Switch temporarily to desktop T
+super + d
+	if [[ $((bspc query --desktops --names --node) || (bspc wm -g | cut --fields=2 -d$(bspc wm -g | grep -o "[OF]") | cut --fields=1 -d':' ) ) =~ ^T$  ]]; \
+	then bspc desktop older -f; \
+	else; \
+	bspc desktop -f T; \
+	fi
+
+
