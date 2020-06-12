@@ -30,6 +30,14 @@ super + backslash
 	bspc node older -f; \
 	bspc wm -h on
 
+# screen blocker
+super + shift + backslash
+	kitty -o background_opacity=1 --detach sh -c "tput civis; sleep 365d" ; \
+	sleep 0.5; \
+	bspc wm -h off; \
+	bspc node older -f; \
+	bspc wm -h on
+
 
 # Run using gmrun
 super + r
@@ -92,8 +100,15 @@ super + ctrl + p
 #
 
 # focus the node in the given direction
-super + {_,shift + }{h,j,k,l}
-	bspc node -{f,s} {west,south,north,east}
+#super + {_,shift + }{h,j,k,l}
+#	bspc node -{f,s} {west,south,north,east}
+
+super + {h,j,k,l}
+	bspc node -f {west,south,north,east}
+
+# send node for presel || swap node in given direction
+super + shift + {h,j,k,l}
+	bspc node -n {west.!automatic || bspc node -s west,south.!automatic || bspc node -s south,north.!automatic || bspc node -s north ,east.!automatic || bspc node -s east}
 
 # focus the next/previous node/desktop in the current desktop
 {alt,super} + {_,shift + }Tab

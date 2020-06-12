@@ -20,11 +20,10 @@ bspc rule -a mplayer2 state=floating
 bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
 
-if killall -q polybar;\
-then;\
-else bspc config top_padding $((`bspc config bottom_padding` + 30));\
-fi;
-polybar --config=/home/subhaditya/.config/polybar/config example &
+feh --bg-fill dark2.png
+ 
+if killall -q polybar; then true; else bspc config top_padding $((`bspc config bottom_padding` + 30)); fi
+polybar --config=/home/subhaditya/.config/polybar/config mybar &
 
 killall -q picom
 exec picom -f --inactive-dim 0.3 --corner-radius 35 --vsync --backend glx --glx-no-stencil --fade-delta 1 --detect-rounded-corners --shadow-opacity=1 --blur-background --blur-method dual_kawase --blur-strength 10 & 

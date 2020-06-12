@@ -152,3 +152,4 @@ yayss () { yay -Ss $* }
 pacs () { sudo pacman -S $(pacman -Ss $* | cut -d' ' --fields=1 | grep .  | fzf --multi) --needed }
 pacr () { sudo pacman -R $(pacman -Q $* | fzf --multi |  cut --fields=1 -d' ') }
 alias ydl=youtube-dl
+alias pacss="pacman -Ss"
