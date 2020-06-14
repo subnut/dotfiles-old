@@ -19,8 +19,9 @@ bspc rule -a Chromium desktop='^2'
 bspc rule -a mplayer2 state=floating
 bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
+bspc rule -a VirtualBoxVM state=floating
 
-feh --bg-fill dark2.png
+if [[ `date +'%H'` -gt 5 && `date +'%H'` -lt 18 ]] ; then feh --bg-fill light.png; else feh --bg-fill dark.png; fi
  
 if killall -q polybar; then true; else bspc config top_padding $((`bspc config bottom_padding` + 30)); fi
 polybar --config=/home/subhaditya/.config/polybar/config mybar &

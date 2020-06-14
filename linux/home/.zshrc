@@ -149,7 +149,7 @@ alias diff=my_diff
 alias la1="la -1"
 yays () { yay -S $(yay -Ss $* | cut -d' ' --fields=1 | grep .  | fzf --multi) --needed }
 yayss () { yay -Ss $* }
-pacs () { sudo pacman -S $(pacman -Ss $* | cut -d' ' --fields=1 | grep .  | fzf --multi) --needed }
-pacr () { sudo pacman -R $(pacman -Q $* | fzf --multi |  cut --fields=1 -d' ') }
+pacs () { sudo pacman -S $(pacman -Ss $* | cut -d' ' --fields=1 | grep . | cut --fields=2 -d'/' | fzf --multi) --needed }
+pacr () { sudo pacman -R $(pacman -Q $* | cut --fields=2 -d'/' | fzf --multi |  cut --fields=1 -d' ') }
 alias ydl=youtube-dl
 alias pacss="pacman -Ss"
