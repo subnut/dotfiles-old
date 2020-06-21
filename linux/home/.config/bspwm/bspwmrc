@@ -25,8 +25,8 @@ bspc rule -a jome state=floating
 xsetroot -cursor_name left_ptr
 
 
-if [[ `date +'%H'` -gt 5 && `date +'%H'` -lt 18 ]] ; then feh --bg-fill light.png; else feh --bg-fill dark.png; fi
- 
+if [[ $((10#$(date +'%H'))) -gt 5 && $((10#$(date +'%H'))) -lt 18 ]] ; then feh --bg-fill light.png; else feh --bg-fill dark.png; fi
+
 if killall -q polybar; then true; else bspc config top_padding $((`bspc config bottom_padding` + 30)); fi
 polybar --config=/home/subhaditya/.config/polybar/config mybar &
 
