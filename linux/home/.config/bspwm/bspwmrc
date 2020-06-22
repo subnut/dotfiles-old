@@ -25,11 +25,13 @@ bspc rule -a jome state=floating
 xsetroot -cursor_name left_ptr
 
 
-if [[ $((10#$(date +'%H'))) -gt 5 && $((10#$(date +'%H'))) -lt 18 ]] ; then feh --bg-fill light.png; else feh --bg-fill dark.png; fi
+#if [[ $((10#$(date +'%H'))) -gt 5 && $((10#$(date +'%H'))) -lt 18 ]] ; then feh --bg-fill light.png; else feh --bg-fill dark.png; fi
+feh --bg-fill light.png
 
 if killall -q polybar; then true; else bspc config top_padding $((`bspc config bottom_padding` + 30)); fi
 polybar --config=/home/subhaditya/.config/polybar/config mybar &
 
 killall -q picom
-exec picom -f --inactive-dim 0.3 --corner-radius 35 --vsync --backend glx --glx-no-stencil --fade-delta 1 --detect-rounded-corners --shadow-opacity=1 --blur-background --blur-method dual_kawase --blur-strength 10 & 
+exec picom
+#exec picom -f --inactive-dim 0.3 --corner-radius 35 --vsync --backend glx --glx-no-stencil --fade-delta 1 --detect-rounded-corners --shadow-opacity=1 --blur-background --blur-method dual_kawase --blur-strength 10 & 
 #exec picom  --inactive-dim 0.3 --corner-radius 35 --vsync --backend glx --glx-no-stencil --detect-rounded-corners --shadow-opacity=1 --blur-background --blur-method dual_kawase --blur-strength 10 & 
