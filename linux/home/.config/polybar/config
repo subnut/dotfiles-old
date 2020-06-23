@@ -52,7 +52,7 @@ border-color = #00000000
 padding-left = 0
 padding-right = 0
 
-module-margin-left = 1
+module-margin-left = 0
 module-margin-right = 1
 
 modules-left = bspwm0
@@ -195,10 +195,10 @@ type = internal/bspwm
 label-focused = %{T5}%index%%{T-}
 label-focused-background = ${colors.background-alt}
 label-focused-underline= ${colors.primary}
-label-focused-padding = 2
+label-focused-padding = 1
 
 label-occupied = %{T5}%index%%{T-}
-label-occupied-padding = 2
+label-occupied-padding = 1
 
 label-urgent = %{T5}%index%%{T-}!
 label-urgent-background = ${colors.alert}
@@ -206,7 +206,7 @@ label-urgent-padding = 2
 
 label-empty = %{T5}%index%%{T-}
 label-empty-foreground = ${colors.foreground-alt}
-label-empty-padding = 2
+label-empty-padding = 1
 
 reverse-scroll = false
 
