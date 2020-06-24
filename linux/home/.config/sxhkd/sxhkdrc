@@ -131,7 +131,7 @@ super + {_,shift + }{F1,F2,F3,F4,F5,F6,F7,F8,F9,F10,F11,F12}
 
 
 
-# focus or send to the prev/next desktop
+# focus he prev/next unoccupied/occupied desktop
 super + {_,shift + }{u,o}
 	bspc desktop -f {next,prev}.local.{!,_}occupied
 
@@ -148,7 +148,7 @@ super + ctrl + {F1,F2,F3,F4,F5,F6,F7,F8,F9,F10,F11,F12}
 	bspc desktop -s {XI,XII,XIII,XIV,XV,XVI,XVII,XVIII,XIX,XX,XXI,XXII}
 
 super + ctrl + {Prior,Next}
-	bspc desktop -s {prev,next}
+	bspc desktop -s {prev,next} --focused
 
 #
 # preselect
