@@ -153,6 +153,4 @@ pacs () { sudo pacman -S $(pacman -Ss $* | cut -d' ' --fields=1 | grep . | cut -
 pacr () { sudo pacman -R $(pacman -Q $* | cut --fields=2 -d'/' | fzf --multi |  cut --fields=1 -d' ') }
 alias ydl=youtube-dl
 alias pacss="pacman -Ss"
-}
-mycal () { while true; do tput civis;clear; cal; sleep $(( 24*60*60 - `date +%H`*60*60 - `date +%M`*60 - `date +%S` )); done; 
-}
+mycal () { while true; do tput civis;clear; cal; sleep $(( 24*60*60 - `date +%H`*60*60 - `date +%M`*60 - `date +%S` )); done }
