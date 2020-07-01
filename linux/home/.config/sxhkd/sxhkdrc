@@ -282,7 +282,7 @@ XF86Favorites
 
 # Switch temporarily to desktop T
 super + d
-	if [[ $(bspc query --desktops --names -m focusnotify-send -u critical "Node sticky" -t 2000ed -d focused | cut -d'_' -f2) == T ]]; \
+	if [[ $(bspc query --desktops --names -m focused -d focused | cut -d'_' -f2) == T ]]; \
 	then bspc desktop older -f; \
 	else; \
 	bspc desktop -f $(bspc query --desktops --names -m focused -d focused | cut -d'_' -f1)_T; \
