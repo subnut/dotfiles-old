@@ -157,6 +157,7 @@ type = internal/bspwm
 format = <label-mode>
 label-monocle=Monocle
 format-underline=#cc0843
+pin-workspaces=false
 
 [module/bspwm2]
 type = internal/bspwm
@@ -168,6 +169,7 @@ label-pseudotiled=Pseudotiled
 label-pseudotiled-underline= #30c5e3
 label-fullscreen-underline= #d98b32
 label-floating-underline= #1994d1
+pin-workspaces=false
 
 [module/bspwm3]
 type = internal/bspwm
@@ -178,6 +180,7 @@ label-sticky =" Sticky "
 label-marked-underline = #ffb52a
 label-locked-underline = #08cc53
 label-sticky-underline = #ffffff
+pin-workspaces=false
 
 [module/xwindow]
 type = internal/xwindow
