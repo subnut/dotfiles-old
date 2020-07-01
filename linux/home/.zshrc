@@ -154,3 +154,16 @@ pacr () { sudo pacman -R $(pacman -Q $* | cut --fields=2 -d'/' | fzf --multi |  
 alias ydl=youtube-dl
 alias pacss="pacman -Ss"
 mycal () { while true; do tput civis;clear; cal; sleep $(( 24*60*60 - `date +%H`*60*60 - `date +%M`*60 - `date +%S` )); done }
+alias ":q"=exit
+emojiinputtool () { while true; do 
+codepoints="$(jome -f cp -p U)"
+if [ $? -ne 0 ]; then
+exit 1
+fi
+xdotool key --delay 20 $codepoints
+done }
+
+bindkey "^[" vi-cmd-mode
+
+alias monitorsetuptool="echo mons"
+vpn () { protonvpn $* && return true; echo "Running as root ..."; sudo protonvpn $* }

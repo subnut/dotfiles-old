@@ -38,7 +38,7 @@ font-4 = fixed:pixelsize=10;1
 width = 100%
 height = 35
 radius = 0.0
-fixed-center = true 
+fixed-center = false
 
 background = ${colors.background}
 foreground = ${colors.foreground}
@@ -57,7 +57,8 @@ module-margin-right = 1
 
 modules-left = bspwm0
 modules-center = xwindow
-modules-right = pulseaudio2 bspwm1 bspwm2 bspwm3 wlan eth battery2 mydate3 date2
+;modules-right = pulseaudio2 bspwm1 bspwm2 bspwm3 wlan eth battery2 mydate3 mydate2
+modules-right = pulseaudio2 bspwm1 bspwm2 bspwm3 wlan eth battery2 mydate3 mycustomtime
 
 tray-scale = 1.0
 tray-maxsize = 30
@@ -77,9 +78,29 @@ override-redirect = true
 cursor-click = pointer
 cursor-scroll = ns-resize
 
+[bar/mybar_restack]
+inherit = bar/mybar
+wm-restack = bspwm
+
+[bar/secondary]
+inherit = bar/example
+modules-center = 
+tray-position = 
+modules-left = bspwm0
+module-margin-left = 0
+module-margin-right = 1
+modules-right = pulseaudio2 memory cpu wlan eth battery temperature date powermenu
+padding-left = 0
+padding-right = 0
+
+
+
+[bar/secondary_restack]
+inherit = bar/secondary
+wm-restack = bspwm
 
 [bar/example]
-;monitor = ${env:MONITOR:HDMI-1}
+monitor = ${env:MONITOR:}
 width = 100%
 height = 35
 ;offset-x = 1%
@@ -379,7 +400,7 @@ format-prefix-foreground = ${colors.foreground-alt}
 
 label = %{T4}%date% %time% %{T-}
 
-[module/date2]
+[module/mydate2]
 type = internal/date
 interval = 5
 
@@ -389,11 +410,18 @@ date-alt = " %Y-%m-%d"
 time = %H:%M
 time-alt = %H:%M:%S
 
-format-prefix = 
+format-prefix =
 format-prefix-foreground = ${colors.foreground-alt}
 ;format-underline = #0a6cf5
 
 label = %{T4}%date% %time% %{T-}
+
+[module/mycustomtime]
+type=custom/script
+exec = date +%H:%M ; while sleep $(( 60 - `date +%S` )); do date +%H:%M ; done 
+tail=true
+label=" %{T4}%output%%{T-} "
+
 
 [module/mydate3]
 type = internal/date

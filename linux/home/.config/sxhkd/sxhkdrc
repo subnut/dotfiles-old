@@ -3,16 +3,12 @@
 #
 
 # terminal emulator
-#super + Return
-#	kitty
-
 super + {_,shift +}Return
 	kitty {-o background_opacity=0.6,_}
 
 # File manager
 super + {_,shift +}e
 	 {nautilus,thunar}
-
 
 # program launcher
 {ctrl,super} + @space
@@ -25,6 +21,10 @@ super + Escape
 # run some custom programs
 super + ctrl + Return ; {f,c,t,v,n,x,p}
 	{firefox,google-chrome-stable,thunar,vlc,nautilus,xdman,pavucontrol}
+
+#
+# bspwm misc
+#
 
 # pseudo window
 super + backslash
@@ -46,11 +46,17 @@ super + shift + backslash
 
 # toggle polybar
 super + p
-	killall -q polybar; \
-	polybar --config=/home/subhaditya/.config/polybar/config mybar; \
-	bspc config top_padding 30
+	; killall -q polybar; \
+	polybar mybar &> /dev/null &; \
+	polybar --list-monitors | cut -d':' -f1 | while IFS= read -r MONITOR; do if ! [[ $MONITOR == 'eDP' ]]; then MONITOR=$MONITOR polybar secondary &> /dev/null &; fi; done; \
+	bspc config top_padding 35
+super + ctrl + p
+	; killall -q polybar; \
+	polybar mybar_restack &> /dev/null &; \
+	polybar --list-monitors | cut -d':' -f1 | while IFS= read -r MONITOR; do if ! [[ $MONITOR == 'eDP' ]]; then MONITOR=$MONITOR polybar secondary_restack &> /dev/null &; fi; done; \
+	bspc config top_padding 35
 super + shift + p
-	killall -q polybar; \
+	; killall -q polybar; \
 	bspc config top_padding 0
 
 
@@ -123,32 +129,32 @@ super + shift + {h,j,k,l}
 #	bspc {desktop -f,node -d} '^{1-9,10}'
 
 super + {_,shift + }{1-9}
-	bspc {desktop -f,node -d} '^{1-9}'
+	bspc {desktop -f,node -d} focused:'^{1-9}'.local
+super + {_,shift + }F{1-9}
+	bspc {desktop -f,node -d} focused:'^1{1-9}'.local
+super + {_,shift + }F1{0-2}
+	bspc {desktop -f,node -d} focused:'^2{0-2}'.local
 
-super + {_,shift + }{F1,F2,F3,F4,F5,F6,F7,F8,F9,F10,F11,F12}
-	bspc {desktop -f,node -d} {XI,XII,XIII,XIV,XV,XVI,XVII,XVIII,XIX,XX,XXI,XXII}
 
-
-
-
-# focus he prev/next unoccupied/occupied desktop
+# focus the prev/next unoccupied/occupied desktop
 super + {_,shift + }{u,o}
 	bspc desktop -f {next,prev}.local.{!,_}occupied
 
 
 # send to the prev/next desktop
 super + shift + {Prior,Next}
-	bspc node -d {prev,next}.local
+	bspc node -d {prev,next}.local || if bspc query -N -n focused.sticky -d focused; then notify-send "Node sticky" -a "bspwm" -t 1000 -u critical; else notify-send "No node to send" -a "bspwm" -t 1000 -u critical; fi
 
 # Swap current desktop with given desktop
 super + ctrl + {1-9}
-	bspc desktop -s '^{1-9}'
-
-super + ctrl + {F1,F2,F3,F4,F5,F6,F7,F8,F9,F10,F11,F12}
-	bspc desktop -s {XI,XII,XIII,XIV,XV,XVI,XVII,XVIII,XIX,XX,XXI,XXII}
+	bspc desktop -s '^{1-9}'.local || if bspc query -N -n .sticky -d focused; then notify-send "Sticky node present. Can't swap." -a "bspwm" -t 1000 -u critical; else notify-send "Self-swap not allowed" -a "bspwm" -t 1000 -u critical; fi
+super + ctrl + F{1-9}
+	bspc desktop -s '^1{1-9}'.local || if bspc query -N -n .sticky -d focused; then notify-send "Sticky node present. Can't swap." -a "bspwm" -t 1000 -u critical; else notify-send "Self-swap not allowed" -a "bspwm" -t 1000 -u critical; fi
+super + ctrl + F1{0-9}
+	bspc desktop -s '^2{0-9}'.local || if bspc query -N -n .sticky -d focused; then notify-send "Sticky node present. Can't swap." -a "bspwm" -t 1000 -u critical; else notify-send "Self-swap not allowed" -a "bspwm" -t 1000 -u critical; fi
 
 super + ctrl + {Prior,Next}
-	bspc desktop -s {prev,next} --focused
+	bspc desktop -s {prev,next} || if bspc query -N -n .sticky -d focused; then notify-send "Sticky node present. Can't swap." -a "bspwm" -t 1000 -u critical; fi
 
 #
 # preselect
@@ -175,33 +181,33 @@ super + alt + space
 super + {b,a,n}
 	bspc node focused -l {below,above,normal}
 
-# send the newest marked node to the newest preselected node
+# send the newest marked node to the newest prenotify-send -u critical "Node sticky" -t 2000selected node
 super + y
-	bspc node newest.marked.local -n newest.!automatic.local
+	bspc node newest.marked.local -n newest.!automnotify-send -u critical "Node sticky" -t 2000atic.local
 
 # move node to presel
 super + alt + shift + {h,j,k,l}
-	bspc node -n {west,south,north,east}.!automatic
+	bspc node -n {west,south,north,east}.!automatinotify-send -u critical "Node sticky" -t 2000c
 
-# expand a window by moving one of its side outward
+# expand a window by moving one of its side outnotify-send -u critical "Node sticky" -t 2000ward
 super + ctrl + {h,j,k,l}
-	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
+	bspc node -z {left -20 0,bottom 0 20,top 0 -20notify-send -u critical "Node sticky" -t 2000,right 20 0}
 # finer control
 super + ctrl + {Left,Down,Up,Right}
-	bspc node -z {left -1 0,bottom 0 1,top 0 -1,right 1 0}
+	bspc node -z {left -1 0,bottom 0 1,top 0 -1,rinotify-send -u critical "Node sticky" -t 2000ght 1 0}
 
-# contract a window by moving one of its side inward
+# contract a window by moving one of its side inotify-send -u critical "Node sticky" -t 2000nward
 super + ctrl + shift + {h,j,k,l}
-	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
+	bspc node -z {right -20 0,top 0 20,bottom 0 -2notify-send -u critical "Node sticky" -t 20000,left 20 0}
 # finer control
 super + ctrl + shift + {Left,Down,Up,Right} 
-	bspc node -z {right -1 0,top 0 1,bottom 0 -1,left 1 0}
+	bspc node -z {right -1 0,top 0 1,bottom 0 -1,lnotify-send -u critical "Node sticky" -t 2000eft 1 0}
 
 # move a floating window
 super + {Left,Down,Up,Right}
 	bspc node -v {-20 0,0 20,0 -20,20 0}
 # finer control
-super + space + {Left,Down,Up,Right}
+super + shift + {Left,Down,Up,Right}
 	bspc node -v {-1 0,0 1,0 -1,1 0}
 
 
@@ -228,19 +234,20 @@ super + {_,shift + }0
 
 # decrease/increase window_gap
 super + bracket{left,right}
-	bspc config -d focused window_gap $(( `bspc config -d focused window_gap ` {-,+} 10 ))
+	bspc config -d focused window_gap $(( `bspc conotify-send -u critical "Node sticky" -t 2000nfig -d focused window_gap ` {-,+} 10 ))
 
+# decrease screen padding
 super + comma
-	bspc config -d focused right_padding $((`bspc config -d focused right_padding` - 20 )); \
-        bspc config -d focused left_padding $((`bspc config -d focused left_padding` - 20 )); \
-        bspc config -d focused bottom_padding $((`bspc config -d focused bottom_padding` - 20 )); \
-        bspc config -d focused top_padding $((`bspc config -d focused top_padding` - 20 ));
-
+	bspc config -d focused right_padding $((`bspc notify-send -u critical "Node sticky" -t 2000config -d focused right_padding` - 20 )); \
+        bspc config -d focused left_padding $((notify-send -u critical "Node sticky" -t 2000`bspc config -d focused left_padding` - 20 )); \
+        bspc config -d focused bottom_padding $notify-send -u critical "Node sticky" -t 2000((`bspc config -d focused bottom_padding` - 20 )); \
+        bspc config -d focused top_padding $((`notify-send -u critical "Node sticky" -t 2000bspc config -d focused top_padding` - 20 ));
+# increase screen padding
 super + period
-	bspc config -d focused right_padding $((`bspc config -d focused right_padding` + 20 )); \
-        bspc config -d focused left_padding $((`bspc config -d focused left_padding` + 20 )); \
-        bspc config -d focused bottom_padding $((`bspc config -d focused bottom_padding` + 20 )); \
-        bspc config -d focused top_padding $((`bspc config -d focused top_padding` + 20 ));
+	bspc config -d focused right_padding $((`bspc notify-send -u critical "Node sticky" -t 2000config -d focused right_padding` + 20 )); \
+        bspc config -d focused left_padding $((notify-send -u critical "Node sticky" -t 2000`bspc config -d focused left_padding` + 20 )); \
+        bspc config -d focused bottom_padding $notify-send -u critical "Node sticky" -t 2000((`bspc config -d focused bottom_padding` + 20 )); \
+        bspc config -d focused top_padding $((`notify-send -u critical "Node sticky" -t 2000bspc config -d focused top_padding` + 20 ));
 
 
 #
@@ -257,14 +264,14 @@ XF86AudioMute
 	pactl set-sink-mute @DEFAULT_SINK@ toggle
 XF86AudioMicMute
 	pactl set-source-mute @DEFAULT_SOURCE@ toggle
-{_,ctrl +}XF86MonBrightnessUp
-	light -A {5,1}
-{_,ctrl +}XF86MonBrightnessDown
-	light -U {5,1}
+{_,ctrl +,shift +,}XF86MonBrightnessUp
+	light -A {5,1,1}
+{_,ctrl +,shift + }XF86MonBrightnessDown
+	light -U {5,1,1}
 XF86Sleep
 	; playerctl pause; systemctl suspend
 XF86Favorites
-	if grep -q "suspend cause: USER" <(pacmd info); then;\
+	if grep -q "suspend cause: USER" <(pacmd info)notify-send -u critical "Node sticky" -t 2000; then;\
 	pacmd "suspend 0";\
 	pactl set-sink-mute 1 0;\
 	else;\
@@ -275,11 +282,44 @@ XF86Favorites
 
 # Switch temporarily to desktop T
 super + d
-	if [[ $((bspc query --desktops --names --node) || (bspc wm -g | cut --fields=2 -d$(bspc wm -g | grep -o "[OF]") | cut --fields=1 -d':' ) ) =~ ^T$  ]]; \
+	if [[ $(bspc query --desktops --names -m focusnotify-send -u critical "Node sticky" -t 2000ed -d focused | cut -d'_' -f2) == T ]]; \
 	then bspc desktop older -f; \
 	else; \
-	bspc desktop -f T; \
+	bspc desktop -f $(bspc query --desktops --names -m focused -d focused | cut -d'_' -f1)_T; \
 	fi
 
 
+# Add a temporary desktop / remove the first unoccupied temporary desktop
+super + {ctrl,shift} + n
+	bspc {monitor -a temp,desktop temp.!occupied.local -r}
 
+# Emoji input
+super + semicolon
+	while true; do; \
+	emoji="$(jome)";\
+	if [ $? -ne 0 ]; then exit 1; fi;\
+	sleep 0.5;\
+	xdotool type "$emoji";\
+	done
+
+super + {ctrl,shift} + semicolon
+	emoji="$(jome)";\
+	if [ $? -ne 0 ]; then exit 1; fi;\
+	sleep 0.6;\
+	xdotool type "$emoji"
+
+# Temp Zoom shortcut
+ctrl + super + Return; z
+	/home/subhaditya/Downloads/zoom_x86_64.pkg/opt/zoom/my_zoom.sh &> /dev/null &
+
+#
+# Multi-monitor control
+#
+ 
+# Swap focused desktop with focused desktop of last monitor
+super + ctrl + grave
+	bspc desktop -s $(bspc query --desktops --names -d last:focused)
+
+# Focus Monitors
+super + ctrl + {_,shift + }Tab
+	bspc monitor -f {next,prev}
