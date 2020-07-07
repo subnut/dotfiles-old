@@ -81,8 +81,8 @@
             "enabled": true,
             "id": "screensaver",
             "settings": {
-                "command": "i3lock-fancy",
-                "min_seconds": 10.0
+                "command": "i3lock -c 00000000 -k --pass-media-keys --pass-screen-keys  --radius 180 --ring-width 20 --linecolor 00000000 --ringcolor=ffffff --keyhlcolor=000000 --insidecolor=ffffff --indicator --ringwrongcolor bf0f0f  --separatorcolor 000000 --ringvercolor 008cf7 --insidevercolor 008cf7 --pass-power-keys --refresh-rate=0.5",
+                "min_seconds": 5.0
             },
             "version": "0.0.2"
         },
@@ -103,7 +103,7 @@
     "postpone_duration": 5,
     "pre_break_warning_time": 30,
     "rpc_port": 7200,
-    "short_break_duration": 20,
+    "short_break_duration": 10,
     "short_break_interval": 5,
     "short_breaks": [
         {
@@ -128,7 +128,7 @@
             "name": "Have some water"
         }
     ],
-    "shortcut_disable_time": 2,
+    "shortcut_disable_time": 0,
     "shortcut_postpone": 65,
     "shortcut_skip": 9,
     "strict_break": false,

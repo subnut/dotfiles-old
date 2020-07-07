@@ -18,9 +18,21 @@ NOTE: A 256-colour terminal is recommended. On Windows, you may use [Terminus](h
 For runnning cowsays.sh:
 Install fortune, cowsay, lolcat
 
-Included powerlevel10k/internal/p10k.zsh file has been patched to update the terminal prompt clock at the start of every minute
+Run my_sleep_time_adder.py to patch powerlevel10k. Undo the patches everytime you wanna update (pull), then reapply the patch
 
 # A few tips:
 ### Pyenv:
-`pyenv shell $( pyenv versions | fzf --tac --layout=reverse --height=40% )`
-`pyenv shell $( pyenv versions | fzf --tac --layout=reverse --height=40% --margin=0 )`
+```
+pyenv shell $( pyenv versions | fzf --tac --layout=reverse --height=40% )
+pyenv shell $( pyenv versions | fzf --tac --layout=reverse --height=40% --margin=0 )
+```
+
+### better i3lock
+```
+i3lock -c 00000000 -k --pass-media-keys --pass-screen-keys  --radius 180 --ring-width 20 --linecolor 00000000 --ringcolor=ffffff --keyhlcolor=000000 --insidecolor=ffffff --indicator --ringwrongcolor ff2134  --separatorcolor 00000000 --ringvercolor 008cf7 --insidevercolor 008cf7 --insidewrongcolor ff2134 --pass-power-keys --refresh-rate=0.5 --bshlcolor=ff2134
+```
+
+### To run X programs (scrot, sxhkd, etc.) from tty:
+1. From the X11 session, run: `xhost +si:localhost:USERNAME`
+2. Then, from the tty, execute: `export DISPLAY=:0.0`
+3. Try running any X11 program 😉

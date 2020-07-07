@@ -4,7 +4,10 @@
 
 # terminal emulator
 super + {_,shift +}Return
-	kitty {-o background_opacity=0.6,_}
+	kitty {-o background_opacity=0.7,--config .config/kitty/kittyIDE.conf --detach --class="kittyIDE"}
+
+shift + ctrl + super + Return
+	 bspc rule -a "kitty _no_blur_" -o state=floating layer=above rectangle=$(xrandr | grep $(bspc query -M -m focused --names) | cut -d'x' -f1 | cut -d' ' -f4)x174+0+9940; kitty --detach -o window_padding_width=0 -o placement_strategy=top-left -o background_opacity=0.3 -o background_opacity=0 --class="kitty _no_blur_"
 
 # File manager
 super + {_,shift +}e
@@ -154,7 +157,7 @@ super + ctrl + F1{0-9}
 	bspc desktop -s '^2{0-9}'.local || if bspc query -N -n .sticky -d focused; then notify-send "Sticky node present. Can't swap." -a "bspwm" -t 1000 -u critical; else notify-send "Self-swap not allowed" -a "bspwm" -t 1000 -u critical; fi
 
 super + ctrl + {Prior,Next}
-	bspc desktop -s {prev,next} || if bspc query -N -n .sticky -d focused; then notify-send "Sticky node present. Can't swap." -a "bspwm" -t 1000 -u critical; fi
+	bspc desktop -s {prev,next}.local || if bspc query -N -n .sticky -d focused; then notify-send "Sticky node present. Can't swap." -a "bspwm" -t 1000 -u critical; fi
 
 #
 # preselect
@@ -181,27 +184,27 @@ super + alt + space
 super + {b,a,n}
 	bspc node focused -l {below,above,normal}
 
-# send the newest marked node to the newest prenotify-send -u critical "Node sticky" -t 2000selected node
+# send the newest marked node to the newest preselected node
 super + y
-	bspc node newest.marked.local -n newest.!automnotify-send -u critical "Node sticky" -t 2000atic.local
+	bspc node newest.marked.local -n newest.!automatic.local
 
 # move node to presel
 super + alt + shift + {h,j,k,l}
-	bspc node -n {west,south,north,east}.!automatinotify-send -u critical "Node sticky" -t 2000c
+	bspc node -n {west,south,north,east}.!automatic
 
-# expand a window by moving one of its side outnotify-send -u critical "Node sticky" -t 2000ward
+# expand a window by moving one of its side outward
 super + ctrl + {h,j,k,l}
-	bspc node -z {left -20 0,bottom 0 20,top 0 -20notify-send -u critical "Node sticky" -t 2000,right 20 0}
+	bspc node -z {left -20 0,bottom 0 20,top 0 -20,right 20 0}
 # finer control
 super + ctrl + {Left,Down,Up,Right}
-	bspc node -z {left -1 0,bottom 0 1,top 0 -1,rinotify-send -u critical "Node sticky" -t 2000ght 1 0}
+	bspc node -z {left -1 0,bottom 0 1,top 0 -1,right 1 0}
 
-# contract a window by moving one of its side inotify-send -u critical "Node sticky" -t 2000nward
+# contract a window by moving one of its side inward
 super + ctrl + shift + {h,j,k,l}
-	bspc node -z {right -20 0,top 0 20,bottom 0 -2notify-send -u critical "Node sticky" -t 20000,left 20 0}
+	bspc node -z {right -20 0,top 0 20,bottom 0 -20,left 20 0}
 # finer control
 super + ctrl + shift + {Left,Down,Up,Right} 
-	bspc node -z {right -1 0,top 0 1,bottom 0 -1,lnotify-send -u critical "Node sticky" -t 2000eft 1 0}
+	bspc node -z {right -1 0,top 0 1,bottom 0 -1,left 1 0}
 
 # move a floating window
 super + {Left,Down,Up,Right}
@@ -234,20 +237,20 @@ super + {_,shift + }0
 
 # decrease/increase window_gap
 super + bracket{left,right}
-	bspc config -d focused window_gap $(( `bspc conotify-send -u critical "Node sticky" -t 2000nfig -d focused window_gap ` {-,+} 10 ))
+	bspc config -d focused window_gap $(( `bspc config -d focused window_gap ` {-,+} 10 ))
 
 # decrease screen padding
 super + comma
-	bspc config -d focused right_padding $((`bspc notify-send -u critical "Node sticky" -t 2000config -d focused right_padding` - 20 )); \
-        bspc config -d focused left_padding $((notify-send -u critical "Node sticky" -t 2000`bspc config -d focused left_padding` - 20 )); \
-        bspc config -d focused bottom_padding $notify-send -u critical "Node sticky" -t 2000((`bspc config -d focused bottom_padding` - 20 )); \
-        bspc config -d focused top_padding $((`notify-send -u critical "Node sticky" -t 2000bspc config -d focused top_padding` - 20 ));
+	bspc config -d focused right_padding $((`bspc config -d focused right_padding` - 20 )); \
+        bspc config -d focused left_padding $((`bspc config -d focused left_padding` - 20 )); \
+        bspc config -d focused bottom_padding $((`bspc config -d focused bottom_padding` - 20 )); \
+        bspc config -d focused top_padding $((`bspc config -d focused top_padding` - 20 ));
 # increase screen padding
 super + period
-	bspc config -d focused right_padding $((`bspc notify-send -u critical "Node sticky" -t 2000config -d focused right_padding` + 20 )); \
-        bspc config -d focused left_padding $((notify-send -u critical "Node sticky" -t 2000`bspc config -d focused left_padding` + 20 )); \
-        bspc config -d focused bottom_padding $notify-send -u critical "Node sticky" -t 2000((`bspc config -d focused bottom_padding` + 20 )); \
-        bspc config -d focused top_padding $((`notify-send -u critical "Node sticky" -t 2000bspc config -d focused top_padding` + 20 ));
+	bspc config -d focused right_padding $((`bspc config -d focused right_padding` + 20 )); \
+        bspc config -d focused left_padding $((`bspc config -d focused left_padding` + 20 )); \
+        bspc config -d focused bottom_padding $((`bspc config -d focused bottom_padding` + 20 )); \
+        bspc config -d focused top_padding $((`bspc config -d focused top_padding` + 20 ));
 
 
 #
@@ -256,6 +259,7 @@ super + period
 
 XF86Display
 	sleep 0.5 && xset dpms force off
+
 XF86AudioLowerVolume
 	pactl set-sink-volume @DEFAULT_SINK@ -5%
 XF86AudioRaiseVolume
@@ -264,20 +268,33 @@ XF86AudioMute
 	pactl set-sink-mute @DEFAULT_SINK@ toggle
 XF86AudioMicMute
 	pactl set-source-mute @DEFAULT_SOURCE@ toggle
+
 {_,ctrl +,shift +,}XF86MonBrightnessUp
 	light -A {5,1,1}
 {_,ctrl +,shift + }XF86MonBrightnessDown
 	light -U {5,1,1}
+
 XF86Sleep
-	; playerctl pause; systemctl suspend
+	zsh <<< "playerctl pause; i3lock -c 00000000 -k --pass-media-keys --pass-screen-keys  --radius 180 --ring-width 20 --linecolor 00000000 --ringcolor=ffffff --keyhlcolor=000000 --insidecolor=ffffff --indicator --ringwrongcolor ff2134  --separatorcolor 00000000 --ringvercolor 008cf7 --insidevercolor 008cf7 --insidewrongcolor ff2134 --pass-power-keys --refresh-rate=0.5 --bshlcolor=ff2134 && systemctl suspend"
+
+#XF86Favorites
+#	if grep -q "suspend cause: USER" <(pacmd info); then;\
+#	pacmd "suspend 0";\
+#	pactl set-sink-mute 1 0;\
+#	if [[ -a sink-suspend-notification.id ]] ; then notify-send.sh -u low -t 100 "Sinks RESUMED" -i speaker -r $(cat sink-suspend-notification.id) -a pulseaudio ; rm sink-suspend-notification.id; else notify-send.sh -u low "Sinks RESUMED" -t speaker -a pulseaudio; fi; \
+#	else;\
+# 	pacmd "suspend 1";\
+#	pactl set-sink-mute 1 1;\
+#	notify-send.sh -u critical "Sinks SUSPENDED" -i speaker -t 0 -a pulseaudio $(if [[ -a sink-suspend-notification.id ]] ; then echo -n "-r "; cat sink-suspend-notification.id ; fi) -p > sink-suspend-notification.id ;\
+#	fi
+
 XF86Favorites
-	if grep -q "suspend cause: USER" <(pacmd info)notify-send -u critical "Node sticky" -t 2000; then;\
-	pacmd "suspend 0";\
-	pactl set-sink-mute 1 0;\
-	else;\
-  	pacmd "suspend 1";\
-  	pactl set-sink-mute 1 1;\
-	fi
+	if pacmd info | grep -q 'suspend cause: USER';then pacmd 'suspend 0';pactl set-sink-mute 1 0;if [[ -a sink-suspend-notification.id ]];then notify-send.sh -u low -t 100 'Sinks RESUMED' -i speaker -R sink-suspend-notification.id -a pulseaudio;rm sink-suspend-notification.id;else notify-send.sh -u low 'Sinks RESUMED' -t speaker -a pulseaudio;fi;else;pacmd 'suspend 1';pactl set-sink-mute 1 1;notify-send.sh -u critical 'Sinks SUSPENDED' -i speaker -t 0 -a pulseaudio -R sink-suspend-notification.id;fi
+#	zsh temp_toggle &> /dev/null
+#zsh <<< 'if pacmd info | grep -q "suspend cause: USER"; then; pacmd "suspend 0"; pactl set-sink-mute 1 0; if [[ -a sink-suspend-notification.id ]] ; then notify-send.sh -u low -t 100 "Sinks RESUMED" -i speaker -r \$(cat sink-suspend-notification.id) -a pulseaudio ; rm sink-suspend-notification.id; else notify-send.sh -u low "Sinks RESUMED" -t speaker -a pulseaudio; fi; else; pacmd "suspend 1"; pactl set-sink-mute 1 1; notify-send.sh -u critical "Sinks SUSPENDED" -i speaker -t 0 -a pulseaudio $(if [[ -a sink-suspend-notification.id ]] ; then echo -n "-r "; cat sink-suspend-notification.id ; fi) -p > sink-suspend-notification.id ; fi'
+
+XF86Bluetooth
+	zsh <<< 'sleep 0.1 && if [[ $(bluetooth | cut -d"=" -f2 | cut -d" " -f2) =~ off ]] ; then if [[ -a bluetooth-on-notification.id ]] ; then notify-send.sh -u low -t 100 "Bluetooth turned OFF" -i bluetooth -r $(cat bluetooth-on-notification.id) -a Bluetooth ; rm bluetooth-on-notification.id; else notify-send.sh -u low "Bluetooth turned OFF" -t bluetooth -a Bluetooth; fi; else notify-send.sh -u critical "Bluetooth turned ON" -i bluetooth -t 0 -a Bluetooth -p > bluetooth-on-notification.id; fi'
 
 
 # Switch temporarily to desktop T
@@ -291,7 +308,7 @@ super + d
 
 # Add a temporary desktop / remove the first unoccupied temporary desktop
 super + {ctrl,shift} + n
-	bspc {monitor -a temp,desktop temp.!occupied.local -r}
+	MONITOR=$(bspc query -M -m focused --names); bspc {monitor -a "$MONITOR"_temp,desktop "$MONITOR"_temp.!occupied.local -r}
 
 # Emoji input
 super + semicolon
@@ -318,8 +335,20 @@ ctrl + super + Return; z
  
 # Swap focused desktop with focused desktop of last monitor
 super + ctrl + grave
-	bspc desktop -s $(bspc query --desktops --names -d last:focused)
+	bspc desktop -s $(bspc query --desktops --names -d last:focused) --follow || if bspc query -N -n .sticky -d focused; then notify-send "Sticky node present. Can't swap." -a "bspwm" -t 1000 -u critical; else notify-send "Self-swap not allowed" -a "bspwm" -t 1000 -u critical; fi
 
 # Focus Monitors
 super + ctrl + {_,shift + }Tab
 	bspc monitor -f {next,prev}
+
+# Lock screen
+super + Print
+	i3lock -c 00000000 -k --pass-media-keys --pass-screen-keys  --radius 180 --ring-width 20 --linecolor 00000000 --ringcolor=ffffff --keyhlcolor=000000 --insidecolor=ffffff --indicator --ringwrongcolor ff2134  --separatorcolor 00000000 --ringvercolor 008cf7 --insidevercolor 008cf7 --insidewrongcolor ff2134 --pass-power-keys --refresh-rate=0.5 --bshlcolor=ff2134
+
+# Screenshot
+Print
+	flameshot gui &
+
+super + Home 
+	kill -s USR1 $(pidof deadd-notification-center)
+

@@ -41,7 +41,7 @@
     # =========================[ Line #2 ]=========================
     newline                 # \n
     # prompt_char           # prompt symbol
-    my_status
+    my_prompt
   )
 
   # The list of segments shown on the right. Fill it with less important segments.
@@ -97,10 +97,10 @@
     # swap                  # used swap
     todo                    # todo items (https://github.com/todotxt/todo.txt-cli)
     timewarrior             # timewarrior tracking status (https://timewarrior.net/)
-    taskwarrior             # taskwarrior task count (https://taskwarrior.org/)
     time                    # current time
     # =========================[ Line #2 ]=========================
     newline
+    taskwarrior             # taskwarrior task count (https://taskwarrior.org/)
     # ip                    # ip address and bandwidth usage for a specified network interface
     # public_ip             # public IP address
     # proxy                 # system-wide http/https/ftp proxy
@@ -208,19 +208,19 @@
   typeset -g POWERLEVEL9K_PROMPT_CHAR_LEFT_{LEFT,RIGHT}_WHITESPACE=
 
 
-  ################ [ my_status: my custom status-showing prompt ] ####################### 
+  ################ [ my_prompt: my custom status-showing prompt ] ####################### 
 
-  function prompt_my_status() {
+  function prompt_my_prompt() {
     # On success: green ✔ on black background.
     p10k segment -c '${(M)${(%):-%?}:#0}' -b 16 -f 10 -i '✔'
     # On error: yellow ✘ on red background.
     p10k segment -c '${${(%):-%?}:#0}'    -b 1 -f 3 -i '✘'
   }
 
-  typeset -g POWERLEVEL9K_MY_STATUS_LEFT_PROMPT_LAST_SEGMENT_END_SYMBOL=''
+  typeset -g POWERLEVEL9K_MY_PROMPT_LEFT_PROMPT_LAST_SEGMENT_END_SYMBOL=''
 
-  function instant_prompt_my_status() {
-	  prompt_my_status
+  function instant_prompt_my_prompt() {
+	  prompt_my_prompt
   }
 
   ##################################[ dir: current directory ]##################################

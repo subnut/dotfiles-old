@@ -3,9 +3,9 @@
 killall -q sxhkd
 sxhkd &
 
-if ! [[ `bspc query --desktops --names` =~ "Desktop" ]]; then for MONITOR in $(bspc query -M --names); do bspc monitor $MONITOR -d $(bspc query -D --names -m $MONITOR);done; 
+sh -c 'if ! [[ `bspc query --desktops --names` =~ "Desktop" ]]; then for MONITOR in $(bspc query -M --names); do bspc monitor $MONITOR -d $(for x in  I II III IV V VI VII VIII IX T XI XII XIII XIV XV XVI XVII XVIII XIX XX XXI XXII; do echo -n "$MONITOR""_$x "; done) $(for y in $(bspc query -D -m $MONITOR --names | grep temp); do echo -n "$y "; done );done;else for MONITOR in $(bspc query -M --names); do bspc monitor $MONITOR -d "$MONITOR"_I  ; for x in II III IV V VI VII VIII IX T XI XII XIII XIV XV XVI XVII XVIII XIX XX XXI XXII; do bspc monitor $MONITOR -a "$MONITOR"_$x; done;done; fi'
+
 #else bspc monitor -d I II III IV V VI VII VIII IX T XI XII XIII XIV XV XVI XVII XVIII XIX XX XXI XXII; fi
-else for MONITOR in $(bspc query -M --names); do bspc monitor $MONITOR -d "$MONITOR"_I  ; for x in II III IV V VI VII VIII IX T XI XII XIII XIV XV XVI XVII XVIII XIX XX XXI XXII; do bspc monitor $MONITOR -a "$MONITOR"_$x; done;done; fi
 
 bspc config border_width         0
 bspc config window_gap          10
@@ -24,18 +24,25 @@ bspc rule -a Kupfer.py focus=on
 bspc rule -a Screenkey manage=off
 
 bspc rule -a VirtualBoxVM state=floating
+bspc rule -a "VirtualBox Machine" state=floating
 bspc rule -a jome state=floating
 bspc rule -a xdman-Main state=floating
 bspc rule -a my_zoom state=floating
 xsetroot -cursor_name left_ptr
 
-safeeyes -e &
+if pgrep safeeyes; then true; else safeeyes -e; fi
 #if [[ $((10#$(date +'%H'))) -gt 5 && $((10#$(date +'%H'))) -lt 18 ]] ; then feh --bg-fill light.png; else feh --bg-fill dark.png; fi
 feh --bg-fill light.png
 
 if killall -q polybar; then true; else bspc config top_padding $((`bspc config bottom_padding` + 35)); fi
 # polybar mybar &
 zsh <<< "polybar --list-monitors | cut -d':' -f1 | while IFS= read -r MONITOR; do if ! [[ \$MONITOR == 'eDP' ]]; then MONITOR=\$MONITOR polybar secondary &> /dev/null &; else polybar mybar &> /dev/null &; fi; done &"
+
+zsh <<< 'if [[ $(bluetooth | cut -d"=" -f2 | cut -d" " -f2) =~ on ]] ; then notify-send.sh -u critical "Bluetooth is ON" -i bluetooth -t 0 -a Bluetooth $(if [[ -a bluetooth-on-notification.id ]] ; then echo -n "-r "; cat bluetooth-on-notification.id ; fi) -p > bluetooth-on-notification.id; fi'
+
+zsh <<< 'if grep -q "suspend cause: USER" <(pacmd info); then notify-send.sh -u critical "Sinks are SUPENDED" -i speaker -t 0 -a pulseaudio $(if [[ -a sink-suspend-notification.id ]] ; then echo -n "-r "; cat sink-suspend-notification.id ; fi)  -p > sink-suspend-notification.id ; fi'
+
+if pidof acpid; then true; else zsh <<< "kitty sh -c 'echo \"Starting acpid ...\"; sudo acpid' &"; fi
 
 killall -q picom
 exec picom 

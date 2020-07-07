@@ -76,7 +76,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git virtualenv pyenv zsh-autosuggestions fzf zsh-syntax-highlighting)
+plugins=(git sudo fancy-ctrl-z zsh-interactive-cd zsh_reload taskwarrior virtualenv pyenv zsh-autosuggestions fzf wd zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -166,4 +166,18 @@ done }
 bindkey "^[" vi-cmd-mode
 
 alias monitorsetuptool="echo mons"
+alias datausage=vnstat
+
 vpn () { protonvpn $* && return true; echo "Running as root ..."; sudo protonvpn $* }
+vimman () { man $* | vim - }
+nvimman () { man $* | nvim - }
+
+export EDITOR=nvim
+export PATH=/home/subhaditya/.local/bin:$PATH
+
+#pyenv global $(for x in $(pyenv version | cut -f1 -d' '); do echo -n "$x "; done)
+pyenv global system pypy3.6-7.3.1 
+export PATH=/home/subhaditya/Notes/:$PATH
+alias notes=notes.sh
+
+export DISPLAY=:0
