@@ -26,6 +26,15 @@ Plug 'mbbill/undotree'
 Plug 'alok/notational-fzf-vim'
 " Change root dir
 Plug 'airblade/vim-rooter'
+" Highlighted yank
+Plug 'machakann/vim-highlightedyank'
+" Vim surround
+Plug 'tpope/vim-surround'
+" Python linter
+Plug 'nvie/vim-flake8'
+" Git diff
+Plug 'airblade/vim-gitgutter'
+
 
 call plug#end()
 
@@ -56,8 +65,14 @@ set bg=dark
 set mouse=a
 set clipboard+=unnamedplus
 set cursorline
-hi LineNr guifg=#202020
+" hi LineNr guifg=#202020
 set number
+set expandtab   " Replace tabs with spaces
+set gdefault    " Substitute all occurences on a line
+" set nowrap
+set noautoread
+set autowrite
+
 
 
 " Aliases
@@ -74,6 +89,7 @@ call SetupCommandAlias("fzf","FZF!")
 call SetupCommandAlias("FZF!!","FZF")
 call SetupCommandAlias("notes","NV!")
 call SetupCommandAlias("NV!!","NV")
+call SetupCommandAlias("~","cd ~")
 
 
 " NERDTree File explorer
@@ -110,6 +126,8 @@ let g:fzf_action = {
   \ 'ctrl-t': 'tab split',
   \ 'ctrl-x': 'split',
   \ 'ctrl-v': 'vsplit' }
+" Prefix FZF commands
+" let g:fzf_command_prefix = 'FZF'
 
 
 " Undo history
@@ -125,7 +143,7 @@ endif
 
 " Notational velocity
 " let g:nv_search_paths = ['~/notes', 'docs.md','./notes.md']
-let g:nv_search_paths = ['~/Notes', './Notes.md', './README.md']
+let g:nv_search_paths = ['~/Notes', './Notes', './Notes.md', './README.md']
 let g:nv_ignore_files = 1
 let g:nv_use_short_pathnames=1
 let g:nv_ignore_pattern = ['*NVignore*', '*.sh']
@@ -139,3 +157,20 @@ let g:rooter_change_directory_for_non_project_files = 'current'
 let g:rooter_silent_chdir = 0
 let g:rooter_use_lcd = 1	" change directory for the current window only
 let g:rooter_resolve_links = 1
+
+" Highlighted yank
+" Assign a number of time in milliseconds.
+" let g:highlightedyank_highlight_duration = 1000
+" A negative number makes the highlight persistent.
+" When a new text is yanked or user starts editing, the old highlighting would be deleted
+let g:highlightedyank_highlight_duration = -1
+" If the highlight is not visible for some reason, you can redefine the HighlightedyankRegion highlight group like:
+" highlight HighlightedyankRegion cterm=reverse gui=reverse
+" Note that the line should be located after :colorscheme command execution in your vimrc.
+
+" Python linter config
+let g:flake8_quickfix_height=15		" Height of quickfix window
+let g:flake8_show_in_gutter=1		" show signs in gutter
+let g:flake8_error_marker='❌'		" set error marker to 'EE'
+let g:flake8_warning_marker='⚠️'		" set warning marker to 'WW'
+

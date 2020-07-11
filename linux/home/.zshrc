@@ -76,7 +76,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git sudo fancy-ctrl-z zsh-interactive-cd zsh_reload taskwarrior virtualenv pyenv zsh-autosuggestions fzf wd zsh-syntax-highlighting)
+plugins=(git sudo fancy-ctrl-z zsh_reload taskwarrior virtualenv pyenv zsh-autosuggestions fzf wd z zsh-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -181,3 +181,6 @@ export PATH=/home/subhaditya/Notes/:$PATH
 alias notes=notes.sh
 
 export DISPLAY=:0
+my_man () { if [[ $* = 'z' ]] ; then sh -c "man ~/.oh-my-zsh/plugins/z/z.1"; else sh -c "man $*"; fi }
+alias man=my_man
+export PATH=./:$PATH

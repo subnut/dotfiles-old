@@ -7,14 +7,14 @@ super + {_,shift +}Return
 	kitty {-o background_opacity=0.7,--config .config/kitty/kittyIDE.conf --detach --class="kittyIDE"}
 
 shift + ctrl + super + Return
-	 bspc rule -a "kitty _no_blur_" -o state=floating layer=above rectangle=$(xrandr | grep $(bspc query -M -m focused --names) | cut -d'x' -f1 | cut -d' ' -f4)x174+0+9940; kitty --detach -o window_padding_width=0 -o placement_strategy=top-left -o background_opacity=0.3 -o background_opacity=0 --class="kitty _no_blur_"
+	 bspc rule -a "kitty _no_blur_" -o state=floating layer=above rectangle=$(xrandr | grep $(bspc query -M -m focused --names) | cut -d'x' -f1 | cut -d' ' -f4)x174+0+9940; kitty --detach -o window_padding_width=0 -o placement_strategy=top-left -o background_opacity=0.3 -o background_opacity=0 --class="kitty _no_blur_" -o cursor=#00ff00
 
 # File manager
 super + {_,shift +}e
 	 {nautilus,thunar}
 
 # program launcher
-{ctrl,super} + @space
+{ctrl,super} + space
 	dmenu_run
 
 # make sxhkd reload its configuration files:
@@ -31,7 +31,7 @@ super + ctrl + Return ; {f,c,t,v,n,x,p}
 
 # pseudo window
 super + backslash
-	kitty --detach sh -c "tput civis; sleep 365d" ; \
+	kitty --detach --class "kitty _no_blur_" sh -c "tput civis; sleep 365d"  ; \
 	sleep 0.5; \
 	picom-trans -c 0; \
 	bspc wm -h off; \
@@ -40,7 +40,7 @@ super + backslash
 
 # screen blocker
 super + shift + backslash
-	kitty -o background_opacity=1 --detach sh -c "tput civis; sleep 365d" ; \
+	kitty -o background_opacity=1 --class "kittyBlocker" --detach sh -c "tput civis; sleep 365d"; \
 	sleep 0.5; \
 	bspc wm -h off; \
 	bspc node older -f; \
