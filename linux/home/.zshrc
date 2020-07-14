@@ -184,3 +184,6 @@ export DISPLAY=:0
 my_man () { if [[ $* = 'z' ]] ; then sh -c "man ~/.oh-my-zsh/plugins/z/z.1"; else sh -c "man $*"; fi }
 alias man=my_man
 export PATH=./:$PATH
+
+alias cameradisable="sudo chmod -r /dev/video*"
+alias cameraenable="sudo chmod ug+r /dev/video*"

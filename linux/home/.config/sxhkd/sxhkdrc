@@ -4,18 +4,21 @@
 
 # terminal emulator
 super + {_,shift +}Return
-	kitty {-o background_opacity=0.7,--config .config/kitty/kittyIDE.conf --detach --class="kittyIDE"}
+	kitty {-o background_opacity=0.7,--config .config/kitty/kittyIDE.conf --detach --class="kittyIDE"} &> /dev/null
 
 shift + ctrl + super + Return
-	 bspc rule -a "kitty _no_blur_" -o state=floating layer=above rectangle=$(xrandr | grep $(bspc query -M -m focused --names) | cut -d'x' -f1 | cut -d' ' -f4)x174+0+9940; kitty --detach -o window_padding_width=0 -o placement_strategy=top-left -o background_opacity=0.3 -o background_opacity=0 --class="kitty _no_blur_" -o cursor=#00ff00
+	 bspc rule -a "kitty _no_blur_" -o state=floating layer=above rectangle=$(xrandr | grep $(bspc query -M -m focused --names) | cut -d'x' -f1 | cut -d' ' -f4)x174+0+9940; kitty --detach -o window_padding_width=0 -o placement_strategy=top-left -o background_opacity=0.3 -o background_opacity=0 --class="kitty _no_blur_" -o cursor=#00ff00 &> /dev/null
 
 # File manager
 super + {_,shift +}e
-	 {nautilus,thunar}
+	 {nautilus,thunar} &> /dev/null
 
 # program launcher
 {ctrl,super} + space
-	dmenu_run
+	dmenu_run &> /dev/null
+
+super + BackSpace
+        ~/.config/rofi/launcher.sh &> /dev/null
 
 # make sxhkd reload its configuration files:
 super + Escape
@@ -23,7 +26,7 @@ super + Escape
 
 # run some custom programs
 super + ctrl + Return ; {f,c,t,v,n,x,p}
-	{firefox,google-chrome-stable,thunar,vlc,nautilus,xdman,pavucontrol}
+	{firefox,google-chrome-stable,thunar,vlc,nautilus,xdman,pavucontrol} &> /dev/null
 
 #
 # bspwm misc
@@ -71,7 +74,7 @@ super + shift + p
 super + alt + {q,r}
 	bspc {quit,wm -r}
 
-# close 
+# close
 {super + q,alt + F4}
 	bspc node -c
 
@@ -97,7 +100,7 @@ super + {t,shift + t,s,f}
 super + ctrl + {s,m}
 	bspc node -g {sticky,marked}
 
-# locked  => ignore "node --close" (super + q) 
+# locked  => ignore "node --close" (super + q)
 super + {ctrl,shift,ctrl + shift} + q
 	bspc node -g locked
 
@@ -227,11 +230,11 @@ super + shift + {minus,equal}
 	picom-trans -c {-,+}5
 
 # Reset opacity / Make transparent
-super + {_,shift + }0 
+super + {_,shift + }0
 	picom-trans -c {100,0}
 
 
-# 
+#
 # padding
 #
 
@@ -261,13 +264,13 @@ XF86Display
 	sleep 0.5 && xset dpms force off
 
 XF86AudioLowerVolume
-	pactl set-sink-volume @DEFAULT_SINK@ -5%
+	pactl set-sink-volume @DEFAULT_SINK@ -5% &> /dev/null
 XF86AudioRaiseVolume
-	pactl set-sink-volume @DEFAULT_SINK@ +5%
+	pactl set-sink-volume @DEFAULT_SINK@ +5% &> /dev/null
 XF86AudioMute
-	pactl set-sink-mute @DEFAULT_SINK@ toggle
+	pactl set-sink-mute @DEFAULT_SINK@ toggle &> /dev/null
 XF86AudioMicMute
-	pactl set-source-mute @DEFAULT_SOURCE@ toggle
+	pactl set-source-mute @DEFAULT_SOURCE@ toggle &> /dev/null
 
 {_,ctrl +,shift +,}XF86MonBrightnessUp
 	light -A {5,1,1}
@@ -275,7 +278,7 @@ XF86AudioMicMute
 	light -U {5,1,1}
 
 XF86Sleep
-	zsh <<< "playerctl pause; i3lock -c 00000000 -k --pass-media-keys --pass-screen-keys  --radius 180 --ring-width 20 --linecolor 00000000 --ringcolor=ffffff --keyhlcolor=000000 --insidecolor=ffffff --indicator --ringwrongcolor ff2134  --separatorcolor 00000000 --ringvercolor 008cf7 --insidevercolor 008cf7 --insidewrongcolor ff2134 --pass-power-keys --refresh-rate=0.5 --bshlcolor=ff2134 && systemctl suspend"
+	zsh <<< "playerctl pause; i3lock -c 00000040 -k --pass-media-keys --pass-screen-keys  --radius 180 --ring-width 20 --linecolor 00000000 --ringcolor=ffffff --keyhlcolor=000000 --insidecolor=ffffff --indicator --ringwrongcolor ff2134  --separatorcolor 00000000 --ringvercolor 008cf7 --insidevercolor 008cf7 --insidewrongcolor ff2134 --pass-power-keys --refresh-rate=0.5 --bshlcolor=ff2134 && systemctl suspend" &> /dev/null
 
 #XF86Favorites
 #	if grep -q "suspend cause: USER" <(pacmd info); then;\
@@ -332,7 +335,7 @@ ctrl + super + Return; z
 #
 # Multi-monitor control
 #
- 
+
 # Swap focused desktop with focused desktop of last monitor
 super + ctrl + grave
 	bspc desktop -s $(bspc query --desktops --names -d last:focused) --follow || if bspc query -N -n .sticky -d focused; then notify-send "Sticky node present. Can't swap." -a "bspwm" -t 1000 -u critical; else notify-send "Self-swap not allowed" -a "bspwm" -t 1000 -u critical; fi
@@ -343,12 +346,12 @@ super + ctrl + {_,shift + }Tab
 
 # Lock screen
 super + Print
-	i3lock -c 00000000 -k --pass-media-keys --pass-screen-keys  --radius 180 --ring-width 20 --linecolor 00000000 --ringcolor=ffffff --keyhlcolor=000000 --insidecolor=ffffff --indicator --ringwrongcolor ff2134  --separatorcolor 00000000 --ringvercolor 008cf7 --insidevercolor 008cf7 --insidewrongcolor ff2134 --pass-power-keys --refresh-rate=0.5 --bshlcolor=ff2134
+        i3lock -c 00000040 -k --pass-media-keys --pass-screen-keys  --radius 180 --ring-width 20 --linecolor 00000000 --ringcolor=ffffff --keyhlcolor=000000 --insidecolor=ffffff --indicator --ringwrongcolor ff2134  --separatorcolor 00000000 --ringvercolor 008cf7 --insidevercolor 008cf7 --insidewrongcolor ff2134 --pass-power-keys --refresh-rate=0.5 --bshlcolor=ff2134 &> /dev/null
 
 # Screenshot
 Print
-	flameshot gui &
+	flameshot gui &> /dev/null &
 
-super + Home 
+super + Home
 	kill -s USR1 $(pidof deadd-notification-center)
 

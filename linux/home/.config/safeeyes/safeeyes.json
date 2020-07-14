@@ -81,7 +81,7 @@
             "enabled": true,
             "id": "screensaver",
             "settings": {
-                "command": "i3lock -c 00000000 -k --pass-media-keys --pass-screen-keys  --radius 180 --ring-width 20 --linecolor 00000000 --ringcolor=ffffff --keyhlcolor=000000 --insidecolor=ffffff --indicator --ringwrongcolor bf0f0f  --separatorcolor 000000 --ringvercolor 008cf7 --insidevercolor 008cf7 --pass-power-keys --refresh-rate=0.5",
+                "command": "i3lock -c 00000040 -k --pass-media-keys --pass-screen-keys  --radius 180 --ring-width 20 --linecolor 00000000 --ringcolor=ffffff --keyhlcolor=000000 --insidecolor=ffffff --indicator --ringwrongcolor ff2134  --separatorcolor 00000000 --ringvercolor 008cf7 --insidevercolor 008cf7 --insidewrongcolor ff2134 --pass-power-keys --refresh-rate=0.5 --bshlcolor=ff2134",
                 "min_seconds": 5.0
             },
             "version": "0.0.2"
