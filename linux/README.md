@@ -1,3 +1,13 @@
+#### FOR ARCH LINUX USERS  
+`fbrokendesktop` is a script available in the AUR. Use it do find out and remove broken desktop-entry links  
+
+
+
+
+
+### NOTE: The guide eritten below is TOTALLY outdated. Proceed at your own risk.  
+
+
 NOTE: A 256-colour terminal is recommended. On Windows, you may use [Terminus](https://eugeny.github.io/terminus/)
 
 1. Install zsh

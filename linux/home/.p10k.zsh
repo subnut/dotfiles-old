@@ -208,7 +208,7 @@
   typeset -g POWERLEVEL9K_PROMPT_CHAR_LEFT_{LEFT,RIGHT}_WHITESPACE=
 
 
-  ################ [ my_prompt: my custom status-showing prompt ] ####################### 
+  ################ [ my_prompt: my custom status-showing prompt ] #######################
 
   function prompt_my_prompt() {
     # On success: green ✔ on black background.

@@ -45,6 +45,7 @@ zsh <<< 'if [[ $(bluetooth | cut -d"=" -f2 | cut -d" " -f2) =~ on ]] ; then noti
 zsh <<< 'if grep -q "suspend cause: USER" <(pacmd info); then notify-send.sh -u critical "Sinks are SUPENDED" -i speaker -t 0 -a pulseaudio $(if [[ -a sink-suspend-notification.id ]] ; then echo -n "-r "; cat sink-suspend-notification.id ; fi)  -p > sink-suspend-notification.id ; fi'
 
 if pidof acpid; then true; else zsh <<< "kitty sh -c 'echo \"Starting acpid ...\"; sudo acpid' &"; fi &
+if [[ -r /dev/video0 || -r /dev/video1 ]]; then zsh <<< "kitty sh -c 'echo \"Disabling camera ...\"; sudo chmod -r /dev/video*' &"; fi &
 
 killall -q picom
 exec picom 

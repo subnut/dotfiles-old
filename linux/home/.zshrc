@@ -187,3 +187,4 @@ export PATH=./:$PATH
 
 alias cameradisable="sudo chmod -r /dev/video*"
 alias cameraenable="sudo chmod ug+r /dev/video*"
+alias camerastatus="l /dev/video*"

@@ -95,8 +95,10 @@ set mouse=a
 set clipboard+=unnamedplus
 set cursorline
 set nonumber
-set expandtab   " Replace tabs with spaces
-set gdefault    " Substitute all occurences on a line
+set noexpandtab					" DO NOT replace tabs with spaces
+set tabstop=4					" No. of spaces that <TAB> stands for
+set shiftwidth=0				" i.e. tabstop value will be used for auto-indenting
+" au BufWinEnter *.py %retab!	" Replace all tabs with spaces when entering a python file
 " set nowrap
 set noautoread
 set autowrite
@@ -108,9 +110,9 @@ nnoremap <silent> <C-g> :Goyo<CR>
 
 " Aliases
 fun! SetupCommandAlias(from, to)
-  exec 'cnoreabbrev <expr> '.a:from
-        \ .' ((getcmdtype() is# ":" && getcmdline() is# "'.a:from.'")'
-        \ .'? ("'.a:to.'") : ("'.a:from.'"))'
+	exec 'cnoreabbrev <expr> '.a:from
+			\ .' ((getcmdtype() is# ":" && getcmdline() is# "'.a:from.'")'
+			\ .'? ("'.a:to.'") : ("'.a:from.'"))'
 endfun
 call SetupCommandAlias("W","w")
 call SetupCommandAlias("Q","q")
@@ -139,27 +141,29 @@ nnoremap <silent> <C-b> :NERDTreeToggle<CR>
 " Open file at last cursor position
 " ---------------------------------
 autocmd BufReadPost *
-  \ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
-  \ |   exe "normal! g`\""
-  \ | endif
+	\ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
+	\ |   exe "normal! g`\""
+	\ | endif
 
 
 " Live substitution (syntax: :%s/from/to)
+" -----------------
 set inccommand=split
+set gdefault		" Substitute all occurences on a line
 
 " MarkdownPreview
 " ---------------
 function MarkdownBrowser(url)
-        silent! execute "!firefox" shellescape("--new-window") string(a:url) | redraw!
+	silent! execute "!firefox" shellescape("--new-window") string(a:url) | redraw!
 endfunction
 let g:mkdp_browserfunc='MarkdownBrowser'
 
 " FZF
 " This is the default extra key bindings
 let g:fzf_action = {
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-x': 'split',
-  \ 'ctrl-v': 'vsplit' }
+	\ 'ctrl-t': 'tab split',
+	\ 'ctrl-x': 'split',
+	\ 'ctrl-v': 'vsplit' }
 " Prefix FZF commands
 " let g:fzf_command_prefix = 'FZF'
 
@@ -218,4 +222,4 @@ let g:gitgutter_set_sign_backgrounds = 1
 "hi clear SignColumn    " Included in colorscheme_overrides
 
 " vim-airline
-" set noshowmode
+"set noshowmode
