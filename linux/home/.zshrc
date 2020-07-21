@@ -2,7 +2,7 @@
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
 if [[ -r "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh" ]]; then
-  source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
+	source "${XDG_CACHE_HOME:-$HOME/.cache}/p10k-instant-prompt-${(%):-%n}.zsh"
 fi
 
 # If you come from bash you might have to change your $PATH.
@@ -89,9 +89,9 @@ source $ZSH/oh-my-zsh.sh
 
 # Preferred editor for local and remote sessions
 # if [[ -n $SSH_CONNECTION ]]; then
-#   export EDITOR='vim'
+#	export EDITOR='vim'
 # else
-#   export EDITOR='mvim'
+#	export EDITOR='mvim'
 # fi
 
 # Compilation flags
@@ -128,21 +128,23 @@ alias ls="colorls"
 # my_run_bat_3 () { powershell.exe "cd c:; & \"$( wslpath -w $1)\"" }
 
 my_run_bat_4 () {
-  if [[ $* =~ (-h) || -z $* ]]
-  then echo "Execute Windows Batch files from WSL
-    
+	if [[ $* =~ (-h) || -z $* ]]
+	then echo "Execute Windows Batch files from WSL
+
   Usage: runbat [options] path
   Options:
-    -h  or  --help      Show this help window and exit
+	-h	or	--help		Show this help window and exit
 
 Executes the specified file at the C: drive.
 If C: is unavailable, then executes at the CMD default (Windows) directory."
-  return; fi
-  powershell.exe "cd c:; & \"$( wslpath -w $1)\""
+	return; fi
+	powershell.exe "cd c:; & \"$( wslpath -w $1)\""
 }
 
 alias runbat=my_run_bat_4
 alias gaav="git add --all --verbose"
+alias gdh="git diff HEAD"
+alias gdh1="git diff HEAD~1 HEAD"
 
 my_diff () { colordiff -u $* | less }
 alias diff=my_diff
@@ -150,12 +152,12 @@ alias la1="la -1"
 yays () { yay -S $(yay -Ss $* | cut -d' ' --fields=1 | grep .  | fzf --multi) --needed }
 yayss () { yay -Ss $* }
 pacs () { sudo pacman -S $(pacman -Ss $* | cut -d' ' --fields=1 | grep . | cut --fields=2 -d'/' | fzf --multi) --needed }
-pacr () { sudo pacman -R $(pacman -Q $* | cut --fields=2 -d'/' | fzf --multi |  cut --fields=1 -d' ') }
+pacr () { sudo pacman -R $(pacman -Q $* | cut --fields=2 -d'/' | fzf --multi |	cut --fields=1 -d' ') }
 alias ydl=youtube-dl
 alias pacss="pacman -Ss"
 mycal () { while true; do tput civis;clear; cal; sleep $(( 24*60*60 - `date +%H`*60*60 - `date +%M`*60 - `date +%S` )); done }
 alias ":q"=exit
-emojiinputtool () { while true; do 
+emojiinputtool () { while true; do
 codepoints="$(jome -f cp -p U)"
 if [ $? -ne 0 ]; then
 exit 1
@@ -176,7 +178,7 @@ export EDITOR=nvim
 export PATH=/home/subhaditya/.local/bin:$PATH
 
 #pyenv global $(for x in $(pyenv version | cut -f1 -d' '); do echo -n "$x "; done)
-pyenv global system pypy3.6-7.3.1 
+pyenv global system pypy3.6-7.3.1
 export PATH=/home/subhaditya/Notes/:$PATH
 alias notes=notes.sh
 
@@ -188,3 +190,17 @@ export PATH=./:$PATH
 alias cameradisable="sudo chmod -r /dev/video*"
 alias cameraenable="sudo chmod ug+r /dev/video*"
 alias camerastatus="l /dev/video*"
+
+toggle_theme () {
+	if [[ $MY_NVIM_BG == 'dark' ]]
+	then export MY_NVIM_BG='light'
+		kitty @ set-colors -a -c ~/.config/kitty/gruvbox_light_hard.conf
+	else if [[ $MY_NVIM_BG == 'light' ]]
+	then export MY_NVIM_BG='dark'
+		kitty @ set-colors -a -c ~/.config/kitty/gruvbox_dark_hard.conf
+	fi
+	fi
+}
+pepb () { black -l 79 $* | colordiff }
+# pepbd () { black -l 79 --diff $* | colordiff }
+pepbd () { black -l 79 --color --diff $* }

@@ -48,6 +48,6 @@ if pidof acpid; then true; else zsh <<< "kitty sh -c 'echo \"Starting acpid ...\
 if [[ -r /dev/video0 || -r /dev/video1 ]]; then zsh <<< "kitty sh -c 'echo \"Disabling camera ...\"; sudo chmod -r /dev/video*' &"; fi &
 
 killall -q picom
-exec picom 
-#exec picom -f --inactive-dim 0.3 --corner-radius 35 --vsync --backend glx --glx-no-stencil --fade-delta 1 --detect-rounded-corners --shadow-opacity=1 --blur-background --blur-method dual_kawase --blur-strength 10 & 
-#exec picom  --inactive-dim 0.3 --corner-radius 35 --vsync --backend glx --glx-no-stencil --detect-rounded-corners --shadow-opacity=1 --blur-background --blur-method dual_kawase --blur-strength 10 & 
+exec picom
+#exec picom -f --inactive-dim 0.3 --corner-radius 35 --vsync --backend glx --glx-no-stencil --fade-delta 1 --detect-rounded-corners --shadow-opacity=1 --blur-background --blur-method dual_kawase --blur-strength 10 &
+#exec picom  --inactive-dim 0.3 --corner-radius 35 --vsync --backend glx --glx-no-stencil --detect-rounded-corners --shadow-opacity=1 --blur-background --blur-method dual_kawase --blur-strength 10 &
