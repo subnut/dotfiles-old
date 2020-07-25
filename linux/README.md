@@ -1,4 +1,4 @@
-#### FOR ARCH LINUX USERS  
+#### FOR ARCH LINUX USERS
 `fbrokendesktop` is a script available in the AUR. Use it do find out and remove broken desktop-entry links  
 
 

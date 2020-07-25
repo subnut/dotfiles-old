@@ -30,7 +30,7 @@ super + Escape
 super + ctrl + Return ; {f,c,t,v,n,x,p}
 	{firefox,google-chrome-stable,thunar,vlc,nautilus,xdman,pavucontrol} &> /dev/null
 
-super + Delete
+super + {Delete,shift + BackSpace}
 	if [[ $(xprop -id $(bspc query -N -n focused) | grep "_PICOM_ROUNDED" | cut -d'=' -f2 | cut -c2) =~ '1' ]];then xprop -id $(bspc query -N -n focused) -remove _PICOM_ROUNDED;else xprop -id $(bspc query -N -n focused) -f _PICOM_ROUNDED 32c -set _PICOM_ROUNDED 1;fi
 
 

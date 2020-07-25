@@ -9,7 +9,7 @@ Try adding this to a startup script to make the changes permanent (or if you are
 A one-liner to show CPU frequency every second:` while sleep 1; do lscpu | grep "CPU MHz" | cut -c34-; done`  
 
 Pro Tip: Run it and resize the window and keep it on top-left corner and configure KDE to Keep Above Others
-You may also try using `watch` 
+You may also try using `watch`
 
 Text wallpaper: [WordWall](https://github.com/tomocafe/wordwall)
 

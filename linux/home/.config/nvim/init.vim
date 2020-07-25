@@ -74,22 +74,21 @@ Plug 'tpope/vim-abolish'
 Plug 'mox-mox/vim-localsearch'
 Plug 'mtth/scratch.vim'
 Plug 'AndrewRadev/bufferize.vim'
-Plug 'wellle/context.vim'
+Plug 'ncm2/float-preview.nvim'
+
 
 " Python
 " -------
-Plug 'nvie/vim-flake8', {'for': 'python', 'on': []}				" Python linter
+Plug 'nvie/vim-flake8', {'for': 'python', 'on': []}					" Python linter
 Plug 'Vimjas/vim-python-pep8-indent', {'for': 'python', 'on': [] }	" Python PEP8 autoindent
 Plug 'kalekundert/vim-coiled-snake', {'for': 'python', 'on': [] }	" Python folding
-Plug 'dense-analysis/ale'								" Auto-linter
-Plug 'deoplete-plugins/deoplete-jedi', {'for': 'python', 'on': [] }
+Plug 'dense-analysis/ale'											" Auto-linter
+Plug 'deoplete-plugins/deoplete-jedi', {'for': 'python', 'on': [] }	" Python plugin for auto-completer
 call timer_start(0, {id->execute("call plug#load('nvie/vim-flake8')")})
 call timer_start(0, {id->execute("call plug#load('vim-python-pep8-indent')")})
 call timer_start(0, {id->execute("call plug#load('vim-coiled-snake')")})
 call timer_start(0, {id->execute("call plug#load('deoplete-jedi')")})
 
-
-Plug 'ncm2/float-preview.nvim'
 
 call plug#end()
 
@@ -141,6 +140,8 @@ augroup colorscheme_overrides
 	autocmd ColorScheme * hi Cursor gui=NONE
 	autocmd ColorScheme * hi Cursor guifg=bg guibg=fg
 	autocmd ColorScheme * set guicursor=n-v-c-sm:block-Cursor/lCursor,i-ci-ve:ver25-Cursor/lCursor,r-cr-o:hor20
+	autocmd ColorScheme * hi clear ALEErrorSign
+	autocmd ColorScheme * hi clear ALEWarningSign
 augroup END
 hi Comment gui=italic
 hi clear SignColumn
@@ -381,7 +382,7 @@ if has("patch-7.4.314")
 endif
 "let g:deoplete#sources.python = ['jedi']
 call timer_start(0, {id->execute("call deoplete#custom#option({
-			\ 'auto_complete_delay': 200,
+			\ 'auto_complete_delay': 100,
 			\ 'sources': { 'python': ['jedi']},
 			\ 'ignore_sources': {'_': ['around']},
 			\ })")})

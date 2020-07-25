@@ -133,7 +133,7 @@ my_run_bat_4 () {
 
   Usage: runbat [options] path
   Options:
-	-h	or	--help		Show this help window and exit
+	-h or --help	Show this help window and exit
 
 Executes the specified file at the C: drive.
 If C: is unavailable, then executes at the CMD default (Windows) directory."
@@ -191,7 +191,18 @@ alias cameradisable="sudo chmod -r /dev/video*"
 alias cameraenable="sudo chmod ug+r /dev/video*"
 alias camerastatus="l /dev/video*"
 
+get_theme () {
+	if my_variable_for_color=$(kitty @ get-colors)
+	then
+		if [[ $( echo $my_variable_for_color | grep color0 | cut -d'#' -f2) = 'f9f5d7' ]]
+		then export MY_NVIM_BG='light'
+		else export MY_NVIM_BG='dark'
+		fi
+	fi
+}
+
 toggle_theme () {
+	get_theme
 	if [[ $MY_NVIM_BG == 'dark' ]]
 	then export MY_NVIM_BG='light'
 		kitty @ set-colors -a -c ~/.config/kitty/gruvbox_light_hard.conf
@@ -200,7 +211,17 @@ toggle_theme () {
 		kitty @ set-colors -a -c ~/.config/kitty/gruvbox_dark_hard.conf
 	fi
 	fi
+	echo -n "get_theme\n" | kitty @ send-text -t="title:subhaditya@EndeavourPad" --stdin
 }
+
+alias to=toggle_theme
+alias py=python
+export PYTHONSTARTUP=~/.pythonrc
+
 pepb () { black -l 79 $* | colordiff }
 # pepbd () { black -l 79 --diff $* | colordiff }
 pepbd () { black -l 79 --color --diff $* }
+alias gcm=
+my_gcm () { git commit -m "$*" }
+alias gcm=my_gcm
+
