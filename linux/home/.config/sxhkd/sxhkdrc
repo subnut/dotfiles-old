@@ -309,10 +309,10 @@ XF86Bluetooth
 
 # Switch temporarily to desktop T
 super + d
-	if [[ $(bspc query --desktops --names -m focused -d focused | cut -d'_' -f2) == T ]]; \
+	if [[ $(bspc query --desktops --names -m focused -d focused) == T ]]; \
 	then bspc desktop older -f; \
 	else; \
-	bspc desktop -f $(bspc query --desktops --names -m focused -d focused | cut -d'_' -f1)_T; \
+	bspc desktop -f T.local; \
 	fi
 
 
