@@ -38,7 +38,7 @@ feh --bg-fill light.png  &
 
 if killall -q polybar; then true; else bspc config top_padding $((`bspc config bottom_padding` + 35)); fi &
 # polybar mybar &
-zsh <<< "polybar --list-monitors | cut -d':' -f1 | while IFS= read -r MONITOR; do if ! [[ \$MONITOR == 'eDP' ]]; then MONITOR=\$MONITOR polybar secondary &> /dev/null &; else polybar mybar &> /dev/null &; fi; done &"
+zsh <<< "polybar --list-monitors | cut -d':' -f1 | while IFS= read -r MONITOR; do if ! [[ \$MONITOR == 'eDP' ]]; then MONITOR=\$MONITOR polybar secondary_restack &> /dev/null &; else polybar mybar_restack &> /dev/null &; fi; done &"
 
 zsh <<< 'if [[ $(bluetooth | cut -d"=" -f2 | cut -d" " -f2) =~ on ]] ; then notify-send.sh -u critical "Bluetooth is ON" -i bluetooth -t 0 -a Bluetooth $(if [[ -a bluetooth-on-notification.id ]] ; then echo -n "-r "; cat bluetooth-on-notification.id ; fi) -p > bluetooth-on-notification.id; fi'
 
