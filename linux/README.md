@@ -1,11 +1,17 @@
 #### FOR ARCH LINUX USERS
-`fbrokendesktop` is a script available in the AUR. Use it do find out and remove broken desktop-entry links  
+`fbrokendesktop` is a script available in the AUR. Use it do find out and remove broken desktop-entry links
 
+</br>
 
+#### Add the following lines to `/etc/profile`
+```sh
+# Needed for polybar
+export HWMON_PATH="/sys/class/hwmon/hwmon$(for i in /sys/class/hwmon/hwmon*/temp*_input;do echo \"$(<$(dirname $i)/name): $(cat ${i%_*}_label 2>/dev/null || echo $(basename ${i%_*})) $(readlink -f $i)\";done|grep Tdie |grep -o 'hwmon[1-9]' | grep -o '[1-9]')/temp2_input"
+```
 
+</br>
 
-
-### NOTE: The guide eritten below is TOTALLY outdated. Proceed at your own risk.  
+### NOTE: The guide written below is TOTALLY outdated. Proceed at your own risk.
 
 
 NOTE: A 256-colour terminal is recommended. On Windows, you may use [Terminus](https://eugeny.github.io/terminus/)
@@ -45,5 +51,10 @@ i3lock -c 00000040 -k --pass-media-keys --pass-screen-keys  --radius 180 --ring-
 
 ### To run X programs (scrot, sxhkd, etc.) from tty:
 1. From the X11 session, run: `xhost +si:localhost:USERNAME`
-2. Then, from the tty, execute: `export DISPLAY=:0.0`
-3. Try running any X11 program 😉
+2. Then, from the tty, execute: `export DISPLAY=:0`
+3. Try running any X11 program :wink:
+
+### `/usr/bin/python3^M: bad interpreter: No such file or directory`
+There are a few options:
+* On Linux, install `dos2unix` and run it on the file
+* On vim, save the file after running `:set fileformat=unix`

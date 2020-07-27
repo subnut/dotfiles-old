@@ -625,7 +625,8 @@ label-discharging = %percentage%% (%time%)
 [module/temperature2]
 type = internal/temperature
 warn-temperature = 67
-hwmon-path = /sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon2/temp2_input
+;hwmon-path = /sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon3/temp2_input
+hwmon-path = ${env:HWMON_PATH:/sys/devices/pci0000:00/0000:00:18.3/hwmon/hwmon3/temp2_input}
 ;To get the above
 ;----------------
 ;for i in /sys/class/hwmon/hwmon*/temp*_input; do echo "$(<$(dirname $i)/name): $(cat ${i%_*}_label 2>/dev/null || echo $(basename ${i%_*})) $(readlink -f $i)"; done
