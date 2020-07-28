@@ -345,7 +345,7 @@ ctrl + super + Return; z
 
 # Swap focused desktop with focused desktop of last monitor
 super + ctrl + grave
-	bspc desktop -s $(bspc query --desktops --names -d last:focused) --follow || if bspc query -N -n .sticky -d focused; then notify-send "Sticky node present. Can't swap." -a "bspwm" -t 1000 -u critical; else notify-send "Self-swap not allowed" -a "bspwm" -t 1000 -u critical; fi
+	bspc desktop -s $(bspc query --desktops -d last:focused) --follow || if bspc query -N -n .sticky -d focused; then notify-send "Sticky node present. Can't swap." -a "bspwm" -t 1000 -u critical; else notify-send "Self-swap not allowed" -a "bspwm" -t 1000 -u critical; fi
 
 # Focus Monitors
 super + ctrl + {_,shift + }Tab

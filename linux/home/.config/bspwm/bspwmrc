@@ -30,7 +30,8 @@ bspc rule -a "VirtualBox Machine" state=floating
 bspc rule -a jome state=floating
 bspc rule -a xdman-Main state=floating
 bspc rule -a my_zoom state=floating
-bspc rule -a Git-gui--askpass state=floating
+bspc rule -a Git-gui--askpass state=floating layer=above
+bspc rule -a Yad state=floating layer=above
 xsetroot -cursor_name left_ptr &
 
 if pgrep safeeyes; then true; else safeeyes -e; fi &

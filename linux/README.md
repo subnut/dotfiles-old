@@ -1,5 +1,6 @@
 #### FOR ARCH LINUX USERS
 `fbrokendesktop` is a script available in the AUR. Use it do find out and remove broken desktop-entry links
+`screenkey` is useful for displaying the typed key in screencasts
 
 </br>
 
