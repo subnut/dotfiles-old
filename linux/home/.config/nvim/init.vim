@@ -9,20 +9,40 @@ call plug#begin()
 
 " Deoplete
 " --------
-if has('nvim')
-	Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins', 'on': [] }
-	call timer_start(0, {id->execute("call plug#load('deoplete.nvim')")} )
-	Plug 'Shougo/echodoc.vim'
-	Plug 'Shougo/context_filetype.vim'
-	let g:echodoc#enable_at_startup = 1
-	Plug 'Shougo/neco-vim'
-	Plug 'fszymanski/deoplete-emoji'
+"if has('nvim')
+"	Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins', 'on': [] }
+"	call timer_start(0, {id->execute("call plug#load('deoplete.nvim')")} )
+"	Plug 'Shougo/context_filetype.vim'
+"	Plug 'Shougo/neco-vim'
+"	Plug 'fszymanski/deoplete-emoji'
+"	Plug 'deoplete-plugins/deoplete-jedi', {'for': 'python', 'on': [] }	" Python plugin for auto-completer
+"	call timer_start(0, {id->execute("call plug#load('deoplete-jedi')")})
 "else
 "  Plug 'Shougo/deoplete.nvim'
 "  Plug 'roxma/nvim-yarp'
 "  Plug 'roxma/vim-hug-neovim-rpc'
-endif
+"endif
 
+" Echo function usage
+Plug 'Shougo/echodoc.vim'
+
+" NCM2
+" ----
+Plug 'ncm2/ncm2', { 'on': [] }
+Plug 'roxma/nvim-yarp', { 'on': [] }
+call timer_start(0, {id->execute("call plug#load('ncm2')")})
+call timer_start(0, {id->execute("call plug#load('nvim-yarp')")})
+
+" Subscope-detectors
+Plug 'ncm2/ncm2-markdown-subscope'
+Plug 'ncm2/ncm2-html-subscope'
+
+" NOTE: you need to install completion sources to get completions. Check
+" our wiki page for a list of sources: https://github.com/ncm2/ncm2/wiki
+Plug 'ncm2/ncm2-bufword'
+Plug 'ncm2/ncm2-path'
+Plug 'ncm2/ncm2-jedi'
+Plug 'ncm2/ncm2-vim' | Plug 'Shougo/neco-vim'
 
 " Colorscheme
 Plug 'morhetz/gruvbox'
@@ -36,6 +56,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 " Markdown preview
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 Plug 'gabrielelana/vim-markdown', {'for': 'markdown'}
+
 " Focus on code only
 Plug 'junegunn/goyo.vim'
 " Fuzzy-finder
@@ -75,7 +96,9 @@ Plug 'mox-mox/vim-localsearch'
 Plug 'mtth/scratch.vim'
 Plug 'AndrewRadev/bufferize.vim'
 Plug 'ncm2/float-preview.nvim'
-
+Plug 'Yggdroot/indentLine'
+Plug 'svermeulen/vim-yoink'
+Plug 'tpope/vim-repeat'
 
 " Python
 " -------
@@ -83,11 +106,9 @@ Plug 'nvie/vim-flake8', {'for': 'python', 'on': []}					" Python linter
 Plug 'Vimjas/vim-python-pep8-indent', {'for': 'python', 'on': [] }	" Python PEP8 autoindent
 Plug 'kalekundert/vim-coiled-snake', {'for': 'python', 'on': [] }	" Python folding
 Plug 'dense-analysis/ale'											" Auto-linter
-Plug 'deoplete-plugins/deoplete-jedi', {'for': 'python', 'on': [] }	" Python plugin for auto-completer
 call timer_start(0, {id->execute("call plug#load('nvie/vim-flake8')")})
 call timer_start(0, {id->execute("call plug#load('vim-python-pep8-indent')")})
 call timer_start(0, {id->execute("call plug#load('vim-coiled-snake')")})
-call timer_start(0, {id->execute("call plug#load('deoplete-jedi')")})
 
 
 call plug#end()
@@ -148,7 +169,7 @@ hi clear SignColumn
 hi CursorLine gui=underline
 hi Cursor gui=NONE
 hi Cursor guifg=bg guibg=fg
-set guicursor=n-v-c-sm:block-Cursor/lCursor,i-ci-ve:ver25-Cursor/lCursor,r-cr-o:hor20
+set guicursor=n-v-c-sm:block-Cursor/lCursor,i-ci-ve:ver25-Cursor/lCursor,r-cr-o:hor20-Cursor/lCursor
 
 
 " Custom settings
@@ -172,7 +193,6 @@ nnoremap <silent> <C-g> :Goyo<CR>
 nnoremap <silent> <C-l> :set list!<CR>
 nnoremap <silent> <C-n> :call ToggleLineNrCustom()<CR>
 nnoremap <silent> <C-A-n> :call ToggleLineNrCustomLocal()<CR>
-nnoremap <silent> <C-c> :ContextToggleWindow <CR>
 
 " LineNr toggling functions
 " -------------------------
@@ -217,6 +237,7 @@ endfunction
 if MyOnBattery()
 	let g:ale_lint_delay = 5000
 	let g:ale_lint_on_text_changed = 'never'
+	let g:ncm2#complete_delay = 200
 endif
 
 
@@ -370,24 +391,75 @@ set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 
 " Deoplete
 " --------
+"let g:deoplete#enable_at_startup = 1
+"au InsertEnter * ++once call timer_start(0, {id->execute("call deoplete#custom#option('sources',{ 'python': ['jedi'] })")} )
+"au InsertEnter * ++once call timer_start(0, {id->execute("call deoplete#enable()")} )
+"call timer_start(0, {id->execute("call deoplete#custom#option({
+"			\ 'auto_complete_delay': 100,
+"			\ 'sources': { 'python': ['jedi']},
+"			\ 'ignore_sources': {'_': ['around']},
+"			\ })")})
+
+" Floating preview
+" ----------------
+set completeopt-=preview
+let g:float_preview#docked = 1
+let g:float_preview#max_width = 100
+
+" Show function parmeters
+" -----------------------
+let g:echodoc#enable_at_startup = 1
+let g:echodoc#type = 'echo'
+let g:echodoc#events = ['CompleteDone', 'TextChangedI', 'TextChangedP']
+
+" Do not show -- MATCH X OF Y -- in completion
+" ---------------------------------------------
+if has("patch-7.4.314")
+	set shortmess+=c
+endif
+
+" Navigate through suggestions using TAB and Arrows
+" ----------------------------------------
 inoremap <silent><expr><tab>	pumvisible() ? "\<c-n>"  : "\<tab>"
 inoremap <silent><expr><s-tab>	pumvisible() ? "\<c-p>"  : "\<s-tab>"
 inoremap <expr><Down>			pumvisible() ? "\<C-n>"  : "\<Down>"
 inoremap <expr><Up> 			pumvisible() ? "\<C-p>"  : "\<Up>"
-let g:deoplete#enable_at_startup = 1
-"au InsertEnter * ++once call timer_start(0, {id->execute("call deoplete#custom#option('sources',{ 'python': ['jedi'] })")} )
-"au InsertEnter * ++once call timer_start(0, {id->execute("call deoplete#enable()")} )
-if has("patch-7.4.314")
-	set shortmess+=c
-endif
-"let g:deoplete#sources.python = ['jedi']
-call timer_start(0, {id->execute("call deoplete#custom#option({
-			\ 'auto_complete_delay': 100,
-			\ 'sources': { 'python': ['jedi']},
-			\ 'ignore_sources': {'_': ['around']},
-			\ })")})
-set completeopt-=preview
-let g:float_preview#docked = 0
-let g:float_preview#max_width = 100
-let g:echodoc#type = 'echo'
-let g:echodoc#events = ['CompleteDone', 'TextChangedI', 'TextChangedP']
+
+" NCM2
+" ----
+" When the <Enter> key is pressed while the popup menu is visible, it only
+" hides the menu. Use this mapping to close the menu and also start a new
+" line.
+inoremap <expr><CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+" enable ncm2 for all buffers
+" autocmd BufEnter * call ncm2#enable_for_buffer()
+autocmd BufEnter * call timer_start(0, {id->execute("call ncm2#enable_for_buffer()")})
+" IMPORTANT: :help Ncm2PopupOpen for more information
+set completeopt=noinsert,menuone,noselect
+
+
+" Gabrielana markdown
+" -------------------
+let g:markdown_enable_insert_mode_mappings = 0
+
+" Indentline
+" ----------
+let g:indentLine_enabled = 0
+let g:indentLine_char = '│'
+" let g:indentLine_char_list = ['|', '¦', '┆', '┊']
+let g:indentLine_setColors = 0
+let g:indentLine_color_gui = '#00ff00'
+nnoremap <silent> <C-i> :IndentLinesToggle <CR>
+
+" vim-yoink
+" ---------
+nmap <c-p> <plug>(YoinkPostPasteSwapBack)
+nmap <c-[> <plug>(YoinkPostPasteSwapForward)
+nmap p <plug>(YoinkPaste_p)
+nmap P <plug>(YoinkPaste_P)
+" Do not change cursor position after yanking
+nmap y <plug>(YoinkYankPreserveCursorPosition)
+xmap y <plug>(YoinkYankPreserveCursorPosition)
+let g:yoinkIncludeDeleteOperations = 1
+let g:yoinkMoveCursorToEndOfPaste = 1
+

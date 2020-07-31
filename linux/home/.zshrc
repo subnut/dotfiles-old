@@ -156,7 +156,6 @@ pacr () { sudo pacman -R $(pacman -Q $* | cut --fields=2 -d'/' | fzf --multi |	c
 alias ydl=youtube-dl
 alias pacss="pacman -Ss"
 mycal () { while true; do tput civis;clear; cal; sleep $(( 24*60*60 - `date +%H`*60*60 - `date +%M`*60 - `date +%S` )); done }
-alias ":q"=exit
 emojiinputtool () { while true; do
 codepoints="$(jome -f cp -p U)"
 if [ $? -ne 0 ]; then
@@ -169,6 +168,9 @@ bindkey "^[" vi-cmd-mode
 
 alias monitorsetuptool="echo mons"
 alias datausage=vnstat
+alias ":q"=exit
+alias ":Q"=exit
+alias "cd.."="cd .."
 
 vpn () { protonvpn $* && return true; echo "Running as root ..."; sudo protonvpn $* }
 vimman () { man $* | vim - }
@@ -191,24 +193,40 @@ alias cameradisable="sudo chmod -r /dev/video*"
 alias cameraenable="sudo chmod ug+r /dev/video*"
 alias camerastatus="l /dev/video*"
 
-get_theme () {
-	if my_variable_for_color=$(kitty @ get-colors)
-	then
-		if [[ $( echo $my_variable_for_color | grep color0 | cut -d'#' -f2) = 'f9f5d7' ]]
-		then export MY_NVIM_BG='light'
-		else export MY_NVIM_BG='dark'
-		fi
-	fi
-}
+
+if ! [[ -z $MY_NVIM_BG ]] && [[ $KITTY_WINDOW_ID -eq 1 ]]
+then echo > ~/.config/kitty/custom_zsh_source
+fi
+
+
+# get_theme () {
+# 	if my_variable_for_color=$(kitty @ get-colors)
+# 	then
+# 		if [[ $( echo $my_variable_for_color | grep color0 | cut -d'#' -f2) = '000000' ]]
+# 		then
+# 			export MY_NVIM_BG='light'
+# 			echo 'if [[ $MY_NVIM_BG == "dark" ]];then export MY_NVIM_BG="light"; fi' > ~/.config/kitty/custom_zsh_source
+# 		else
+# 			export MY_NVIM_BG='dark'
+# 			echo > ~/.config/kitty/custom_zsh_source
+# 		fi
+# 	fi
+# }
+get_theme () { source ~/.config/kitty/custom_zsh_source }
+source ~/.config/kitty/custom_zsh_source
 
 toggle_theme () {
 	get_theme
 	if [[ $MY_NVIM_BG == 'dark' ]]
 	then export MY_NVIM_BG='light'
 		kitty @ set-colors -a -c ~/.config/kitty/gruvbox_light_hard.conf
+		alias colorls="colorls --light"
+		echo 'if [[ $MY_NVIM_BG == "dark" ]];then export MY_NVIM_BG="light"; fi; alias colorls="colorls --light" ' > ~/.config/kitty/custom_zsh_source
 	else if [[ $MY_NVIM_BG == 'light' ]]
 	then export MY_NVIM_BG='dark'
 		kitty @ set-colors -a -c ~/.config/kitty/gruvbox_dark_hard.conf
+		alias colorls="colorls"
+		echo 'if [[ $MY_NVIM_BG == "light" ]];then export MY_NVIM_BG="dark"; fi; alias colorls="colorls" ' > ~/.config/kitty/custom_zsh_source
 	fi
 	fi
 	echo -n "get_theme\n" | kitty @ send-text -t="title:subhaditya@EndeavourPad" --stdin

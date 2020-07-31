@@ -33,8 +33,10 @@ bspc rule -a my_zoom state=floating
 bspc rule -a Git-gui--askpass state=floating layer=above
 bspc rule -a Yad state=floating layer=above
 xsetroot -cursor_name left_ptr &
+bspc rule -a '*:*:Picture-in-Picture' state=floating layer=above sticky=on focus=off
 
-if pgrep safeeyes; then true; else safeeyes -e; fi &
+
+safeeyes -e &> /dev/null &
 #if [[ $((10#$(date +'%H'))) -gt 5 && $((10#$(date +'%H'))) -lt 18 ]] ; then feh --bg-fill light.png; else feh --bg-fill dark.png; fi
 feh --bg-fill light.png  &
 

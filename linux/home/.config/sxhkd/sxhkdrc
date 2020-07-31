@@ -4,7 +4,7 @@
 
 # terminal emulator
 super + Return
-	kitty -o background_opacity=0.7 &> /dev/null
+	kitty -o background_opacity=0.8 &> /dev/null
 super + shift + Return
 	bspc config -d focused window_gap 0; kitty --single-instance --config .config/kitty/kittyIDE.conf --detach --class="kittyIDE"  &> /dev/null
 

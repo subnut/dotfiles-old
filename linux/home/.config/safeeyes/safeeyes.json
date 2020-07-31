@@ -11,7 +11,7 @@
         }
     ],
     "meta": {
-        "config_version": "6.0.2"
+        "config_version": "6.0.1"
     },
     "persist_state": true,
     "plugins": [
@@ -131,6 +131,5 @@
     "shortcut_disable_time": 0,
     "shortcut_postpone": 65,
     "shortcut_skip": 9,
-    "strict_break": false,
-    "use_rpc_server": true
+    "strict_break": false
 }

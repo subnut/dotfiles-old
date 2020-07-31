@@ -85,13 +85,19 @@ inherit = bar/mybar
 wm-restack = bspwm
 
 [bar/secondary]
+inherit = bar/mybar
+monitor = ${env:MONITOR:}
+modules-center =
+tray-position =
+
+[bar/secondary_old]
 inherit = bar/example
 modules-center =
 tray-position =
 modules-left = bspwm0
 module-margin-left = 0
 module-margin-right = 1
-modules-right = pulseaudio2 memory cpu wlan eth battery temperature date powermenu
+modules-right = pulseaudio2 memory cpu wlan eth battery date powermenu
 padding-left = 0
 padding-right = 0
 
@@ -703,6 +709,8 @@ screenchange-reload = true
 ;compositing-foreground = source
 ;compositing-border = over
 pseudo-transparency = true
+; Time in milliseconds that the input handler will wait between processing events
+throttle-input-for = 90
 
 [global/wm]
 margin-top = -10
