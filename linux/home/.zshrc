@@ -157,12 +157,12 @@ alias ydl=youtube-dl
 alias pacss="pacman -Ss"
 mycal () { while true; do tput civis;clear; cal; sleep $(( 24*60*60 - `date +%H`*60*60 - `date +%M`*60 - `date +%S` )); done }
 emojiinputtool () { while true; do
-codepoints="$(jome -f cp -p U)"
-if [ $? -ne 0 ]; then
-exit 1
-fi
-xdotool key --delay 20 $codepoints
-done }
+	codepoints="$(jome -f cp -p U)"
+	if [ $? -ne 0 ]; then
+		exit 1
+	fi
+	xdotool key --delay 20 $codepoints
+	done }
 
 bindkey "^[" vi-cmd-mode
 
@@ -195,7 +195,7 @@ alias camerastatus="l /dev/video*"
 
 
 if ! [[ -z $MY_NVIM_BG ]] && [[ $KITTY_WINDOW_ID -eq 1 ]]
-then echo > ~/.config/kitty/custom_zsh_source
+	then echo 'if [[ $MY_NVIM_BG == "light" ]];then export MY_NVIM_BG="dark"; fi; alias colorls="colorls"' > ~/.config/kitty/custom_zsh_source
 fi
 
 
@@ -213,7 +213,7 @@ fi
 # 	fi
 # }
 get_theme () { source ~/.config/kitty/custom_zsh_source }
-source ~/.config/kitty/custom_zsh_source
+if ! [[ -z $MY_NVIM_BG ]]; then source ~/.config/kitty/custom_zsh_source; fi
 
 toggle_theme () {
 	get_theme
@@ -221,12 +221,12 @@ toggle_theme () {
 	then export MY_NVIM_BG='light'
 		kitty @ set-colors -a -c ~/.config/kitty/gruvbox_light_hard.conf
 		alias colorls="colorls --light"
-		echo 'if [[ $MY_NVIM_BG == "dark" ]];then export MY_NVIM_BG="light"; fi; alias colorls="colorls --light" ' > ~/.config/kitty/custom_zsh_source
+		echo 'if [[ $MY_NVIM_BG == "dark" ]];then export MY_NVIM_BG="light"; fi; alias colorls="colorls --light"' > ~/.config/kitty/custom_zsh_source
 	else if [[ $MY_NVIM_BG == 'light' ]]
 	then export MY_NVIM_BG='dark'
 		kitty @ set-colors -a -c ~/.config/kitty/gruvbox_dark_hard.conf
 		alias colorls="colorls"
-		echo 'if [[ $MY_NVIM_BG == "light" ]];then export MY_NVIM_BG="dark"; fi; alias colorls="colorls" ' > ~/.config/kitty/custom_zsh_source
+		echo 'if [[ $MY_NVIM_BG == "light" ]];then export MY_NVIM_BG="dark"; fi; alias colorls="colorls"' > ~/.config/kitty/custom_zsh_source
 	fi
 	fi
 	echo -n "get_theme\n" | kitty @ send-text -t="title:subhaditya@EndeavourPad" --stdin
@@ -246,3 +246,4 @@ my_gcma () { git commit --amend -m "$*" }
 alias gcm=my_gcm
 alias gcma=my_gcma
 
+alias icat="kitty +kitten icat"

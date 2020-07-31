@@ -35,6 +35,8 @@ bspc rule -a Yad state=floating layer=above
 xsetroot -cursor_name left_ptr &
 bspc rule -a '*:*:Picture-in-Picture' state=floating layer=above sticky=on focus=off
 
+killall xmousepasteblock
+xmousepasteblock &> /dev/null &
 
 safeeyes -e &> /dev/null &
 #if [[ $((10#$(date +'%H'))) -gt 5 && $((10#$(date +'%H'))) -lt 18 ]] ; then feh --bg-fill light.png; else feh --bg-fill dark.png; fi
