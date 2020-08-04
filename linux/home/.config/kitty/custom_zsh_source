@@ -1,1 +1,1 @@
-if [[ $MY_NVIM_BG == "dark" ]];then export MY_NVIM_BG="light"; fi; alias colorls="colorls --light"
+if [[ $MY_NVIM_BG == "dark" ]];then export MY_NVIM_BG="light"; alias colorls="colorls --light"; export BAT_THEME="gruvbox (Light) (Hard)"; fi

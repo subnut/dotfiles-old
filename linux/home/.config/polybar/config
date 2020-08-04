@@ -28,6 +28,14 @@ primary = #ffb52a
 secondary = #e60053
 alert = #bd2c40
 
+[bar/mybar_light]
+inherit = bar/mybar
+background = #ffffff
+foreground = #000000
+background-alt = #555
+foreground-alt = #444
+
+
 [bar/mybar]
 
 font-0 = fixed:pixelsize=11;1

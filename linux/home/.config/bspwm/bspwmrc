@@ -3,6 +3,9 @@
 killall -q sxhkd &>/dev/null
 sxhkd &
 
+killall -q /usr/lib/gsd-xsettings &>/dev/null
+/usr/lib/gsd-xsettings &
+
 if ! [[ `bspc query --desktops --names` =~ "Desktop" ]]; then for MONITOR in $(bspc query -M --names); do bspc monitor $MONITOR -d I II III IV V VI VII VIII IX T XI XII XIII XIV XV XVI XVII XVIII XIX XX XXI XXII $(for y in $(bspc query -D -m $MONITOR --names | grep temp); do echo -n "$y "; done );done;else for MONITOR in $(bspc query -M --names); do bspc monitor $MONITOR -d I II III IV V VI VII VIII IX T XI XII XIII XIV XV XVI XVII XVIII XIX XX XXI XXI;done; fi
 
 #else bspc monitor -d I II III IV V VI VII VIII IX T XI XII XIII XIV XV XVI XVII XVIII XIX XX XXI XXII; fi
@@ -38,7 +41,9 @@ bspc rule -a '*:*:Picture-in-Picture' state=floating layer=above sticky=on focus
 killall xmousepasteblock
 xmousepasteblock &> /dev/null &
 
-safeeyes -e &> /dev/null &
+# safeeyes -e &> /dev/null &
+sh -c "/home/subhaditya/.local/bin/safeeyes -e &> /dev/null &"
+
 #if [[ $((10#$(date +'%H'))) -gt 5 && $((10#$(date +'%H'))) -lt 18 ]] ; then feh --bg-fill light.png; else feh --bg-fill dark.png; fi
 feh --bg-fill light.png  &
 

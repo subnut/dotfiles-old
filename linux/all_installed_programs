@@ -2,7 +2,9 @@ a52dec
 aalib
 accountsservice
 acl
+acpi
 acpi_call
+acpica
 acpid
 adobe-source-code-pro-fonts
 adwaita-icon-theme
@@ -102,6 +104,7 @@ cracklib
 crda
 crypto++
 cryptsetup
+ctags
 cups
 cups-filters
 cups-pk-helper
@@ -775,7 +778,6 @@ mono-addins
 mons
 mousepad
 mpc
-mpd
 mpfr
 mpg123
 mplayer
@@ -788,7 +790,6 @@ mutter
 mypaint-brushes1
 nautilus
 nbd
-ncmpcpp
 ncurses
 ndctl
 ndisc6
@@ -1120,10 +1121,8 @@ tslib
 ttf-bitstream-vera
 ttf-caladea
 ttf-carlito
-ttf-cascadia-code
 ttf-croscore
 ttf-dejavu
-ttf-fira-code
 ttf-jetbrains-mono
 ttf-joypixels
 ttf-liberation
@@ -1266,6 +1265,7 @@ xplc
 xprintidle
 xrectsel
 xsel
+xsettingsd
 xterm
 xvidcore
 xxhash

@@ -1,3 +1,5 @@
+let g:python3_host_prog = '/home/subhaditya/.config/nvim/venv/bin/python'
+
 call plug#begin()
 
 " Auto-complete
@@ -7,31 +9,11 @@ call plug#begin()
 "Plug 'ycm-core/YouCompleteMe', { 'do': './install.py', 'on': [] }
 " Initialized later
 
-" Deoplete
-" --------
-"if has('nvim')
-"	Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins', 'on': [] }
-"	call timer_start(0, {id->execute("call plug#load('deoplete.nvim')")} )
-"	Plug 'Shougo/context_filetype.vim'
-"	Plug 'Shougo/neco-vim'
-"	Plug 'fszymanski/deoplete-emoji'
-"	Plug 'deoplete-plugins/deoplete-jedi', {'for': 'python', 'on': [] }	" Python plugin for auto-completer
-"	call timer_start(0, {id->execute("call plug#load('deoplete-jedi')")})
-"else
-"  Plug 'Shougo/deoplete.nvim'
-"  Plug 'roxma/nvim-yarp'
-"  Plug 'roxma/vim-hug-neovim-rpc'
-"endif
-
-" Echo function usage
-Plug 'Shougo/echodoc.vim'
 
 " NCM2
 " ----
-Plug 'ncm2/ncm2', { 'on': [] }
-Plug 'roxma/nvim-yarp', { 'on': [] }
-call timer_start(0, {id->execute("call plug#load('ncm2')")})
-call timer_start(0, {id->execute("call plug#load('nvim-yarp')")})
+Plug 'ncm2/ncm2'
+Plug 'roxma/nvim-yarp'
 
 " Subscope-detectors
 Plug 'ncm2/ncm2-markdown-subscope'
@@ -43,8 +25,12 @@ Plug 'ncm2/ncm2-bufword'
 Plug 'ncm2/ncm2-path'
 Plug 'ncm2/ncm2-jedi'
 Plug 'ncm2/ncm2-vim' | Plug 'Shougo/neco-vim'
+Plug 'svermeulen/ncm2-yoink', { 'on': [] }
+Plug 'subnut/ncm2-github-emoji/', { 'do': './install.py' }
 
-" Colorscheme
+" ----
+
+" Colorschemes
 Plug 'morhetz/gruvbox'
 
 " File explorer
@@ -53,65 +39,63 @@ Plug 'ryanoasis/vim-devicons'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 
 
-" Markdown preview
+" Markdown
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 Plug 'gabrielelana/vim-markdown', {'for': 'markdown'}
 
 " Focus on code only
 Plug 'junegunn/goyo.vim'
-" Fuzzy-finder
-Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
-Plug 'junegunn/fzf.vim'
-" Undotree
-Plug 'mbbill/undotree'
-" Notational ... take notes
-Plug 'alok/notational-fzf-vim'
-" Change root dir
-Plug 'airblade/vim-rooter'
-" Highlighted yank
-Plug 'machakann/vim-highlightedyank'
-" Vim surround
-Plug 'tpope/vim-surround'
-" Git diff
-Plug 'airblade/vim-gitgutter'
-" Better folding
-Plug 'Konfekt/FastFold'
-" Trailing whitespace
-Plug 'inkarkat/vim-ShowTrailingWhitespace' ", { 'branch': 'stable' }
-" Git
-Plug 'tpope/vim-fugitive', {'on': []}
-call timer_start(0, {id->execute("call plug#load('vim-fugitive')")})
-" Statusline
-Plug 'vim-airline/vim-airline', {'on': []}
-call timer_start(0, {id->execute("call plug#load('vim-airline')")} )
-Plug 'bling/vim-bufferline'
-" Smooth-scroll
-Plug 'psliwka/vim-smoothie'
 
+" Fuzzy-finder
+" Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
+Plug 'junegunn/fzf.vim'
+
+" Git
+Plug 'tpope/vim-fugitive'
+
+" Statusline
+Plug 'bling/vim-bufferline'
+Plug 'vim-airline/vim-airline', { 'on': [] }
 
 " Misc
 " ----
+Plug 'amix/vim-zenroom2'
+Plug 'majutsushi/tagbar'
+Plug 'Shougo/echodoc.vim'					" Echo function usage
+Plug 'alok/notational-fzf-vim'
+Plug 'mbbill/undotree'
+Plug 'airblade/vim-rooter' 					" Change root dir
+Plug 'machakann/vim-highlightedyank'
+Plug 'tpope/vim-surround'
+Plug 'Konfekt/FastFold' 					" Better folding
+Plug 'airblade/vim-gitgutter' 				" Git diff
+Plug 'inkarkat/vim-ShowTrailingWhitespace' 	" Trailing whitespace
+Plug 'psliwka/vim-smoothie'					" Smooth-scroll
 Plug 'tpope/vim-abolish'
 Plug 'mox-mox/vim-localsearch'
 Plug 'mtth/scratch.vim'
 Plug 'AndrewRadev/bufferize.vim'
 Plug 'ncm2/float-preview.nvim'
 Plug 'Yggdroot/indentLine'
-Plug 'svermeulen/vim-yoink'
 Plug 'tpope/vim-repeat'
+Plug 'tpope/vim-commentary'					" gc<motion> = toggle comment
+Plug 'svermeulen/vim-yoink'					" Clipboard
+
 
 " Python
 " -------
-Plug 'nvie/vim-flake8', {'for': 'python', 'on': []}					" Python linter
-Plug 'Vimjas/vim-python-pep8-indent', {'for': 'python', 'on': [] }	" Python PEP8 autoindent
-Plug 'kalekundert/vim-coiled-snake', {'for': 'python', 'on': [] }	" Python folding
-Plug 'dense-analysis/ale'											" Auto-linter
-call timer_start(0, {id->execute("call plug#load('nvie/vim-flake8')")})
-call timer_start(0, {id->execute("call plug#load('vim-python-pep8-indent')")})
-call timer_start(0, {id->execute("call plug#load('vim-coiled-snake')")})
-
+Plug 'nvie/vim-flake8', {'for': 'python'}					" Python linter
+Plug 'Vimjas/vim-python-pep8-indent', {'for': 'python' }	" Python PEP8 autoindent
+Plug 'subnut/vim-coiled-snake', { 'for': 'python' }			" Python folding
+Plug 'dense-analysis/ale'									" Auto-linter
+Plug 'psf/black', { 'branch': 'stable', 'for': 'python' }					" Auto-formatter
+autocmd BufWritePre *.py execute ':Black'
 
 call plug#end()
+
+call timer_start(0, {id->execute("call plug#load('vim-airline')")} )
+call timer_start(0, {id->execute("call plug#load('ncm2-yoink')")})
 
 " YouCompleteMe lazy loading
 " ---------------------------
@@ -131,7 +115,7 @@ call plug#end()
 if (has("termguicolors"))
 	set termguicolors
 endif
-call timer_start(0, {id->execute("syntax enable")})
+syntax enable
 
 " Colorscheme
 " -----------
@@ -143,13 +127,28 @@ let g:my_env_bg = $MY_NVIM_BG
 fun My_bg_setter()
 	if g:my_env_bg == 'dark'
 		set background=dark
-	else
-		if g:my_env_bg == 'light'
-			set background=light
-		endif
+	elseif g:my_env_bg == 'light'
+		set background=light
 	endif
 endfun
 call My_bg_setter()
+
+
+" Goyo customization
+" ------------------
+let g:goyo_width=100
+let g:goyo_height=20
+fun! s:goyo_enter()
+	hi CursorLine gui=NONE
+	AirlineToggle
+endfun
+fun! s:goyo_leave()
+	hi CursorLine gui=underline
+	AirlineToggle
+endfun
+autocmd! User GoyoEnter nested call <SID>goyo_enter()
+autocmd! User GoyoLeave nested call <SID>goyo_leave()
+
 
 " Customize colorscheme
 " ---------------------
@@ -238,6 +237,8 @@ if MyOnBattery()
 	let g:ale_lint_delay = 5000
 	let g:ale_lint_on_text_changed = 'never'
 	let g:ncm2#complete_delay = 200
+	let g:mkdp_refresh_slow = 1	" Only refresh on leaving insert mode
+
 endif
 
 
@@ -453,13 +454,15 @@ nnoremap <silent> <C-i> :IndentLinesToggle <CR>
 
 " vim-yoink
 " ---------
-nmap <c-p> <plug>(YoinkPostPasteSwapBack)
-nmap <c-[> <plug>(YoinkPostPasteSwapForward)
-nmap p <plug>(YoinkPaste_p)
-nmap P <plug>(YoinkPaste_P)
+" Alt+P and Alt+Shift+P
+nmap <a-p> <plug>(YoinkPostPasteSwapBack)
+nmap <a-s-p> <plug>(YoinkPostPasteSwapForward)
 " Do not change cursor position after yanking
 nmap y <plug>(YoinkYankPreserveCursorPosition)
 xmap y <plug>(YoinkYankPreserveCursorPosition)
+" Remap p and P to yoink
+nmap p <plug>(YoinkPaste_p)
+nmap P <plug>(YoinkPaste_P)
 let g:yoinkIncludeDeleteOperations = 1
-let g:yoinkMoveCursorToEndOfPaste = 1
-
+let g:yoinkMoveCursorToEndOfPaste = 1		" ... after pasting
+let g:yoinkSwapClampAtEnds = 0				" Cycle thru the list while swapping

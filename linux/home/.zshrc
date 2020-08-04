@@ -76,7 +76,7 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git sudo fancy-ctrl-z zsh_reload taskwarrior virtualenv pyenv zsh-autosuggestions fzf wd z zsh-syntax-highlighting)
+plugins=(git sudo fancy-ctrl-z zsh_reload taskwarrior virtualenv pyenv zsh-autosuggestions fzf wd z fast-syntax-highlighting)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -131,8 +131,8 @@ my_run_bat_4 () {
 	if [[ $* =~ (-h) || -z $* ]]
 	then echo "Execute Windows Batch files from WSL
 
-  Usage: runbat [options] path
-  Options:
+Usage: runbat [options] path
+Options:
 	-h or --help	Show this help window and exit
 
 Executes the specified file at the C: drive.
@@ -195,7 +195,7 @@ alias camerastatus="l /dev/video*"
 
 
 if ! [[ -z $MY_NVIM_BG ]] && [[ $KITTY_WINDOW_ID -eq 1 ]]
-	then echo 'if [[ $MY_NVIM_BG == "light" ]];then export MY_NVIM_BG="dark"; fi; alias colorls="colorls"' > ~/.config/kitty/custom_zsh_source
+	then echo 'if [[ $MY_NVIM_BG == "light" ]];then export MY_NVIM_BG="dark"; alias colorls="colorls"; export BAT_THEME="gruvbox (Dark) (Hard)"; fi' > ~/.config/kitty/custom_zsh_source
 fi
 
 
@@ -221,12 +221,14 @@ toggle_theme () {
 	then export MY_NVIM_BG='light'
 		kitty @ set-colors -a -c ~/.config/kitty/gruvbox_light_hard.conf
 		alias colorls="colorls --light"
-		echo 'if [[ $MY_NVIM_BG == "dark" ]];then export MY_NVIM_BG="light"; fi; alias colorls="colorls --light"' > ~/.config/kitty/custom_zsh_source
+		export BAT_THEME="gruvbox (Light) (Hard)"
+		echo 'if [[ $MY_NVIM_BG == "dark" ]];then export MY_NVIM_BG="light"; alias colorls="colorls --light"; export BAT_THEME="gruvbox (Light) (Hard)"; fi' > ~/.config/kitty/custom_zsh_source
 	else if [[ $MY_NVIM_BG == 'light' ]]
 	then export MY_NVIM_BG='dark'
 		kitty @ set-colors -a -c ~/.config/kitty/gruvbox_dark_hard.conf
 		alias colorls="colorls"
-		echo 'if [[ $MY_NVIM_BG == "light" ]];then export MY_NVIM_BG="dark"; fi; alias colorls="colorls"' > ~/.config/kitty/custom_zsh_source
+		export BAT_THEME="gruvbox (Dark) (Hard)"
+		echo 'if [[ $MY_NVIM_BG == "light" ]];then export MY_NVIM_BG="dark"; alias colorls="colorls"; export BAT_THEME="gruvbox (Dark) (Hard)"; fi' > ~/.config/kitty/custom_zsh_source
 	fi
 	fi
 	echo -n "get_theme\n" | kitty @ send-text -t="title:subhaditya@EndeavourPad" --stdin
@@ -247,3 +249,6 @@ alias gcm=my_gcm
 alias gcma=my_gcma
 
 alias icat="kitty +kitten icat"
+
+alias theme_light="gsettings set org.gnome.desktop.interface gtk-theme Layan-light && gsettings set org.gnome.desktop.interface icon-theme Tela-blue"
+alias theme_dark="gsettings set org.gnome.desktop.interface gtk-theme Layan-dark && gsettings set org.gnome.desktop.interface icon-theme Tela-blue-dark"
