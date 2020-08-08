@@ -41,7 +41,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " Markdown
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
-Plug 'gabrielelana/vim-markdown', {'for': 'markdown'}
+Plug 'gabrielelana/vim-markdown', { 'for': 'markdown' }
 
 " Focus on code only
 Plug 'junegunn/goyo.vim'
@@ -87,13 +87,12 @@ Plug 'svermeulen/vim-yoink'					" Clipboard
 " -------
 Plug 'nvie/vim-flake8', {'for': 'python'}					" Python linter
 Plug 'Vimjas/vim-python-pep8-indent', {'for': 'python' }	" Python PEP8 autoindent
-Plug 'subnut/vim-coiled-snake', { 'for': 'python' }			" Python folding
+Plug 'kalekundert/vim-coiled-snake', { 'for': 'python' }			" Python folding
 Plug 'dense-analysis/ale'									" Auto-linter
 Plug 'psf/black', { 'branch': 'stable', 'for': 'python' }					" Auto-formatter
 autocmd BufWritePre *.py execute ':Black'
 
 call plug#end()
-
 call timer_start(0, {id->execute("call plug#load('vim-airline')")} )
 call timer_start(0, {id->execute("call plug#load('ncm2-yoink')")})
 
@@ -306,12 +305,16 @@ set gdefault		" Substitute all occurences on a line
 
 " MarkdownPreview
 " ---------------
-function MarkdownBrowser(url)
+function MarkdownBrowserFirefox(url)
 	silent! execute "!firefox" shellescape("--new-window") string(a:url) | redraw!
 endfunction
-let g:mkdp_browserfunc='MarkdownBrowser'
+function MarkdownBrowserQute(url)
+	silent! execute "!qutebrowser" shellescape("--target") 'window' string(a:url) '&' | redraw!
+endfunction
+let g:mkdp_browserfunc='MarkdownBrowserQute'
 
 " FZF
+" ---
 " This is the default extra key bindings
 let g:fzf_action = {
 	\ 'ctrl-t': 'tab split',
@@ -322,6 +325,7 @@ let g:fzf_action = {
 
 
 " Undo history
+" ------------
 if has('persistent_undo')										" guard for distributions lacking the persistent_undo feature.
 		let target_path = expand('~/.nvim-undo-history/')		" define a path to store persistent_undo files
 		if !isdirectory(target_path)							" if the location does not exist,
@@ -333,6 +337,7 @@ endif
 
 
 " Notational velocity
+" -------------------
 " let g:nv_search_paths = ['~/notes', 'docs.md','./notes.md']
 let g:nv_search_paths = ['~/Notes', './Notes', './Notes.md', './README.md']
 let g:nv_ignore_files = 1
@@ -340,16 +345,19 @@ let g:nv_use_short_pathnames=1
 let g:nv_ignore_pattern = ['*NVignore*', '*.sh']
 
 " Default split direction
+" -----------------------
 set splitright
 set splitbelow
 
 " Vim rooter
+" ----------
 let g:rooter_change_directory_for_non_project_files = 'current'
 let g:rooter_silent_chdir = 1
 let g:rooter_cd_cmd= "lcd"	" change directory for the current window only
 let g:rooter_resolve_links = 1
 
 " Python folding (vim-coiled-snake)
+" --------------
 filetype plugin indent on
 let g:coiled_snake_set_foldtext = 1
 
@@ -364,17 +372,20 @@ let g:highlightedyank_highlight_duration = -1			" A negative number makes the hi
 " Note that the line should be located AFTER the :colorscheme command execution in your vimrc.
 
 " Python linter config
+" --------------------
 let g:flake8_quickfix_height=15		" Height of quickfix window
 let g:flake8_show_in_gutter=1		" show signs in gutter
 let g:flake8_error_marker='❌'		" set error marker to 'EE'
 let g:flake8_warning_marker='W'		" set warning marker to 'WW'
 
 " Git gutter
+" ----------
 set signcolumn=yes
 let g:gitgutter_set_sign_backgrounds = 1
 "hi clear SignColumn	" Included in colorscheme_overrides
 
 " vim-airline
+" -----------
 set noshowmode
 let g:bufferline_echo = 0
 let g:bufferline_modified = ' +'
@@ -437,7 +448,8 @@ inoremap <expr><CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 autocmd BufEnter * call timer_start(0, {id->execute("call ncm2#enable_for_buffer()")})
 " IMPORTANT: :help Ncm2PopupOpen for more information
 set completeopt=noinsert,menuone,noselect
-
+" Disable syntax hint after completion
+let g:ncm2_jedi#call_sig_hint = 0
 
 " Gabrielana markdown
 " -------------------
@@ -466,3 +478,4 @@ nmap P <plug>(YoinkPaste_P)
 let g:yoinkIncludeDeleteOperations = 1
 let g:yoinkMoveCursorToEndOfPaste = 1		" ... after pasting
 let g:yoinkSwapClampAtEnds = 0				" Cycle thru the list while swapping
+

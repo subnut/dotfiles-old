@@ -12,6 +12,24 @@ export HWMON_PATH="/sys/class/hwmon/hwmon$(for i in /sys/class/hwmon/hwmon*/temp
 
 </br>
 
+#### To setup neovim virtualenv:
+```zsh
+mkdir ~/.config/nvim/venv
+cd ~/.config/nvim/venv
+python -m venv .
+source ~/.config/nvim/venv/bin/activate   # Or, if u have copied the .zshrc, u can simply run nvimvenv
+pip install pynvim jedi
+```
+   * Run `which python`
+   * Copy the output
+   * at the topmost of your `init.vim` define `let g:python3_host_prog` with the copied value, e.g. `g:python3_host_prog = '/home/subhaditya/.config/nvim/venv/bin/python'`
+   * install any required modules (e.g. jedi, mypy, etc)
+   * `deactivate`
+
+To install any module anytime, run `nvimvenv`, do the `pip install` whatever, then `deactivate`
+
+</br>
+
 ### NOTE: The guide written below is TOTALLY outdated. Proceed at your own risk.
 
 

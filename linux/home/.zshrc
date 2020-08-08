@@ -184,7 +184,7 @@ pyenv global system pypy3.6-7.3.1
 export PATH=/home/subhaditya/Notes/:$PATH
 alias notes=notes.sh
 
-export DISPLAY=:0
+if [[ -z $DISPLAY ]]; then export DISPLAY=:0; fi
 my_man () { if [[ $* = 'z' ]] ; then sh -c "man ~/.oh-my-zsh/plugins/z/z.1"; else sh -c "man $*"; fi }
 alias man=my_man
 export PATH=./:$PATH
@@ -249,6 +249,9 @@ alias gcm=my_gcm
 alias gcma=my_gcma
 
 alias icat="kitty +kitten icat"
+alias qr="qrencode -t UTF8"
+alias nvimvenv="source ~/.config/nvim/venv/bin/activate"
 
 alias theme_light="gsettings set org.gnome.desktop.interface gtk-theme Layan-light && gsettings set org.gnome.desktop.interface icon-theme Tela-blue"
 alias theme_dark="gsettings set org.gnome.desktop.interface gtk-theme Layan-dark && gsettings set org.gnome.desktop.interface icon-theme Tela-blue-dark"
+

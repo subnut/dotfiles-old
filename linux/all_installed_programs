@@ -32,7 +32,6 @@ at-spi2-core
 atk
 atkmm
 attr
-audiofile
 audit
 autoconf
 automake
@@ -146,7 +145,7 @@ e2fsprogs
 efibootmgr
 efitools
 efivar
-electron6
+electron
 electron7
 elfutils
 enca
@@ -220,6 +219,7 @@ gdl
 gdm
 gedit
 gegl
+genymotion
 geoclue
 geocode-glib
 geogebra
@@ -331,6 +331,7 @@ gst-plugins-base
 gst-plugins-base-libs
 gst-plugins-good
 gst-plugins-ugly
+gst-python
 gstreamer
 gtk-engine-murrine
 gtk-layer-shell
@@ -407,7 +408,6 @@ jome-git
 jq
 jre-openjdk
 jre-openjdk-headless
-js60
 js68
 json-c
 json-glib
@@ -551,7 +551,6 @@ libmaxminddb
 libmediaart
 libmfx
 libmicrohttpd
-libmikmod
 libmm-glib
 libmms
 libmng
@@ -776,6 +775,7 @@ mod_dnssd
 mono
 mono-addins
 mons
+mopidy
 mousepad
 mpc
 mpfr
@@ -887,7 +887,7 @@ perl-uri
 perl-www-robotrules
 perl-xml-parser
 perl-xml-writer
-pfetch
+pfetch-git
 phonon-qt5
 phonon-qt5-gstreamer
 picom-ibhagwan-git
@@ -926,6 +926,7 @@ python
 python-appdirs
 python-asn1crypto
 python-atspi
+python-attrs
 python-babel
 python-beaker
 python-brotli
@@ -945,6 +946,7 @@ python-greenlet
 python-html5lib
 python-idna
 python-imagesize
+python-jinja
 python-lxml
 python-mako
 python-markdown
@@ -959,11 +961,15 @@ python-ply
 python-progress
 python-psutil
 python-pycparser
+python-pygments
+python-pykka
 python-pynvim
 python-pyopenssl
 python-pyparsing
+python-pypeg2
 python-pyqt5
 python-pyqt5-sip
+python-pyqtwebengine
 python-pytz
 python-pyxdg
 python-requests
@@ -974,13 +980,17 @@ python-setuptools
 python-sip
 python-six
 python-toml
+python-tornado
 python-urllib3
 python-webencodings
 python-xlib
+python-yaml
 python2
+qca
 qmltermwidget
 qopenvpn
 qpdf
+qrencode
 qt5-base
 qt5-declarative
 qt5-graphicaleffects
@@ -995,6 +1005,7 @@ qt5-webkit
 qt5-x11extras
 qterminal
 qtermwidget
+qutebrowser
 radeontop-git
 raptor
 rasqal
@@ -1046,6 +1057,7 @@ shared-color-targets
 shared-mime-info
 shfmt
 simple-scan
+simplenote-electron-bin
 simplescreenrecorder
 slang
 smartmontools
@@ -1117,6 +1129,7 @@ tpacpi-bat
 tracker
 tracker-miners
 transmission-gtk
+tree
 tslib
 ttf-bitstream-vera
 ttf-caladea
@@ -1271,7 +1284,6 @@ xvidcore
 xxhash
 xz
 yad
-yajl
 yay
 yelp
 yelp-tools

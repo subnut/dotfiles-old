@@ -8,6 +8,9 @@ killall -q /usr/lib/gsd-xsettings &>/dev/null
 
 if ! [[ `bspc query --desktops --names` =~ "Desktop" ]]; then for MONITOR in $(bspc query -M --names); do bspc monitor $MONITOR -d I II III IV V VI VII VIII IX T XI XII XIII XIV XV XVI XVII XVIII XIX XX XXI XXII $(for y in $(bspc query -D -m $MONITOR --names | grep temp); do echo -n "$y "; done );done;else for MONITOR in $(bspc query -M --names); do bspc monitor $MONITOR -d I II III IV V VI VII VIII IX T XI XII XIII XIV XV XVI XVII XVIII XIX XX XXI XXI;done; fi
 
+kill $(pgrep --full "this is a comment for my borderer")
+zsh -c "while read -r my_auto_something; do if [[ \$my_auto_something =~ 'T@' ]];then bspc config border_width 10;else bspc config border_width 0;fi ;done < <(bspc subscribe); # this is a comment for my borderer" &
+
 #else bspc monitor -d I II III IV V VI VII VIII IX T XI XII XIII XIV XV XVI XVII XVIII XIX XX XXI XXII; fi
 
 bspc config border_width         0

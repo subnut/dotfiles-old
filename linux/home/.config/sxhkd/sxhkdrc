@@ -45,7 +45,7 @@ super + {_,ctrl + }backslash
 	sleep 0.5; \
 	picom-trans -c 0; \
 	bspc wm -h off; \
-	bspc node older -f; \
+	bspc node older.local -f; \
 	bspc wm -h on
 
 # screen blocker
@@ -53,7 +53,7 @@ super + shift + backslash
 	kitty -o background_opacity=1 --class "kittyBlocker" --detach sh -c "tput civis; sleep 365d"; \
 	sleep 0.5; \
 	bspc wm -h off; \
-	bspc node older -f; \
+	bspc node older.local -f; \
 	bspc wm -h on
 
 
@@ -128,8 +128,12 @@ super + shift + {h,j,k,l}
 	bspc node -n {west.!automatic || bspc node -s west,south.!automatic || bspc node -s south,north.!automatic || bspc node -s north ,east.!automatic || bspc node -s east}
 
 # focus the next/previous node/desktop in the current desktop
-{alt,super} + {_,shift + }Tab
-	bspc {node,desktop} -f {next,prev}.local
+super + {_,shift + }Tab
+	bspc desktop -f {next,prev}.local
+
+# focus nodes, not leaves
+alt + {_,shift + } + {_,ctrl} +Tab
+	bspc node -f {next,prev}.local.{leaf,\!leaf} || bspc node -f next.local.leaf
 
 # focus the last node/desktop
 {alt,super} + grave
