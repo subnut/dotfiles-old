@@ -238,9 +238,6 @@ alias to=toggle_theme
 alias py=python
 export PYTHONSTARTUP=~/.pythonrc
 
-pepb () { black -l 79 $* | colordiff }
-# pepbd () { black -l 79 --diff $* | colordiff }
-pepbd () { black -l 79 --color --diff $* }
 alias gcm=
 alias gcma=
 my_gcm () { git commit -m "$*" }

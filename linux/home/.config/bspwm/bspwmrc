@@ -60,6 +60,7 @@ zsh <<< 'if grep -q "suspend cause: USER" <(pacmd info); then notify-send.sh -u 
 
 if pidof acpid; then true; else zsh <<< "kitty sh -c 'echo \"Starting acpid ...\"; sudo acpid' &"; fi &
 if [[ -r /dev/video0 || -r /dev/video1 ]]; then zsh <<< "kitty sh -c 'echo \"Disabling camera ...\"; sudo chmod -r /dev/video*' &"; fi &
+# if ! pidof dropbear; then zsh <<< "kitty sh -c 'echo \"Starting acpid ...\"; sudo acpid' &"; fi &
 
 killall -q picom
 exec picom

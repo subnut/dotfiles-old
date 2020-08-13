@@ -1,22 +1,36 @@
  function p10k-on-post-widget() {
+	if [[ $my_command_line_contents != $PREBUFFER$BUFFER ]]; then
+	typeset -g my_command_line_contents=$PREBUFFER$BUFFER
+	fi
+	# my_qrcode_displayer
  	my_z_updater_function
+	typeset -g my_qr_args=$(echo $my_command_line_contents | cut -d' ' -f2)
+	if [[ $my_command_line_contents =~ '^qr\ \S' ]]
+	then
+		if ! [[ $my_qr_prev_args = $my_qr_args ]]
+		then zle -M "$(qrencode -t UTF8 $my_qr_args)"
+		typeset -g my_qr_prev_args=$my_qr_args
+		fi
+	elif [[ $my_command_line_contents =~ '^qr\ ' ]] && ! [[ -z $my_qr_prev_args ]]; then
+		zle -M ''
+		typeset -g my_qr_prev_args=''
+	fi
  }
+
  function my_z_updater_function() {
-   if [[ $my_command_line_contents != $PREBUFFER$BUFFER ]]; then
-     typeset -g my_command_line_contents=$PREBUFFER$BUFFER
- 	typeset -g my_z_args=$(echo $my_command_line_contents | cut -d'z' -f2 | cut -d' ' -f2)
- 	if [[ $my_command_line_contents =~ '^z\ .' ]]
+	typeset -g my_z_args=$(echo $my_command_line_contents | cut -d'z' -f2 | cut -d' ' -f2)
+ 	if [[ $my_command_line_contents =~ '^z\ \S' ]]
  	then typeset -g my_z_text=$(_z 2>&1 -e $my_z_args)
  	else typeset -g my_z_text=''
  	fi
-   fi
-   if ! [[ $my_z_prev_text = $my_z_text ]]
-   then
-   p10k display -r
-   typeset -g my_z_prev_text=$my_z_text
-   fi
+    if ! [[ $my_z_prev_text = $my_z_text ]]
+    then
+	   p10k display -r
+	   typeset -g my_z_prev_text=$my_z_text
+    fi
+}
 
- }
+
  function prompt_my_z_path() {
    p10k segment -b 0 -f 7 -e -t '${(V)my_z_text//\%/%%}'
  }

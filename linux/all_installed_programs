@@ -331,7 +331,6 @@ gst-plugins-base
 gst-plugins-base-libs
 gst-plugins-good
 gst-plugins-ugly
-gst-python
 gstreamer
 gtk-engine-murrine
 gtk-layer-shell
@@ -775,7 +774,6 @@ mod_dnssd
 mono
 mono-addins
 mons
-mopidy
 mousepad
 mpc
 mpfr
@@ -837,7 +835,6 @@ openvpn
 opus
 orage
 orc
-orca
 os-prober
 osinfo-db
 p11-kit
@@ -962,7 +959,6 @@ python-progress
 python-psutil
 python-pycparser
 python-pygments
-python-pykka
 python-pynvim
 python-pyopenssl
 python-pyparsing
@@ -980,7 +976,6 @@ python-setuptools
 python-sip
 python-six
 python-toml
-python-tornado
 python-urllib3
 python-webencodings
 python-xlib

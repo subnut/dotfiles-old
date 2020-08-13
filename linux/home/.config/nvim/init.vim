@@ -1,6 +1,8 @@
 let g:python3_host_prog = '/home/subhaditya/.config/nvim/venv/bin/python'
 
 call plug#begin()
+" Make sure you use single quotes
+
 
 " Auto-complete
 " -------------
@@ -81,19 +83,20 @@ Plug 'Yggdroot/indentLine'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'					" gc<motion> = toggle comment
 Plug 'svermeulen/vim-yoink'					" Clipboard
+Plug 'sheerun/vim-polyglot'					" Polyglot => one who knows many languages
 
 
 " Python
 " -------
 Plug 'nvie/vim-flake8', {'for': 'python'}					" Python linter
-Plug 'Vimjas/vim-python-pep8-indent', {'for': 'python' }	" Python PEP8 autoindent
-Plug 'kalekundert/vim-coiled-snake', { 'for': 'python' }			" Python folding
+Plug 'Vimjas/vim-python-pep8-indent', {'for': 'python'}		" Python PEP8 autoindent
+Plug 'kalekundert/vim-coiled-snake', {'for': 'python'}		" Python folding
 Plug 'dense-analysis/ale'									" Auto-linter
-Plug 'psf/black', { 'branch': 'stable', 'for': 'python' }					" Auto-formatter
+Plug 'psf/black', {'branch': 'stable', 'for': 'python'}		" Auto-formatter
 autocmd BufWritePre *.py execute ':Black'
 
 call plug#end()
-call timer_start(0, {id->execute("call plug#load('vim-airline')")} )
+call timer_start(0, {id->execute("call plug#load('vim-airline')")})
 call timer_start(0, {id->execute("call plug#load('ncm2-yoink')")})
 
 " YouCompleteMe lazy loading
@@ -311,7 +314,7 @@ endfunction
 function MarkdownBrowserQute(url)
 	silent! execute "!qutebrowser" shellescape("--target") 'window' string(a:url) '&' | redraw!
 endfunction
-let g:mkdp_browserfunc='MarkdownBrowserQute'
+let g:mkdp_browserfunc='MarkdownBrowserFirefox'
 
 " FZF
 " ---
@@ -393,8 +396,10 @@ if !exists('g:airline_symbols')
 	let g:airline_symbols = {}
 endif
 let g:airline_symbols.readonly = '[RO]'
-
-
+let g:airline_section_z = '%p%%%#__accent_bold# | %#__restore__#%L% '
+let g:airline#parts#ffenc#skip_expected_string = 'utf-8[unix]'
+let g:airline_section_y = '%{airline#util#wrap(airline#parts#filetype(),0)}'
+let g:airline_section_x = '%{airline#util#prepend("",0)}%{airline#util#prepend(airline#extensions#tagbar#currenttag(),0)}%{airline#util#prepend("",0)}%{airline#util#prepend("",0)}%{airline#util#prepend("",0)}%{airline#util#prepend(airline#parts#ffenc(),0)}'
 
 " Show non-printable characters
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
@@ -434,22 +439,23 @@ endif
 " ----------------------------------------
 inoremap <silent><expr><tab>	pumvisible() ? "\<c-n>"  : "\<tab>"
 inoremap <silent><expr><s-tab>	pumvisible() ? "\<c-p>"  : "\<s-tab>"
-inoremap <expr><Down>			pumvisible() ? "\<C-n>"  : "\<Down>"
-inoremap <expr><Up> 			pumvisible() ? "\<C-p>"  : "\<Up>"
+" inoremap <expr><Down>			pumvisible() ? "\<C-n>"  : "\<Down>"
+" inoremap <expr><Up> 			pumvisible() ? "\<C-p>"  : "\<Up>"
+inoremap <expr> <up> pumvisible() ? '<c-e><up>' : '<up>'
+inoremap <expr> <down> pumvisible() ? '<c-e><down>' : '<down>'
 
 " NCM2
 " ----
 " When the <Enter> key is pressed while the popup menu is visible, it only
-" hides the menu. Use this mapping to close the menu and also start a new
-" line.
-inoremap <expr><CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+" hides the menu. Use this mapping to close the menu and also start a newline.
+	inoremap <expr><CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 " enable ncm2 for all buffers
 " autocmd BufEnter * call ncm2#enable_for_buffer()
-autocmd BufEnter * call timer_start(0, {id->execute("call ncm2#enable_for_buffer()")})
+	autocmd BufEnter * call timer_start(0, {id->execute("call ncm2#enable_for_buffer()")})
 " IMPORTANT: :help Ncm2PopupOpen for more information
-set completeopt=noinsert,menuone,noselect
-" Disable syntax hint after completion
-let g:ncm2_jedi#call_sig_hint = 0
+	set completeopt=noinsert,menuone,noselect
+" Disable syntax hint after completion in python
+"	let g:ncm2_jedi#call_sig_hint = 0
 
 " Gabrielana markdown
 " -------------------
@@ -478,4 +484,5 @@ nmap P <plug>(YoinkPaste_P)
 let g:yoinkIncludeDeleteOperations = 1
 let g:yoinkMoveCursorToEndOfPaste = 1		" ... after pasting
 let g:yoinkSwapClampAtEnds = 0				" Cycle thru the list while swapping
+
 
