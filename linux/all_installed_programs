@@ -44,7 +44,6 @@ bash
 bash-completion
 bat
 bc
-bcg729
 bemenu
 bemenu-wlroots
 bind
@@ -56,11 +55,11 @@ blueberry
 bluez
 bluez-libs
 bluez-tools
+bluez-utils
 bolt
 boost-libs
 brave-bin
 breeze-gtk
-brltty
 brotli
 bspwc-git
 bspwm-git
@@ -922,7 +921,6 @@ pygobject-devel
 python
 python-appdirs
 python-asn1crypto
-python-atspi
 python-attrs
 python-babel
 python-beaker
@@ -1183,7 +1181,7 @@ whois
 wildmidi
 windscribe-cli
 wireless-regdb
-wireshark-cli
+wireless_tools
 wlroots-git
 wltrunk-git
 woff2

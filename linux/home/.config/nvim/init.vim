@@ -437,12 +437,12 @@ endif
 
 " Navigate through suggestions using TAB and Arrows
 " ----------------------------------------
-inoremap <silent><expr><tab>	pumvisible() ? "\<c-n>"  : "\<tab>"
-inoremap <silent><expr><s-tab>	pumvisible() ? "\<c-p>"  : "\<s-tab>"
-" inoremap <expr><Down>			pumvisible() ? "\<C-n>"  : "\<Down>"
-" inoremap <expr><Up> 			pumvisible() ? "\<C-p>"  : "\<Up>"
-inoremap <expr> <up> pumvisible() ? '<c-e><up>' : '<up>'
-inoremap <expr> <down> pumvisible() ? '<c-e><down>' : '<down>'
+inoremap <silent><expr><tab>	pumvisible() ? "\<c-n>"  		: "\<tab>"
+inoremap <silent><expr><s-tab>	pumvisible() ? "\<c-p>"  		: "\<s-tab>"
+inoremap <expr> <up> 			pumvisible() ? "<c-e><up>"		: "<up>"
+inoremap <expr> <down> 			pumvisible() ? "<c-e><down>" 	: "<down>"
+" inoremap <expr><Down>			pumvisible() ? "\<C-n>"  		: "\<Down>"
+" inoremap <expr><Up> 			pumvisible() ? "\<C-p>"  		: "\<Up>"
 
 " NCM2
 " ----
@@ -485,4 +485,10 @@ let g:yoinkIncludeDeleteOperations = 1
 let g:yoinkMoveCursorToEndOfPaste = 1		" ... after pasting
 let g:yoinkSwapClampAtEnds = 0				" Cycle thru the list while swapping
 
-
+" vim-localsearch
+" ---------------
+" Toggle local search (leader is backlash \, the one beneath Backspace)
+" i.e. press \ /
+nmap <leader>/ <Plug>localsearch_toggle
+call localsearch#Toggle()	" Turn on by default
+command LocalSearch call localsearch#Toggle()
