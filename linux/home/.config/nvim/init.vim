@@ -33,7 +33,7 @@ Plug 'subnut/ncm2-github-emoji/', { 'do': './install.py' }
 " ----
 
 " Colorschemes
-Plug 'morhetz/gruvbox'
+Plug 'gruvbox-community/gruvbox'
 
 " File explorer
 Plug 'scrooloose/nerdtree'
