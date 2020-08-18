@@ -244,6 +244,7 @@ my_gcm () { git commit -m "$*" }
 my_gcma () { git commit --amend -m "$*" }
 alias gcm=my_gcm
 alias gcma=my_gcma
+alias gpull="git pull"
 
 alias icat="kitty +kitten icat"
 alias qr="qrencode -t UTF8"

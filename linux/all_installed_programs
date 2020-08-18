@@ -262,7 +262,6 @@ gnome-disk-utility
 gnome-documents
 gnome-epub-thumbnailer
 gnome-font-viewer
-gnome-keyring
 gnome-logs
 gnome-maps
 gnome-menus
@@ -1129,6 +1128,7 @@ ttf-caladea
 ttf-carlito
 ttf-croscore
 ttf-dejavu
+ttf-ibm-plex
 ttf-jetbrains-mono
 ttf-joypixels
 ttf-liberation
@@ -1181,7 +1181,6 @@ whois
 wildmidi
 windscribe-cli
 wireless-regdb
-wireless_tools
 wlroots-git
 wltrunk-git
 woff2

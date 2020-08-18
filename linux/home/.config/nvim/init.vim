@@ -1,3 +1,13 @@
+" Some notable key shortcuts
+" --------------------------
+" Ctrl-A - increase the number(s)
+" Ctrl-X - decrease the number(s)
+"
+" Ctrl-E - cursor-stationary UP
+" Ctrl-Y - cursor-stationary DOWN
+"
+" Ctrl-W {<,>}  vertical-split resizing
+
 let g:python3_host_prog = '/home/subhaditya/.config/nvim/venv/bin/python'
 
 call plug#begin()
@@ -16,6 +26,7 @@ call plug#begin()
 " ----
 Plug 'ncm2/ncm2'
 Plug 'roxma/nvim-yarp'
+Plug 'ncm2/float-preview.nvim'
 
 " Subscope-detectors
 Plug 'ncm2/ncm2-markdown-subscope'
@@ -28,12 +39,14 @@ Plug 'ncm2/ncm2-path'
 Plug 'ncm2/ncm2-jedi'
 Plug 'ncm2/ncm2-vim' | Plug 'Shougo/neco-vim'
 Plug 'svermeulen/ncm2-yoink', { 'on': [] }
-Plug 'subnut/ncm2-github-emoji/', { 'do': './install.py' }
+Plug 'subnut/ncm2-github-emoji', { 'do': 'python install.py' }
 
 " ----
 
 " Colorschemes
 Plug 'gruvbox-community/gruvbox'
+Plug 'reedes/vim-colors-pencil'
+Plug 'sonph/onehalf', {'rtp': 'vim'}
 
 " File explorer
 Plug 'scrooloose/nerdtree'
@@ -47,6 +60,7 @@ Plug 'gabrielelana/vim-markdown', { 'for': 'markdown' }
 
 " Focus on code only
 Plug 'junegunn/goyo.vim'
+Plug 'junegunn/limelight.vim'
 
 " Fuzzy-finder
 " Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
@@ -62,7 +76,6 @@ Plug 'vim-airline/vim-airline', { 'on': [] }
 
 " Misc
 " ----
-Plug 'amix/vim-zenroom2'
 Plug 'majutsushi/tagbar'
 Plug 'Shougo/echodoc.vim'					" Echo function usage
 Plug 'alok/notational-fzf-vim'
@@ -78,26 +91,33 @@ Plug 'tpope/vim-abolish'
 Plug 'mox-mox/vim-localsearch'
 Plug 'mtth/scratch.vim'
 Plug 'AndrewRadev/bufferize.vim'
-Plug 'ncm2/float-preview.nvim'
-Plug 'Yggdroot/indentLine'
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'					" gc<motion> = toggle comment
 Plug 'svermeulen/vim-yoink'					" Clipboard
 Plug 'sheerun/vim-polyglot'					" Polyglot => one who knows many languages
-
+Plug 'fedorenchik/vimcalc3'
+Plug 'ervandew/regex'
+Plug 'norcalli/nvim-colorizer.lua'
+Plug 'subnut/vim-iawriter'
+let g:iawriter_force_defaults = 1
 
 " Python
 " -------
-Plug 'nvie/vim-flake8', {'for': 'python'}					" Python linter
-Plug 'Vimjas/vim-python-pep8-indent', {'for': 'python'}		" Python PEP8 autoindent
-Plug 'kalekundert/vim-coiled-snake', {'for': 'python'}		" Python folding
+Plug 'nvie/vim-flake8', { 'for': 'python' }					" Python linter
+Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'python' }	" Python PEP8 autoindent
+Plug 'kalekundert/vim-coiled-snake', { 'for': 'python' }	" Python folding
 Plug 'dense-analysis/ale'									" Auto-linter
-Plug 'psf/black', {'branch': 'stable', 'for': 'python'}		" Auto-formatter
-autocmd BufWritePre *.py execute ':Black'
+Plug 'psf/black', { 'branch': 'stable', 'on': [] }			" Auto-formatter
+Plug 'Yggdroot/indentLine'
 
 call plug#end()
 call timer_start(0, {id->execute("call plug#load('vim-airline')")})
 call timer_start(0, {id->execute("call plug#load('ncm2-yoink')")})
+au BufEnter *.py call timer_start(0, {id->execute("call plug#load('black')")})
+augroup black_on_write
+	au!
+	autocmd BufWritePre *.py execute ':Black'
+augroup end
 
 " YouCompleteMe lazy loading
 " ---------------------------
@@ -114,10 +134,12 @@ call timer_start(0, {id->execute("call plug#load('ncm2-yoink')")})
 "autocmd InsertEnter * ++once call timer_start(0, {id->execute("call plug#load('YouCompleteMe')")} )
 
 " Set GUI colors
+" --------------
 if (has("termguicolors"))
 	set termguicolors
 endif
 syntax enable
+lua require'colorizer'.setup{''}
 
 " Colorscheme
 " -----------
@@ -142,14 +164,14 @@ let g:goyo_width=100
 let g:goyo_height=20
 fun! s:goyo_enter()
 	hi CursorLine gui=NONE
-	AirlineToggle
+	set ei+=FocusGained
 endfun
 fun! s:goyo_leave()
 	hi CursorLine gui=underline
-	AirlineToggle
+	set ei-=FocusGained
 endfun
-autocmd! User GoyoEnter nested call <SID>goyo_enter()
-autocmd! User GoyoLeave nested call <SID>goyo_leave()
+autocmd User GoyoEnter nested call <SID>goyo_enter()
+autocmd User GoyoLeave nested call <SID>goyo_leave()
 
 
 " Customize colorscheme
@@ -260,7 +282,7 @@ call SetupCommandAlias("FZF!!","FZF")
 call SetupCommandAlias("notes","NV!")
 call SetupCommandAlias("NV!!","NV")
 call SetupCommandAlias("~","cd ~")
-call SetupCommandAlias("so","source ~/.config/nvim/init.vim")
+" call SetupCommandAlias("so","source ~/.config/nvim/init.vim")
 
 
 
@@ -290,7 +312,7 @@ let g:NERDTreeStatusline = ''
 " Automaticaly close nvim if NERDTree is only thing left open
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " Toggle
-nnoremap <silent> <C-e> :NERDTreeToggle<CR>
+" nnoremap <silent> <C-e> :NERDTreeToggle<CR>
 
 
 " Open file at last cursor position
@@ -467,7 +489,6 @@ let g:indentLine_enabled = 0
 let g:indentLine_char = '│'
 " let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 let g:indentLine_setColors = 0
-let g:indentLine_color_gui = '#00ff00'
 nnoremap <silent> <C-i> :IndentLinesToggle <CR>
 
 " vim-yoink
@@ -491,4 +512,5 @@ let g:yoinkSwapClampAtEnds = 0				" Cycle thru the list while swapping
 " i.e. press \ /
 nmap <leader>/ <Plug>localsearch_toggle
 call localsearch#Toggle()	" Turn on by default
-command LocalSearch call localsearch#Toggle()
+command! LocalSearch call localsearch#Toggle()
+
