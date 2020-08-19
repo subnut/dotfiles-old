@@ -135,7 +135,7 @@ augroup end
 
 " Set GUI colors
 " --------------
-if (has("termguicolors"))
+if (has('termguicolors'))
 	set termguicolors
 endif
 syntax enable
@@ -149,9 +149,9 @@ colorscheme gruvbox
 " set bg=dark
 let g:my_env_bg = $MY_NVIM_BG
 fun My_bg_setter()
-	if g:my_env_bg == 'dark'
+	if g:my_env_bg ==? 'dark'
 		set background=dark
-	elseif g:my_env_bg == 'light'
+	elseif g:my_env_bg ==? 'light'
 		set background=light
 	endif
 endfun
@@ -272,16 +272,17 @@ fun! SetupCommandAlias(from, to)
 			\ .' ((getcmdtype() is# ":" && getcmdline() is# "'.a:from.'")'
 			\ .'? ("'.a:to.'") : ("'.a:from.'"))'
 endfun
-call SetupCommandAlias("W","w")
-call SetupCommandAlias("Q","q")
-call SetupCommandAlias("Qa","qa")
-call SetupCommandAlias("darkmode","set bg=dark")
-call SetupCommandAlias("lightmode","set bg=light")
-call SetupCommandAlias("fzf","FZF!")
-call SetupCommandAlias("FZF!!","FZF")
-call SetupCommandAlias("notes","NV!")
-call SetupCommandAlias("NV!!","NV")
-call SetupCommandAlias("~","cd ~")
+call SetupCommandAlias('W','w')
+call SetupCommandAlias('Q','q')
+call SetupCommandAlias('Qa','qa')
+call SetupCommandAlias('darkmode','set bg=dark')
+call SetupCommandAlias('lightmode','set bg=light')
+call SetupCommandAlias('fzf','FZF!')
+call SetupCommandAlias('FZF!!','FZF')
+call SetupCommandAlias('notes','NV!')
+call SetupCommandAlias('NV!!','NV')
+call SetupCommandAlias('~','cd ~')
+call SetupCommandAlias('python','python3')
 " call SetupCommandAlias("so","source ~/.config/nvim/init.vim")
 
 

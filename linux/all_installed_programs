@@ -977,7 +977,6 @@ python-urllib3
 python-webencodings
 python-xlib
 python-yaml
-python2
 qca
 qmltermwidget
 qopenvpn
@@ -1136,6 +1135,7 @@ ttf-opensans
 ttf-twemoji-color
 ttf-ubuntu-font-family
 ttf-windows
+tty-clock-borderless
 tumbler
 twolame
 tzdata
