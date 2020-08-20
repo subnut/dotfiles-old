@@ -1,3 +1,5 @@
+" vim: fdm=marker
+"
 " Some notable key shortcuts
 " --------------------------
 " Ctrl-A - increase the number(s)
@@ -9,21 +11,19 @@
 " Ctrl-W {<,>}  vertical-split resizing
 
 let g:python3_host_prog = '/home/subhaditya/.config/nvim/venv/bin/python'
-
 call plug#begin()
 " Make sure you use single quotes
 
 
 " Auto-complete
 " -------------
-
 " YouCompleteMe
 "Plug 'ycm-core/YouCompleteMe', { 'do': './install.py', 'on': [] }
 " Initialized later
 
 
 " NCM2
-" ----
+" -----------------------------------------------------------------------
 Plug 'ncm2/ncm2'
 Plug 'roxma/nvim-yarp'
 Plug 'ncm2/float-preview.nvim'
@@ -40,8 +40,7 @@ Plug 'ncm2/ncm2-jedi'
 Plug 'ncm2/ncm2-vim' | Plug 'Shougo/neco-vim'
 Plug 'svermeulen/ncm2-yoink', { 'on': [] }
 Plug 'subnut/ncm2-github-emoji', { 'do': 'python install.py' }
-
-" ----
+" -----------------------------------------------------------------------
 
 " Colorschemes
 Plug 'gruvbox-community/gruvbox'
@@ -120,7 +119,7 @@ augroup black_on_write
 augroup end
 
 " YouCompleteMe lazy loading
-" ---------------------------
+" ---------------------------	" {{{1
 "let g:YouCompleteMeLazyLoaded = 0
 "function! LazyLoadingYMC()
 "  if g:YouCompleteMeLazyLoaded == 0
@@ -132,6 +131,7 @@ augroup end
 "autocmd BufWinEnter * call timer_start(0, {id->execute('call LazyLoadingYMC()')} )
 "autocmd UIEnter * call timer_start(0, {id->execute('call LazyLoadingYMC()')} )
 "autocmd InsertEnter * ++once call timer_start(0, {id->execute("call plug#load('YouCompleteMe')")} )
+" }}}
 
 " Set GUI colors
 " --------------
@@ -219,7 +219,7 @@ nnoremap <silent> <C-A-n> :call ToggleLineNrCustomLocal()<CR>
 
 " LineNr toggling functions
 " -------------------------
-fun ToggleLineNrCustom()
+fun ToggleLineNrCustom()	" {{{1
 	if &nu == 0
 		SetAll nu 1
 		SetAll rnu 0
@@ -233,7 +233,7 @@ fun ToggleLineNrCustom()
 		endif
 	endif
 endfun
-fun ToggleLineNrCustomLocal()
+fun ToggleLineNrCustomLocal()	" {{{1
 	if &nu == 0
 		set nu
 	else
@@ -243,12 +243,12 @@ fun ToggleLineNrCustomLocal()
 			set nonu nornu
 		endif
 	endif
-endfun
+endfun	" }}}
 
 
 " Battery saver mode
 " ------------------
-function! MyOnBattery()
+function! MyOnBattery()	" {{{1
 	if has('macunix')
 		return match(system('pmset -g batt'), "Now drawing from 'Battery Power'") != -1
 	elseif has('unix')
@@ -256,22 +256,21 @@ function! MyOnBattery()
 	endif
 	return 0
 endfunction
-
+	" }}}
 if MyOnBattery()
 	let g:ale_lint_delay = 5000
 	let g:ale_lint_on_text_changed = 'never'
 	let g:ncm2#complete_delay = 200
 	let g:mkdp_refresh_slow = 1	" Only refresh on leaving insert mode
-
 endif
 
 
 " Aliases
-fun! SetupCommandAlias(from, to)
+fun! SetupCommandAlias(from, to)	" {{{1
 	exec 'cnoreabbrev <expr> '.a:from
 			\ .' ((getcmdtype() is# ":" && getcmdline() is# "'.a:from.'")'
 			\ .'? ("'.a:to.'") : ("'.a:from.'"))'
-endfun
+endfun	" }}}
 call SetupCommandAlias('W','w')
 call SetupCommandAlias('Q','q')
 call SetupCommandAlias('Qa','qa')
@@ -283,11 +282,12 @@ call SetupCommandAlias('notes','NV!')
 call SetupCommandAlias('NV!!','NV')
 call SetupCommandAlias('~','cd ~')
 call SetupCommandAlias('python','python3')
+call SetupCommandAlias('colo','MyColorscheme')
 " call SetupCommandAlias("so","source ~/.config/nvim/init.vim")
 
 
 
-" SetAll - 'set' for all tabs and windows
+" SetAll - 'set' for all tabs and windows	" {{{1
 " -------
 function! s:set_all(option, val, ...) abort
 	let val = eval(a:val)
@@ -299,7 +299,7 @@ function! s:set_all(option, val, ...) abort
 			call settabwinvar(t, w, '&'.a:option, val)
 		endfor
 	endfor
-endfunction
+endfunction	" }}}
 command! -complete=option -nargs=+ SetAll call s:set_all(<f-args>)
 
 
@@ -317,11 +317,11 @@ autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isT
 
 
 " Open file at last cursor position
-" ---------------------------------
+" ---------------------------------		" {{{1
 autocmd BufReadPost *
 	\ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
 	\ |   exe "normal! g`\""
-	\ | endif
+	\ | endif	" }}}
 
 
 " Live substitution (syntax: :%s/from/to)
@@ -332,10 +332,10 @@ set gdefault		" Substitute all occurences on a line
 " MarkdownPreview
 " ---------------
 function MarkdownBrowserFirefox(url)
-	silent! execute "!firefox" shellescape("--new-window") string(a:url) | redraw!
+	silent! execute '!firefox' shellescape('--new-window') string(a:url) | redraw!
 endfunction
 function MarkdownBrowserQute(url)
-	silent! execute "!qutebrowser" shellescape("--target") 'window' string(a:url) '&' | redraw!
+	silent! execute '!qutebrowser' shellescape('--target') 'window' string(a:url) '&' | redraw!
 endfunction
 let g:mkdp_browserfunc='MarkdownBrowserFirefox'
 
@@ -351,7 +351,7 @@ let g:fzf_action = {
 
 
 " Undo history
-" ------------
+" ------------	" {{{1
 if has('persistent_undo')										" guard for distributions lacking the persistent_undo feature.
 		let target_path = expand('~/.nvim-undo-history/')		" define a path to store persistent_undo files
 		if !isdirectory(target_path)							" if the location does not exist,
@@ -359,7 +359,7 @@ if has('persistent_undo')										" guard for distributions lacking the persist
 		endif
 		let &undodir = target_path								" point Vim to the defined undo directory
 		set undofile											" finally, enable undo persistence
-endif
+endif	" }}}
 
 
 " Notational velocity
@@ -379,7 +379,7 @@ set splitbelow
 " ----------
 let g:rooter_change_directory_for_non_project_files = 'current'
 let g:rooter_silent_chdir = 1
-let g:rooter_cd_cmd= "lcd"	" change directory for the current window only
+let g:rooter_cd_cmd= 'lcd'	" change directory for the current window only
 let g:rooter_resolve_links = 1
 
 " Python folding (vim-coiled-snake)
@@ -429,7 +429,7 @@ set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 " set list
 
 
-" Deoplete
+" Deoplete	"{{{
 " --------
 "let g:deoplete#enable_at_startup = 1
 "au InsertEnter * ++once call timer_start(0, {id->execute("call deoplete#custom#option('sources',{ 'python': ['jedi'] })")} )
@@ -439,6 +439,7 @@ set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
 "			\ 'sources': { 'python': ['jedi']},
 "			\ 'ignore_sources': {'_': ['around']},
 "			\ })")})
+"	}}}
 
 " Floating preview
 " ----------------
@@ -483,6 +484,8 @@ inoremap <expr> <down> 			pumvisible() ? "<c-e><down>" 	: "<down>"
 " Gabrielana markdown
 " -------------------
 let g:markdown_enable_insert_mode_mappings = 0
+let g:markdown_enable_spell_checking = 1
+let g:markdown_enable_mappings = 1
 
 " Indentline
 " ----------
@@ -514,4 +517,75 @@ let g:yoinkSwapClampAtEnds = 0				" Cycle thru the list while swapping
 nmap <leader>/ <Plug>localsearch_toggle
 call localsearch#Toggle()	" Turn on by default
 command! LocalSearch call localsearch#Toggle()
+
+
+" Workaround for correctly switching colorschemes	" {{{1
+" https://github.com/altercation/solarized/issues/102#issuecomment-275269574
+" https://github.com/altercation/solarized/issues/102#issuecomment-352329521
+" https://opensource.stackexchange.com/questions/2187/how-much-is-substantial-portion-in-mit-licence/2188#2188
+" -------------------------------------------------------------------------------------------------------------------------
+if !exists('s:known_links')
+  let s:known_links = {}
+endif
+
+function! s:Find_links() " {{{2
+  " Find and remember links between highlighting groups.
+  redir => listing
+  try
+    silent highlight
+  finally
+    redir END
+  endtry
+  for line in split(listing, "\n")
+    let tokens = split(line)
+    " We're looking for lines like "String xxx links to Constant" in the
+    " output of the :highlight command.
+    if len(tokens) ==# 5 && tokens[1] ==# 'xxx' && tokens[2] ==# 'links' && tokens[3] ==# 'to'
+      let fromgroup = tokens[0]
+      let togroup = tokens[4]
+      let s:known_links[fromgroup] = togroup
+    endif
+  endfor
+endfunction
+
+function! s:Restore_links() " {{{2
+  " Restore broken links between highlighting groups.
+  redir => listing
+  try
+    silent highlight
+  finally
+    redir END
+  endtry
+  let num_restored = 0
+  for line in split(listing, "\n")
+    let tokens = split(line)
+    " We're looking for lines like "String xxx cleared" in the
+    " output of the :highlight command.
+    if len(tokens) ==# 3 && tokens[1] ==# 'xxx' && tokens[2] ==# 'cleared'
+      let fromgroup = tokens[0]
+      let togroup = get(s:known_links, fromgroup, '')
+      if !empty(togroup)
+        execute 'hi link' fromgroup togroup
+        let num_restored += 1
+      endif
+    endif
+  endfor
+endfunction	" }}}
+
+function! s:AccurateColorscheme(colo_name)
+  call <SID>Find_links()
+  exec 'colorscheme ' a:colo_name
+  call <SID>Restore_links()
+endfunction
+
+command! -nargs=1 -complete=color MyColorscheme call <SID>AccurateColorscheme(<q-args>)
+" --------------------------------------------------------------------------------------------------------------	" }}}
+
+" vim-iawriter
+" ------------
+augroup Iawriter_autocmds
+	au!
+	au User IawriterPostPostEnter set nospell
+	au User IawriterPostLeave if &filetype ==# 'markdown' | set spell | endif
+augroup end
 
