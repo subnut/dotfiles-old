@@ -43,6 +43,8 @@ bspc rule -a '*:*:Picture-in-Picture' state=floating layer=above sticky=on focus
 
 killall xmousepasteblock
 xmousepasteblock &> /dev/null &
+killall clipster
+clipster -d &> /dev/null &
 
 # safeeyes -e &> /dev/null &
 sh -c "/home/subhaditya/.local/bin/safeeyes -e &> /dev/null &"

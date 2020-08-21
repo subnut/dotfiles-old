@@ -11,14 +11,13 @@
 " Ctrl-W {<,>}  vertical-split resizing
 
 let g:python3_host_prog = '/home/subhaditya/.config/nvim/venv/bin/python'
-call plug#begin()
-" Make sure you use single quotes
 
+call plug#begin()	" Make sure you use single quotes in all Plug below
 
 " Auto-complete
 " -------------
 " YouCompleteMe
-"Plug 'ycm-core/YouCompleteMe', { 'do': './install.py', 'on': [] }
+" Plug 'ycm-core/YouCompleteMe', { 'do': './install.py', 'on': [] }
 " Initialized later
 
 
@@ -98,7 +97,6 @@ Plug 'fedorenchik/vimcalc3'
 Plug 'ervandew/regex'
 Plug 'norcalli/nvim-colorizer.lua'
 Plug 'subnut/vim-iawriter'
-let g:iawriter_force_defaults = 1
 
 " Python
 " -------
@@ -311,7 +309,7 @@ let g:NERDTreeMinimalUI = 1
 let g:NERDTreeIgnore = []
 let g:NERDTreeStatusline = ''
 " Automaticaly close nvim if NERDTree is only thing left open
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+au bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 " Toggle
 " nnoremap <silent> <C-e> :NERDTreeToggle<CR>
 
@@ -419,6 +417,7 @@ if !exists('g:airline_symbols')
 	let g:airline_symbols = {}
 endif
 let g:airline_symbols.readonly = '[RO]'
+let g:airline_symbols.whitespace = ' '
 let g:airline_section_z = '%p%%%#__accent_bold# | %#__restore__#%L% '
 let g:airline#parts#ffenc#skip_expected_string = 'utf-8[unix]'
 let g:airline_section_y = '%{airline#util#wrap(airline#parts#filetype(),0)}'
@@ -455,7 +454,7 @@ let g:echodoc#events = ['CompleteDone', 'TextChangedI', 'TextChangedP']
 
 " Do not show -- MATCH X OF Y -- in completion
 " ---------------------------------------------
-if has("patch-7.4.314")
+if has('patch-7.4.314')
 	set shortmess+=c
 endif
 
@@ -525,57 +524,57 @@ command! LocalSearch call localsearch#Toggle()
 " https://opensource.stackexchange.com/questions/2187/how-much-is-substantial-portion-in-mit-licence/2188#2188
 " -------------------------------------------------------------------------------------------------------------------------
 if !exists('s:known_links')
-  let s:known_links = {}
+	let s:known_links = {}
 endif
 
 function! s:Find_links() " {{{2
-  " Find and remember links between highlighting groups.
-  redir => listing
-  try
-    silent highlight
-  finally
-    redir END
-  endtry
-  for line in split(listing, "\n")
-    let tokens = split(line)
-    " We're looking for lines like "String xxx links to Constant" in the
-    " output of the :highlight command.
-    if len(tokens) ==# 5 && tokens[1] ==# 'xxx' && tokens[2] ==# 'links' && tokens[3] ==# 'to'
-      let fromgroup = tokens[0]
-      let togroup = tokens[4]
-      let s:known_links[fromgroup] = togroup
-    endif
-  endfor
+	" Find and remember links between highlighting groups.
+	redir => listing
+	try
+		silent highlight
+	finally
+		redir END
+	endtry
+	for line in split(listing, "\n")
+		let tokens = split(line)
+		" We're looking for lines like "String xxx links to Constant" in the
+		" output of the :highlight command.
+		if len(tokens) ==# 5 && tokens[1] ==# 'xxx' && tokens[2] ==# 'links' && tokens[3] ==# 'to'
+			let fromgroup = tokens[0]
+			let togroup = tokens[4]
+			let s:known_links[fromgroup] = togroup
+		endif
+	endfor
 endfunction
 
 function! s:Restore_links() " {{{2
-  " Restore broken links between highlighting groups.
-  redir => listing
-  try
-    silent highlight
-  finally
-    redir END
-  endtry
-  let num_restored = 0
-  for line in split(listing, "\n")
-    let tokens = split(line)
-    " We're looking for lines like "String xxx cleared" in the
-    " output of the :highlight command.
-    if len(tokens) ==# 3 && tokens[1] ==# 'xxx' && tokens[2] ==# 'cleared'
-      let fromgroup = tokens[0]
-      let togroup = get(s:known_links, fromgroup, '')
-      if !empty(togroup)
-        execute 'hi link' fromgroup togroup
-        let num_restored += 1
-      endif
-    endif
-  endfor
+	" Restore broken links between highlighting groups.
+	redir => listing
+	try
+		silent highlight
+	finally
+		redir END
+	endtry
+	let num_restored = 0
+	for line in split(listing, "\n")
+		let tokens = split(line)
+		" We're looking for lines like "String xxx cleared" in the
+		" output of the :highlight command.
+		if len(tokens) ==# 3 && tokens[1] ==# 'xxx' && tokens[2] ==# 'cleared'
+			let fromgroup = tokens[0]
+			let togroup = get(s:known_links, fromgroup, '')
+			if !empty(togroup)
+				execute 'hi link' fromgroup togroup
+				let num_restored += 1
+			endif
+		endif
+	endfor
 endfunction	" }}}
 
 function! s:AccurateColorscheme(colo_name)
-  call <SID>Find_links()
-  exec 'colorscheme ' a:colo_name
-  call <SID>Restore_links()
+	call <SID>Find_links()
+	exec 'colorscheme ' a:colo_name
+	call <SID>Restore_links()
 endfunction
 
 command! -nargs=1 -complete=color MyColorscheme call <SID>AccurateColorscheme(<q-args>)
@@ -583,9 +582,11 @@ command! -nargs=1 -complete=color MyColorscheme call <SID>AccurateColorscheme(<q
 
 " vim-iawriter
 " ------------
+let g:iawriter_no_nospell = 1
 augroup Iawriter_autocmds
 	au!
-	au User IawriterPostPostEnter set nospell
+	au User IawriterPostPostEnter if !g:iawriter_no_nospell | set nospell | endif
 	au User IawriterPostLeave if &filetype ==# 'markdown' | set spell | endif
 augroup end
+let g:iawriter_force_defaults = 1
 
