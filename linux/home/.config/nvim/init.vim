@@ -1,5 +1,5 @@
 " vim: fdm=marker
-"
+
 " Some notable key shortcuts
 " --------------------------
 " Ctrl-A - increase the number(s)
@@ -8,7 +8,16 @@
 " Ctrl-E - cursor-stationary UP
 " Ctrl-Y - cursor-stationary DOWN
 "
-" Ctrl-W {<,>}  vertical-split resizing
+" Ctrl-W {<,>}	vertical-split resizing
+
+" Some useful commands
+" -------------------
+" Test all highlight groups
+" 		:so $VIMRUNTIME/syntax/hitest.vim
+" Echo the highlight group of the character under cursor
+" 		echo synIDattr(synID(line("."), col("."), 1), "name")
+"
+
 
 let g:python3_host_prog = '/home/subhaditya/.config/nvim/venv/bin/python'
 
@@ -67,6 +76,7 @@ Plug 'junegunn/fzf.vim'
 
 " Git
 Plug 'tpope/vim-fugitive'
+Plug 'junegunn/gv.vim'		" Commit browser
 
 " Statusline
 Plug 'bling/vim-bufferline'
@@ -78,25 +88,28 @@ Plug 'majutsushi/tagbar'
 Plug 'Shougo/echodoc.vim'					" Echo function usage
 Plug 'alok/notational-fzf-vim'
 Plug 'mbbill/undotree'
-Plug 'airblade/vim-rooter' 					" Change root dir
+Plug 'simnalamburt/vim-mundo'
+Plug 'airblade/vim-rooter'					" Change root dir
+Plug 'airblade/vim-gitgutter'				" Git diff
 Plug 'machakann/vim-highlightedyank'
 Plug 'tpope/vim-surround'
-Plug 'Konfekt/FastFold' 					" Better folding
-Plug 'airblade/vim-gitgutter' 				" Git diff
-Plug 'inkarkat/vim-ShowTrailingWhitespace' 	" Trailing whitespace
-Plug 'psliwka/vim-smoothie'					" Smooth-scroll
-Plug 'tpope/vim-abolish'
-Plug 'mox-mox/vim-localsearch'
-Plug 'mtth/scratch.vim'
-Plug 'AndrewRadev/bufferize.vim'
+Plug 'tpope/vim-abolish'					" (c)oe(rc)e to case-change
 Plug 'tpope/vim-repeat'
 Plug 'tpope/vim-commentary'					" gc<motion> = toggle comment
 Plug 'svermeulen/vim-yoink'					" Clipboard
+Plug 'Konfekt/FastFold'						" Better folding
+Plug 'inkarkat/vim-ShowTrailingWhitespace'	" Trailing whitespace
+Plug 'psliwka/vim-smoothie'					" Smooth-scroll
+Plug 'mox-mox/vim-localsearch'
+Plug 'mtth/scratch.vim'
+Plug 'AndrewRadev/bufferize.vim'
 Plug 'sheerun/vim-polyglot'					" Polyglot => one who knows many languages
-Plug 'fedorenchik/vimcalc3'
-Plug 'ervandew/regex'
-Plug 'norcalli/nvim-colorizer.lua'
+Plug 'fedorenchik/vimcalc3'					" :Calc
+Plug 'norcalli/nvim-colorizer.lua'			" :ColorizerAttachToBuffer
 Plug 'subnut/vim-iawriter'
+Plug 'mattn/calendar-vim'					" :Calendar
+Plug 'kkoomen/vim-doge'						" (DO)cumentation (GE)nerator
+Plug 'RRethy/vim-illuminate'
 
 " Python
 " -------
@@ -192,6 +205,12 @@ hi Cursor gui=NONE
 hi Cursor guifg=bg guibg=fg
 set guicursor=n-v-c-sm:block-Cursor/lCursor,i-ci-ve:ver25-Cursor/lCursor,r-cr-o:hor20-Cursor/lCursor
 
+" Get the higlight group of the character under cursor
+" ----------------------------------------------------
+fun Get_hi_group()
+	echo synIDattr(synID(line('.'), col('.'), 1), 'name')
+endfun
+command GetHiGroup call Get_hi_group()
 
 " Custom settings
 " ---------------
@@ -211,6 +230,7 @@ set nu rnu
 " nnoremap <silent> <C-n> :set number!<CR>
 " nnoremap <silent> <C-A-n> :set relativenumber!<CR>
 nnoremap <silent> <C-g> :Goyo<CR>
+nnoremap <silent> <C-a> :Iawriter<CR>
 nnoremap <silent> <C-l> :set list!<CR>
 nnoremap <silent> <C-n> :call ToggleLineNrCustom()<CR>
 nnoremap <silent> <C-A-n> :call ToggleLineNrCustomLocal()<CR>
@@ -257,7 +277,7 @@ endfunction
 	" }}}
 if MyOnBattery()
 	let g:ale_lint_delay = 5000
-	let g:ale_lint_on_text_changed = 'never'
+	let g:ale_lint_on_text_changed = 'normal'
 	let g:ncm2#complete_delay = 200
 	let g:mkdp_refresh_slow = 1	" Only refresh on leaving insert mode
 endif
@@ -325,7 +345,7 @@ autocmd BufReadPost *
 " Live substitution (syntax: :%s/from/to)
 " -----------------
 set inccommand=split
-set gdefault		" Substitute all occurences on a line
+set gdefault		" Substitute all occurences on a line (i.e. reverse the work of the /g global switch)
 
 " MarkdownPreview
 " ---------------
@@ -377,8 +397,8 @@ set splitbelow
 " ----------
 let g:rooter_change_directory_for_non_project_files = 'current'
 let g:rooter_silent_chdir = 1
-let g:rooter_cd_cmd= 'lcd'	" change directory for the current window only
 let g:rooter_resolve_links = 1
+let g:rooter_cd_cmd= 'lcd'	" change directory for the current window only
 
 " Python folding (vim-coiled-snake)
 " --------------
@@ -387,13 +407,14 @@ let g:coiled_snake_set_foldtext = 1
 
 " Highlighted yank
 " -----------------
-" let g:highlightedyank_highlight_duration = 1000		" Assign a number of time in milliseconds.
 let g:highlightedyank_highlight_duration = -1			" A negative number makes the highlight persistent.
+" Other details		{{{1
+" let g:highlightedyank_highlight_duration = 1000		" Assign a number of time in milliseconds.
 " When a new text is yanked or user starts editing, the old highlighting shall be removed
 "
 " If the highlight is not visible for some reason, you can redefine the HighlightedyankRegion highlight group like:
 " highlight HighlightedyankRegion cterm=reverse gui=reverse
-" Note that the line should be located AFTER the :colorscheme command execution in your vimrc.
+" Note that the line should be located AFTER the :colorscheme command execution in your vimrc.	}}}
 
 " Python linter config
 " --------------------
@@ -420,8 +441,10 @@ let g:airline_symbols.readonly = '[RO]'
 let g:airline_symbols.whitespace = ' '
 let g:airline_section_z = '%p%%%#__accent_bold# | %#__restore__#%L% '
 let g:airline#parts#ffenc#skip_expected_string = 'utf-8[unix]'
+" g:airline_section_y	{{{1
 let g:airline_section_y = '%{airline#util#wrap(airline#parts#filetype(),0)}'
-let g:airline_section_x = '%{airline#util#prepend("",0)}%{airline#util#prepend(airline#extensions#tagbar#currenttag(),0)}%{airline#util#prepend("",0)}%{airline#util#prepend("",0)}%{airline#util#prepend("",0)}%{airline#util#prepend(airline#parts#ffenc(),0)}'
+" g:airline_section_x 	" {{{1
+let g:airline_section_x = '%{airline#util#prepend("",0)}%{airline#util#prepend(airline#extensions#tagbar#currenttag(),0)}%{airline#util#prepend("",0)}%{airline#util#prepend("",0)}%{airline#util#prepend("",0)}%{airline#util#prepend(airline#parts#ffenc(),0)}'	" }}}
 
 " Show non-printable characters
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
@@ -460,23 +483,23 @@ endif
 
 " Navigate through suggestions using TAB and Arrows
 " ----------------------------------------
-inoremap <silent><expr><tab>	pumvisible() ? "\<c-n>"  		: "\<tab>"
-inoremap <silent><expr><s-tab>	pumvisible() ? "\<c-p>"  		: "\<s-tab>"
-inoremap <expr> <up> 			pumvisible() ? "<c-e><up>"		: "<up>"
-inoremap <expr> <down> 			pumvisible() ? "<c-e><down>" 	: "<down>"
-" inoremap <expr><Down>			pumvisible() ? "\<C-n>"  		: "\<Down>"
-" inoremap <expr><Up> 			pumvisible() ? "\<C-p>"  		: "\<Up>"
+inoremap <silent><expr><tab>	pumvisible() ? "\<c-n>"			: "\<tab>"
+inoremap <silent><expr><s-tab>	pumvisible() ? "\<c-p>"			: "\<s-tab>"
+inoremap <expr> <up>			pumvisible() ? "<c-e><up>"		: "<up>"
+inoremap <expr> <down>			pumvisible() ? "<c-e><down>"	: "<down>"
+" inoremap <expr><Down>			pumvisible() ? "\<C-n>"			: "\<Down>"
+" inoremap <expr><Up>			pumvisible() ? "\<C-p>"			: "\<Up>"
 
 " NCM2
 " ----
 " When the <Enter> key is pressed while the popup menu is visible, it only
 " hides the menu. Use this mapping to close the menu and also start a newline.
-	inoremap <expr><CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+		inoremap <expr><CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 " enable ncm2 for all buffers
 " autocmd BufEnter * call ncm2#enable_for_buffer()
-	autocmd BufEnter * call timer_start(0, {id->execute("call ncm2#enable_for_buffer()")})
+		autocmd BufEnter * call timer_start(0, {id->execute("call ncm2#enable_for_buffer()")})
 " IMPORTANT: :help Ncm2PopupOpen for more information
-	set completeopt=noinsert,menuone,noselect
+		set completeopt=noinsert,menuone,noselect
 " Disable syntax hint after completion in python
 "	let g:ncm2_jedi#call_sig_hint = 0
 
@@ -582,11 +605,24 @@ command! -nargs=1 -complete=color MyColorscheme call <SID>AccurateColorscheme(<q
 
 " vim-iawriter
 " ------------
-let g:iawriter_no_nospell = 1
+let g:iawriter_no_nospell = 0
 augroup Iawriter_autocmds
 	au!
 	au User IawriterPostPostEnter if !g:iawriter_no_nospell | set nospell | endif
 	au User IawriterPostLeave if &filetype ==# 'markdown' | set spell | endif
 augroup end
 let g:iawriter_force_defaults = 1
+
+" vim-illuminate
+" --------------
+exec 'hi illuminatedWord ' .
+			\ ' guibg=' . synIDattr(synIDtrans(hlID('CursorLine')), 'bg', 'gui') .
+			\ ' ctermbg=' . synIDattr(synIDtrans(hlID('CursorLine')), 'bg', 'cterm') .
+			\ ' gui=bold'
+let g:Illuminate_ftHighlightGroups = {
+			\ 'vim:blacklist': ['vimLineComment', 'vimComment']
+			\ }
+let g:Illuminate_delay = 450				" Time in milliseconds (default 250)
+let g:Illuminate_highlightUnderCursor = 1	" Highlight the word under cursor (default: 1)
+let g:Illuminate_insert_mode_highlight = 1	" Highlight in Insert mode too
 
