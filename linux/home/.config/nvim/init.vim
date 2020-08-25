@@ -1,14 +1,27 @@
-" vim: fdm=marker
+scriptencoding utf-8
+" vim: fdm=marker noet ts=4
+
 
 " Some notable key shortcuts
 " --------------------------
-" Ctrl-A - increase the number(s)
-" Ctrl-X - decrease the number(s)
+" Ctrl-A 					increase the number(s)
+" Ctrl-X 					decrease the number(s)
 "
-" Ctrl-E - cursor-stationary UP
-" Ctrl-Y - cursor-stationary DOWN
+" Ctrl-E 					cursor-stationary UP
+" Ctrl-Y 					cursor-stationary DOWN
 "
-" Ctrl-W {<,>}	vertical-split resizing
+" Ctrl-W <number> {<,>}		vertical-split resizing
+" Ctrl-W <number> {+,-} 	horizontal-split resizing
+"
+" ~ (VISUAL)				Swap case
+" U (VISUAL)				All UPPERCASE
+" u (VISUAL)				All lowercase
+"
+" gU<motion> (NORMAL)		UPPERCASE
+" gu<motion> (NORMAL)		lowercase
+"
+" <number> Ctrl-6			Switch to buffer <number>
+
 
 " Some useful commands
 " -------------------
@@ -23,11 +36,11 @@ let g:python3_host_prog = '/home/subhaditya/.config/nvim/venv/bin/python'
 
 call plug#begin()	" Make sure you use single quotes in all Plug below
 
-" Auto-complete
+" YouCompleteMe	{{{1
 " -------------
-" YouCompleteMe
 " Plug 'ycm-core/YouCompleteMe', { 'do': './install.py', 'on': [] }
 " Initialized later
+" }}}
 
 
 " NCM2
@@ -620,7 +633,7 @@ exec 'hi illuminatedWord ' .
 			\ ' ctermbg=' . synIDattr(synIDtrans(hlID('CursorLine')), 'bg', 'cterm') .
 			\ ' gui=bold'
 let g:Illuminate_ftHighlightGroups = {
-			\ 'vim:blacklist': ['vimLineComment', 'vimComment']
+			\ '*:blacklist': ['Comment', 'String']
 			\ }
 let g:Illuminate_delay = 450				" Time in milliseconds (default 250)
 let g:Illuminate_highlightUnderCursor = 1	" Highlight the word under cursor (default: 1)
