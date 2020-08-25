@@ -21,12 +21,16 @@ scriptencoding utf-8
 " gu<motion> (NORMAL)		lowercase
 "
 " <number> Ctrl-6			Switch to buffer <number>
+"
+" zR						Open all folds
+" zM						Close all folds
 
 
 " Some useful commands
 " -------------------
 " Test all highlight groups
-" 		:so $VIMRUNTIME/syntax/hitest.vim
+" 		so $VIMRUNTIME/syntax/hitest.vim
+"
 " Echo the highlight group of the character under cursor
 " 		echo synIDattr(synID(line("."), col("."), 1), "name")
 "
@@ -635,6 +639,7 @@ exec 'hi illuminatedWord ' .
 let g:Illuminate_ftHighlightGroups = {
 			\ '*:blacklist': ['Comment', 'String']
 			\ }
+let g:Illuminate_ftblacklist = ['nerdtree', 'markdown']
 let g:Illuminate_delay = 450				" Time in milliseconds (default 250)
 let g:Illuminate_highlightUnderCursor = 1	" Highlight the word under cursor (default: 1)
 let g:Illuminate_insert_mode_highlight = 1	" Highlight in Insert mode too
