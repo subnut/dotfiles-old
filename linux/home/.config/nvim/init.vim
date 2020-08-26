@@ -4,14 +4,14 @@ scriptencoding utf-8
 
 " Some notable key shortcuts
 " --------------------------
-" Ctrl-A 					increase the number(s)
-" Ctrl-X 					decrease the number(s)
+" Ctrl-A					increase the number(s)
+" Ctrl-X					decrease the number(s)
 "
-" Ctrl-E 					cursor-stationary UP
-" Ctrl-Y 					cursor-stationary DOWN
+" Ctrl-E					cursor-stationary UP
+" Ctrl-Y					cursor-stationary DOWN
 "
 " Ctrl-W <number> {<,>}		vertical-split resizing
-" Ctrl-W <number> {+,-} 	horizontal-split resizing
+" Ctrl-W <number> {+,-}		horizontal-split resizing
 "
 " ~ (VISUAL)				Swap case
 " U (VISUAL)				All UPPERCASE
@@ -24,21 +24,58 @@ scriptencoding utf-8
 "
 " zR						Open all folds
 " zM						Close all folds
+"
+" %							Move to corresponding bracket
 
 
 " Some useful commands
 " -------------------
 " Test all highlight groups
-" 		so $VIMRUNTIME/syntax/hitest.vim
+"		so $VIMRUNTIME/syntax/hitest.vim
 "
 " Echo the highlight group of the character under cursor
-" 		echo synIDattr(synID(line("."), col("."), 1), "name")
+"		echo synIDattr(synID(line("."), col("."), 1), "name")
 "
+
+" How to goto specific LineNumber
+" -------------------------------
+"  :123<CR>
+"  123G
+"  123gg
+"
+"  Or, you can simply do 123 <Enter> using this -
+nnoremap <CR> G
+
+
+" Useful word motions
+" --------------
+"  UPPERCASE => word is anything between whitespace
+"  lowercase => word is also delimited by :,\.
+"
+"  b or B		Prev word
+"  w or W 		Next word
+"  e or E		End of word
+"
+"  (If on end of current word, then move to end of next word,
+"  else move to end of current word)
+"
+"  All motions can be used like <number>w <number>E etc.
+
+
+" Useful character motions
+" ------------------------
+"  f<char>		Move to next occurence of character <char>
+"  t<char>		Move just BEFORE 'f<char>'
+"
+"  UPPERCASE => backwards
+"
+"  ;	Repeat motion
+"  ,	Repeat motion backwords
 
 
 let g:python3_host_prog = '/home/subhaditya/.config/nvim/venv/bin/python'
 
-call plug#begin()	" Make sure you use single quotes in all Plug below
+call plug#begin()	" Make sure you use single-quotes in all Plug commands below
 
 " YouCompleteMe	{{{1
 " -------------
@@ -71,6 +108,7 @@ Plug 'subnut/ncm2-github-emoji', { 'do': 'python install.py' }
 Plug 'gruvbox-community/gruvbox'
 Plug 'reedes/vim-colors-pencil'
 Plug 'sonph/onehalf', {'rtp': 'vim'}
+Plug 'drewtempelmeyer/palenight.vim'
 
 " File explorer
 Plug 'scrooloose/nerdtree'
@@ -127,6 +165,8 @@ Plug 'subnut/vim-iawriter'
 Plug 'mattn/calendar-vim'					" :Calendar
 Plug 'kkoomen/vim-doge'						" (DO)cumentation (GE)nerator
 Plug 'RRethy/vim-illuminate'
+Plug 'justinmk/vim-sneak'					" s<char><char>
+" Plug 'romainl/vim-cool'					" Remove search highlight automatically
 
 " Python
 " -------
@@ -188,15 +228,21 @@ call My_bg_setter()
 
 " Goyo customization
 " ------------------
-let g:goyo_width=100
-let g:goyo_height=20
+" let g:goyo_width=100
+" let g:goyo_height=20
+let g:goyo_width='70%'
 fun! s:goyo_enter()
 	hi CursorLine gui=NONE
 	set ei+=FocusGained
+	let s:saved_signcolumn_state = &scl
+	set scl=no
 endfun
 fun! s:goyo_leave()
 	hi CursorLine gui=underline
 	set ei-=FocusGained
+	if exists('s:saved_signcolumn_state')
+		execute 'set scl=' . s:saved_signcolumn_state
+	endif
 endfun
 autocmd User GoyoEnter nested call <SID>goyo_enter()
 autocmd User GoyoLeave nested call <SID>goyo_leave()
@@ -227,7 +273,7 @@ set guicursor=n-v-c-sm:block-Cursor/lCursor,i-ci-ve:ver25-Cursor/lCursor,r-cr-o:
 fun Get_hi_group()
 	echo synIDattr(synID(line('.'), col('.'), 1), 'name')
 endfun
-command GetHiGroup call Get_hi_group()
+command! GetHiGroup call Get_hi_group()
 
 " Custom settings
 " ---------------
@@ -460,7 +506,7 @@ let g:airline_section_z = '%p%%%#__accent_bold# | %#__restore__#%L% '
 let g:airline#parts#ffenc#skip_expected_string = 'utf-8[unix]'
 " g:airline_section_y	{{{1
 let g:airline_section_y = '%{airline#util#wrap(airline#parts#filetype(),0)}'
-" g:airline_section_x 	" {{{1
+" g:airline_section_x	" {{{1
 let g:airline_section_x = '%{airline#util#prepend("",0)}%{airline#util#prepend(airline#extensions#tagbar#currenttag(),0)}%{airline#util#prepend("",0)}%{airline#util#prepend("",0)}%{airline#util#prepend("",0)}%{airline#util#prepend(airline#parts#ffenc(),0)}'	" }}}
 
 " Show non-printable characters
@@ -639,8 +685,22 @@ exec 'hi illuminatedWord ' .
 let g:Illuminate_ftHighlightGroups = {
 			\ '*:blacklist': ['Comment', 'String']
 			\ }
-let g:Illuminate_ftblacklist = ['nerdtree', 'markdown']
+let g:Illuminate_ftblacklist = ['nerdtree', 'markdown', 'help']
 let g:Illuminate_delay = 450				" Time in milliseconds (default 250)
 let g:Illuminate_highlightUnderCursor = 1	" Highlight the word under cursor (default: 1)
 let g:Illuminate_insert_mode_highlight = 1	" Highlight in Insert mode too
 
+
+function! FindAll()
+	call inputsave()
+	let p = input('Enter pattern: ')
+	call inputrestore()
+	execute 'lvimgrep "'.p.'" % |lopen'
+endfunction
+
+" Automatically close if QuickFix is the only window
+" -------------------------------------------------
+aug QFClose
+	au!
+	au WinEnter * if winnr('$') == 1 && &buftype == "quickfix"|q|endif
+aug END

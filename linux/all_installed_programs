@@ -62,7 +62,7 @@ brave-bin
 breeze-gtk
 brotli
 bspwc-git
-bspwm-git
+bspwm
 btrfs-progs
 bubblewrap
 bzip2
@@ -359,8 +359,6 @@ gzip
 hardinfo
 harfbuzz
 harfbuzz-icu
-hashcat
-hashcat-utils
 haveged
 hdparm
 hicolor-icon-theme
@@ -1280,7 +1278,6 @@ xprintidle
 xrectsel
 xsel
 xsettingsd
-xterm
 xvidcore
 xxhash
 xz

@@ -1,5 +1,8 @@
 #! /bin/sh
 
+xinput set-button-map 'TPPS/2 Elan TrackPoint' 1 0 3
+xinput set-prop 'SynPS/2 Synaptics TouchPad' 'libinput Accel Speed' 0.001
+
 killall -q sxhkd &>/dev/null
 sxhkd &
 
@@ -52,7 +55,7 @@ sh -c "/home/subhaditya/.local/bin/safeeyes -e &> /dev/null &"
 #if [[ $((10#$(date +'%H'))) -gt 5 && $((10#$(date +'%H'))) -lt 18 ]] ; then feh --bg-fill light.png; else feh --bg-fill dark.png; fi
 feh --bg-fill light.png  &
 
-if killall -q polybar; then true; else bspc config top_padding $((`bspc config bottom_padding` + 35)); fi &
+zsh -c "if ! [[ $(bspc config top_padding) -eq $((`bspc config bottom_padding` + 35)) ]]; then bspc config top_padding $((`bspc config bottom_padding` + 35)); fi &"
 # polybar mybar &
 zsh <<< "polybar --list-monitors | cut -d':' -f1 | while IFS= read -r MONITOR; do if ! [[ \$MONITOR == 'eDP' ]]; then MONITOR=\$MONITOR polybar secondary_restack &> /dev/null &; else polybar mybar_restack &> /dev/null &; fi; done &"
 
