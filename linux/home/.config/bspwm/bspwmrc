@@ -25,7 +25,6 @@ bspc config gapless_monocle      true
 
 bspc config focus_follows_pointer true
 bspc config pointer_follows_monitor true
-bspc config merge_overlapping_monitors true
 bspc config ignore_ewmh_fullscreen true
 
 bspc rule -a Gimp desktop='^8' state=floating follow=on

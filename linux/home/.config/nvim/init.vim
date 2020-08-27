@@ -293,7 +293,6 @@ set nu rnu
 " nnoremap <silent> <C-n> :set number!<CR>
 " nnoremap <silent> <C-A-n> :set relativenumber!<CR>
 nnoremap <silent> <C-g> :Goyo<CR>
-nnoremap <silent> <C-a> :Iawriter<CR>
 nnoremap <silent> <C-l> :set list!<CR>
 nnoremap <silent> <C-n> :call ToggleLineNrCustom()<CR>
 nnoremap <silent> <C-A-n> :call ToggleLineNrCustomLocal()<CR>
@@ -485,6 +484,7 @@ let g:flake8_quickfix_height=15		" Height of quickfix window
 let g:flake8_show_in_gutter=1		" show signs in gutter
 let g:flake8_error_marker='❌'		" set error marker to 'EE'
 let g:flake8_warning_marker='W'		" set warning marker to 'WW'
+let g:ale_python_flake8_options='--extend-ignore E231,E252,E501'
 
 " Git gutter
 " ----------
