@@ -50,7 +50,7 @@ killall clipster
 clipster -d &> /dev/null &
 
 # safeeyes -e &> /dev/null &
-sh -c "/home/subhaditya/.local/bin/safeeyes -e &> /dev/null &"
+sh -c "$(which safeeyes) -e &> /dev/null &"
 
 #if [[ $((10#$(date +'%H'))) -gt 5 && $((10#$(date +'%H'))) -lt 18 ]] ; then feh --bg-fill light.png; else feh --bg-fill dark.png; fi
 feh --bg-fill light.png  &
