@@ -246,6 +246,7 @@ alias gcm=my_gcm
 alias gcma=my_gcma
 alias gpull="git pull"
 
+alias n=nvim
 alias icat="kitty +kitten icat"
 alias qr="qrencode -t UTF8"
 alias nvimvenv="source ~/.config/nvim/venv/bin/activate"

@@ -359,6 +359,7 @@ gzip
 hardinfo
 harfbuzz
 harfbuzz-icu
+hashcat
 haveged
 hdparm
 hicolor-icon-theme
@@ -1036,7 +1037,7 @@ rxvt-unicode
 rxvt-unicode-terminfo
 rygel
 s-nail
-safeeyes-git
+safeeyes
 sane
 sbc
 screenfetch
