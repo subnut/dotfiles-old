@@ -653,7 +653,6 @@ libupnp
 libusb
 libusb-compat
 libusbmuxd
-libutempter
 libutf8proc
 libutil-linux
 libuv
@@ -1200,7 +1199,6 @@ x264
 x265
 xapps
 xautolock
-xbitmaps
 xcb-proto
 xcb-util
 xcb-util-cursor
@@ -1251,7 +1249,6 @@ xmlsec
 xmousepasteblock-git
 xorg-fonts-encodings
 xorg-iceauth
-xorg-luit
 xorg-server
 xorg-server-common
 xorg-server-xwayland

@@ -19,6 +19,9 @@ scriptencoding utf-8
 "
 " gU<motion> (NORMAL)		UPPERCASE
 " gu<motion> (NORMAL)		lowercase
+"	 For current character  => <motion> is 'l'
+"	 For previous character => <motion> is 'h'
+"
 "
 " <number> Ctrl-6			Switch to buffer <number>
 "
@@ -71,6 +74,13 @@ nnoremap <CR> G
 "
 "  ;	Repeat motion
 "  ,	Repeat motion backwords
+
+
+" Useful tips for :s
+" ------------------
+"  Newline -
+"  	When searching - '\n'
+"  	When replacing - '\r'
 
 
 let g:python3_host_prog = '/home/subhaditya/.config/nvim/venv/bin/python'
