@@ -251,8 +251,16 @@ alias icat="kitty +kitten icat"
 alias qr="qrencode -t UTF8"
 alias nvimvenv="source ~/.config/nvim/venv/bin/activate"
 alias nvim="PATH='/home/subhaditya/.config/nvim/venv/bin':\$PATH nvim"
-alias ssh_linux="TERM=linux ssh"
 
 alias theme_light="gsettings set org.gnome.desktop.interface gtk-theme Layan-light && gsettings set org.gnome.desktop.interface icon-theme Tela-blue"
 alias theme_dark="gsettings set org.gnome.desktop.interface gtk-theme Layan-dark && gsettings set org.gnome.desktop.interface icon-theme Tela-blue-dark"
 
+# See https://sw.kovidgoyal.net/kitty/faq.html#i-get-errors-about-the-terminal-being-unknown-or-opening-the-terminal-failing-when-sshing-into-a-different-computer
+if [[ $TERM =~ 'kitty' ]]; then
+	function my_ssh () {
+		if kitty +kitten ssh $* || ssh $*
+		then unalias ssh
+		fi
+	}
+alias ssh=my_ssh
+fi

@@ -106,6 +106,7 @@ cryptsetup
 ctags
 cups
 cups-filters
+cups-pdf
 cups-pk-helper
 curl
 dav1d
