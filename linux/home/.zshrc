@@ -262,5 +262,10 @@ if [[ $TERM =~ 'kitty' ]]; then
 		then unalias ssh
 		fi
 	}
-alias ssh=my_ssh
+alias ssh-kitty=my_ssh
+alias ssh_kitty=my_ssh
 fi
+
+alias sql_start="systemctl start mariadb"
+alias sql_stop="systemctl stop mariadb"
+
