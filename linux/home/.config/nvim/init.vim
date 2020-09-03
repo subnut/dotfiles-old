@@ -1,87 +1,5 @@
-scriptencoding utf-8
 " vim: fdm=marker noet ts=4
-
-
-" Some notable key shortcuts
-" --------------------------
-" Ctrl-A					increase the number(s)
-" Ctrl-X					decrease the number(s)
-"
-" Ctrl-E					cursor-stationary UP
-" Ctrl-Y					cursor-stationary DOWN
-"
-" Ctrl-W <number> {<,>}		vertical-split resizing
-" Ctrl-W <number> {+,-}		horizontal-split resizing
-"
-" ~ (VISUAL)				Swap case
-" U (VISUAL)				All UPPERCASE
-" u (VISUAL)				All lowercase
-"
-" gU<motion> (NORMAL)		UPPERCASE
-" gu<motion> (NORMAL)		lowercase
-"	 For current character  => <motion> is 'l'
-"	 For previous character => <motion> is 'h'
-"
-"
-" <number> Ctrl-6			Switch to buffer <number>
-"
-" zR						Open all folds
-" zM						Close all folds
-"
-" %							Move to corresponding bracket
-
-
-" Some useful commands
-" -------------------
-" Test all highlight groups
-"		so $VIMRUNTIME/syntax/hitest.vim
-"
-" Echo the highlight group of the character under cursor
-"		echo synIDattr(synID(line("."), col("."), 1), "name")
-"
-
-" How to goto specific LineNumber
-" -------------------------------
-"  :123<CR>
-"  123G
-"  123gg
-"
-"  Or, you can simply do 123 <Enter> using this -
-nnoremap <CR> G
-
-
-" Useful word motions
-" --------------
-"  UPPERCASE => word is anything between whitespace
-"  lowercase => word is also delimited by :,\.
-"
-"  b or B		Prev word
-"  w or W 		Next word
-"  e or E		End of word
-"
-"  (If on end of current word, then move to end of next word,
-"  else move to end of current word)
-"
-"  All motions can be used like <number>w <number>E etc.
-
-
-" Useful character motions
-" ------------------------
-"  f<char>		Move to next occurence of character <char>
-"  t<char>		Move just BEFORE 'f<char>'
-"
-"  UPPERCASE => backwards
-"
-"  ;	Repeat motion
-"  ,	Repeat motion backwords
-
-
-" Useful tips for :s
-" ------------------
-"  Newline -
-"  	When searching - '\n'
-"  	When replacing - '\r'
-
+scriptencoding utf-8
 
 let g:python3_host_prog = '/home/subhaditya/.config/nvim/venv/bin/python'
 
@@ -92,7 +10,6 @@ call plug#begin()	" Make sure you use single-quotes in all Plug commands below
 " Plug 'ycm-core/YouCompleteMe', { 'do': './install.py', 'on': [] }
 " Initialized later
 " }}}
-
 
 " NCM2
 " -----------------------------------------------------------------------
@@ -129,6 +46,8 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 " Markdown
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 Plug 'gabrielelana/vim-markdown', { 'for': 'markdown' }
+Plug 'PratikBhusal/vim-grip'
+let g:grip_default_map = 0
 
 " Focus on code only
 Plug 'junegunn/goyo.vim'
@@ -149,6 +68,7 @@ Plug 'vim-airline/vim-airline', { 'on': [] }
 
 " Misc
 " ----
+Plug 'reedes/vim-pencil'
 Plug 'majutsushi/tagbar'
 Plug 'Shougo/echodoc.vim'					" Echo function usage
 Plug 'alok/notational-fzf-vim'
@@ -223,6 +143,7 @@ lua require'colorizer'.setup{''}
 " -----------
 let g:gruvbox_contrast_dark = 'hard'
 let g:gruvbox_contrast_light = 'hard'
+let g:gruvbox_italic=1
 colorscheme gruvbox
 " set bg=dark
 let g:my_env_bg = $MY_NVIM_BG
@@ -262,20 +183,20 @@ autocmd User GoyoLeave nested call <SID>goyo_leave()
 " ---------------------
 augroup colorscheme_overrides
 	autocmd!
-	autocmd ColorScheme * hi Comment gui=italic
+	" autocmd ColorScheme * hi Comment gui=italic
 	autocmd ColorScheme * hi clear SignColumn
 	autocmd ColorScheme * hi CursorLine gui=underline
-	autocmd ColorScheme * hi Cursor gui=NONE
-	autocmd ColorScheme * hi Cursor guifg=bg guibg=fg
+	" autocmd ColorScheme * hi Cursor gui=NONE
+	" autocmd ColorScheme * hi Cursor guifg=bg guibg=fg
 	autocmd ColorScheme * set guicursor=n-v-c-sm:block-Cursor/lCursor,i-ci-ve:ver25-Cursor/lCursor,r-cr-o:hor20
 	autocmd ColorScheme * hi clear ALEErrorSign
 	autocmd ColorScheme * hi clear ALEWarningSign
 augroup END
-hi Comment gui=italic
+" hi Comment gui=italic
 hi clear SignColumn
 hi CursorLine gui=underline
-hi Cursor gui=NONE
-hi Cursor guifg=bg guibg=fg
+" hi Cursor gui=NONE
+" hi Cursor guifg=bg guibg=fg
 set guicursor=n-v-c-sm:block-Cursor/lCursor,i-ci-ve:ver25-Cursor/lCursor,r-cr-o:hor20-Cursor/lCursor
 
 " Get the higlight group of the character under cursor
@@ -306,6 +227,20 @@ nnoremap <silent> <C-g> :Goyo<CR>
 nnoremap <silent> <C-l> :set list!<CR>
 nnoremap <silent> <C-n> :call ToggleLineNrCustom()<CR>
 nnoremap <silent> <C-A-n> :call ToggleLineNrCustomLocal()<CR>
+
+
+" Goto specific line-number using <LineNr>Enter	" {{{1
+" ---------------------------------------------
+function! MyLineNrFunc() range
+	if v:count == 0
+		normal "\<CR>"
+	else
+		execute(':' . v:count)
+	endif
+endfunction
+nnoremap <silent> <CR> :call MyLineNrFunc()<CR>
+" }}}
+
 
 " LineNr toggling functions
 " -------------------------
@@ -400,14 +335,14 @@ let g:NERDTreeShowHidden = 0
 let g:NERDTreeMinimalUI = 1
 let g:NERDTreeIgnore = []
 let g:NERDTreeStatusline = ''
-" Automaticaly close nvim if NERDTree is only thing left open
-au bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+" Automaticaly close nvim if NERDTree is only thing left open		" {{{1
+au bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif	" }}}
 " Toggle
 " nnoremap <silent> <C-e> :NERDTreeToggle<CR>
 
 
-" Open file at last cursor position
-" ---------------------------------		" {{{1
+" Open file at last cursor position		" {{{1
+" ---------------------------------
 autocmd BufReadPost *
 	\ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
 	\ |   exe "normal! g`\""
@@ -421,12 +356,12 @@ set gdefault		" Substitute all occurences on a line (i.e. reverse the work of th
 
 " MarkdownPreview
 " ---------------
-function MarkdownBrowserFirefox(url)
+function MarkdownBrowserFirefox(url)	" {{{1
 	silent! execute '!firefox' shellescape('--new-window') string(a:url) | redraw!
 endfunction
-function MarkdownBrowserQute(url)
+function MarkdownBrowserQute(url)	" {{{1
 	silent! execute '!qutebrowser' shellescape('--target') 'window' string(a:url) '&' | redraw!
-endfunction
+endfunction	" }}}
 let g:mkdp_browserfunc='MarkdownBrowserFirefox'
 
 " FZF
@@ -510,14 +445,23 @@ let g:bufferline_modified = ' +'
 if !exists('g:airline_symbols')
 	let g:airline_symbols = {}
 endif
+" let g:airline#extensions#tabline#enabled = 1
 let g:airline_symbols.readonly = '[RO]'
 let g:airline_symbols.whitespace = ' '
-let g:airline_section_z = '%p%%%#__accent_bold# | %#__restore__#%L% '
 let g:airline#parts#ffenc#skip_expected_string = 'utf-8[unix]'
-" g:airline_section_y	{{{1
-let g:airline_section_y = '%{airline#util#wrap(airline#parts#filetype(),0)}'
+function! s:airline_custom_settings()
 " g:airline_section_x	" {{{1
-let g:airline_section_x = '%{airline#util#prepend("",0)}%{airline#util#prepend(airline#extensions#tagbar#currenttag(),0)}%{airline#util#prepend("",0)}%{airline#util#prepend("",0)}%{airline#util#prepend("",0)}%{airline#util#prepend(airline#parts#ffenc(),0)}'	" }}}
+let g:airline_section_x = airline#section#create_right(['bookmark', 'tagbar', 'vista', 'gutentags', 'omnisharp', 'grepper'])
+" i.e. defaults with 'filetype' removed
+" g:airline_section_y	{{{1
+let g:airline_section_y = '%{airline#util#wrap(airline#parts#filetype(),0)}%#__accent_bold#%{len(airline#util#prepend(airline#parts#ffenc(),0)) && len(airline#util#wrap(airline#parts#filetype(),0)) ? "  | " : ""}%#__restore__#%{trim(airline#util#prepend(airline#parts#ffenc(),0))}'	" }}}
+" g:airline_section_z	{{{1
+let g:airline_section_z = airline#section#create(['windowswap', 'obsession']) . '%p%%%#__accent_bold# | %#__restore__#%L% '
+" i.e. default  minus  [ '%p%%'.spc, 'linenr', 'maxlinenr', ':%v' ]
+" }}}
+AirlineRefresh!
+endfun
+au User AirlineAfterInit ++once call s:airline_custom_settings()
 
 " Show non-printable characters
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
@@ -696,11 +640,12 @@ let g:Illuminate_ftHighlightGroups = {
 			\ '*:blacklist': ['Comment', 'String']
 			\ }
 let g:Illuminate_ftblacklist = ['nerdtree', 'markdown', 'help']
-let g:Illuminate_delay = 450				" Time in milliseconds (default 250)
+let g:Illuminate_delay = 250				" Time in milliseconds (default 250)
 let g:Illuminate_highlightUnderCursor = 1	" Highlight the word under cursor (default: 1)
 let g:Illuminate_insert_mode_highlight = 1	" Highlight in Insert mode too
 
-
+" Trying to implement my own finding function
+" -------------------------------------------
 function! FindAll()
 	call inputsave()
 	let p = input('Enter pattern: ')

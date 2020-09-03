@@ -16,7 +16,6 @@ alsa-ucm-conf
 alsa-utils
 amd-ucode
 amtk
-ao-git
 aom
 apache
 apr
@@ -211,7 +210,6 @@ gawk
 gc
 gcc
 gcc-libs
-gconf
 gcr
 gd
 gdbm
@@ -289,6 +287,7 @@ gnome-tweaks
 gnome-user-share
 gnome-video-effects
 gnome-weather
+gnu-netcat
 gnupg
 gnutls
 gobject-introspection
@@ -387,6 +386,7 @@ inetutils
 iniparser
 inkscape
 intltool
+iperf3
 iproute2
 iptables
 iputils
@@ -808,7 +808,6 @@ nfs-utils
 nfsidmap
 nilfs-utils
 nm-connection-editor
-nnn
 notify-send.sh
 noto-fonts
 noto-fonts-emoji
@@ -826,7 +825,6 @@ onedrive_tray-git
 oniguruma
 ookla-speedtest-bin
 openal
-openbsd-netcat
 opencore-amr
 openexr
 openjpeg2
@@ -1137,6 +1135,7 @@ ttf-croscore
 ttf-dejavu
 ttf-ibm-plex
 ttf-jetbrains-mono
+ttf-joypixels
 ttf-liberation
 ttf-opensans
 ttf-ubuntu-font-family
@@ -1198,7 +1197,7 @@ wvdial
 wvstreams
 x264
 x265
-xapps
+xapp
 xautolock
 xcb-proto
 xcb-util
