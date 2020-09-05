@@ -76,7 +76,6 @@ cantarell-fonts
 capitaine-cursors
 cava-git
 cdparanoia
-cdrtools
 celt
 cheese
 chromaprint
@@ -191,7 +190,6 @@ fmt
 folks
 font-victor-mono
 fontconfig
-fontforge
 foomatic-db
 freeglut
 freeoffice
@@ -647,7 +645,6 @@ libtiff
 libtirpc
 libtommath
 libtool
-libuninameslist
 libunistring
 libunwind
 libupnp
@@ -759,7 +756,6 @@ mariadb
 mariadb-clients
 mariadb-libs
 mbedtls
-mc
 md4c
 mdadm
 memtest86+

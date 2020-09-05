@@ -237,6 +237,10 @@ function! MyLineNrFunc() range
 	else
 		execute(':' . v:count)
 	endif
+	let s:last_message_invalid_range = execute(':1messages')
+	if s:last_message_invalid_range =~? 'invalid range'
+		:echo
+	endif
 endfunction
 nnoremap <silent> <CR> :call MyLineNrFunc()<CR>
 " }}}
