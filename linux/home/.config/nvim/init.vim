@@ -181,6 +181,14 @@ autocmd User GoyoLeave nested call <SID>goyo_leave()
 
 " Customize colorscheme
 " ---------------------
+func! s:kitty_term_custom()
+	if $TERM =~# 'kitty'
+		if synIDattr(synIDtrans(hlID('Cursor')), 'reverse')
+			hi Cursor gui=NONE
+			hi Cursor guifg=bg guibg=fg
+		endif
+	endif
+endfun
 augroup colorscheme_overrides
 	autocmd!
 	" autocmd ColorScheme * hi Comment gui=italic
@@ -188,6 +196,7 @@ augroup colorscheme_overrides
 	autocmd ColorScheme * hi CursorLine gui=underline
 	" autocmd ColorScheme * hi Cursor gui=NONE
 	" autocmd ColorScheme * hi Cursor guifg=bg guibg=fg
+	call s:kitty_term_custom()
 	autocmd ColorScheme * set guicursor=n-v-c-sm:block-Cursor/lCursor,i-ci-ve:ver25-Cursor/lCursor,r-cr-o:hor20
 	autocmd ColorScheme * hi clear ALEErrorSign
 	autocmd ColorScheme * hi clear ALEWarningSign
@@ -197,7 +206,10 @@ hi clear SignColumn
 hi CursorLine gui=underline
 " hi Cursor gui=NONE
 " hi Cursor guifg=bg guibg=fg
+call s:kitty_term_custom()
 set guicursor=n-v-c-sm:block-Cursor/lCursor,i-ci-ve:ver25-Cursor/lCursor,r-cr-o:hor20-Cursor/lCursor
+hi clear ALEWarningSign
+hi clear ALEErrorSign
 
 " Get the higlight group of the character under cursor
 " ----------------------------------------------------
@@ -227,6 +239,8 @@ nnoremap <silent> <C-g> :Goyo<CR>
 nnoremap <silent> <C-l> :set list!<CR>
 nnoremap <silent> <C-n> :call ToggleLineNrCustom()<CR>
 nnoremap <silent> <C-A-n> :call ToggleLineNrCustomLocal()<CR>
+nnoremap <silent> <C-N> :bnext<CR>
+nnoremap <silent> <C-P> :bprev<CR>
 
 
 " Goto specific line-number using <LineNr>Enter	" {{{1
