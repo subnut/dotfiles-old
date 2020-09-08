@@ -1,3 +1,14 @@
+#### To Fix emoji problems in arch linux
+Install `ttf-twemoji-color` and setup the symlink as instructed in the post-install text  
+You can check if you have BitStream font installed by using
+```sh
+fc-list | grep itstr
+```
+That shall take care of emoji in Firefox  
+For chrome, install `noto-fonts-emoji`
+
+Also, I recommend installing `noto-fonts` for common Indian languages
+
 #### FOR ARCH LINUX USERS
 `fbrokendesktop` is a script available in the AUR. Use it do find out and remove broken desktop-entry links  
 `screenkey` is useful for displaying the typed key in screencasts  

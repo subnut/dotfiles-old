@@ -246,11 +246,11 @@ alias gcm=my_gcm
 alias gcma=my_gcma
 alias gpull="git pull"
 
+alias cal3="cal -3"
 alias n=nvim
 alias icat="kitty +kitten icat"
 alias qr="qrencode -t UTF8"
 alias nvimvenv="source ~/.config/nvim/venv/bin/activate"
-alias nvim="PATH='/home/subhaditya/.config/nvim/venv/bin':\$PATH nvim"
 
 alias theme_light="gsettings set org.gnome.desktop.interface gtk-theme Layan-light && gsettings set org.gnome.desktop.interface icon-theme Tela-blue"
 alias theme_dark="gsettings set org.gnome.desktop.interface gtk-theme Layan-dark && gsettings set org.gnome.desktop.interface icon-theme Tela-blue-dark"

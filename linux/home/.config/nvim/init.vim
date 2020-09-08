@@ -2,6 +2,11 @@
 scriptencoding utf-8
 
 let g:python3_host_prog = '/home/subhaditya/.config/nvim/venv/bin/python'
+if len($VIRTUAL_ENV) == 0
+	let $PATH = '/home/subhaditya/.config/nvim/venv/bin:' . $PATH
+else
+	let $PATH = join(insert(split($PATH, ':'),'/home/subhaditya/.config/nvim/venv/bin',1),':')
+endif
 
 call plug#begin()	" Make sure you use single-quotes in all Plug commands below
 
@@ -74,6 +79,7 @@ Plug 'Shougo/echodoc.vim'					" Echo function usage
 Plug 'alok/notational-fzf-vim'
 Plug 'mbbill/undotree'
 Plug 'simnalamburt/vim-mundo'
+let g:mundo_preview_bottom = 1
 Plug 'airblade/vim-rooter'					" Change root dir
 Plug 'airblade/vim-gitgutter'				" Git diff
 Plug 'machakann/vim-highlightedyank'
@@ -94,9 +100,10 @@ Plug 'norcalli/nvim-colorizer.lua'			" :ColorizerAttachToBuffer
 Plug 'subnut/vim-iawriter'
 Plug 'mattn/calendar-vim'					" :Calendar
 Plug 'kkoomen/vim-doge'						" (DO)cumentation (GE)nerator
+let g:doge_doc_standard_python = 'google'
 Plug 'RRethy/vim-illuminate'
 Plug 'justinmk/vim-sneak'					" s<char><char>
-" Plug 'romainl/vim-cool'					" Remove search highlight automatically
+Plug 'romainl/vim-cool'					" Remove search highlight automatically
 
 " Python
 " -------
@@ -181,11 +188,26 @@ autocmd User GoyoLeave nested call <SID>goyo_leave()
 
 " Customize colorscheme
 " ---------------------
+let g:kitty_fancy_cursor = 0	" Somewhat successful 'inverse' cursor color in kitty
 func! s:kitty_term_custom()
+	if !exists('g:kitty_fancy_cursor')
+		let g:kitty_fancy_cursor = 0
+	endif
 	if $TERM =~# 'kitty'
 		if synIDattr(synIDtrans(hlID('Cursor')), 'reverse')
 			hi Cursor gui=NONE
-			hi Cursor guifg=bg guibg=fg
+			if !g:kitty_fancy_cursor
+				hi Cursor guifg=bg guibg=fg
+				augroup kitty_term_custom
+					au!
+				augroup end
+			else
+				hi Cursor guifg=bg
+				augroup kitty_term_custom
+					au!
+					au CursorMoved * execute('hi Cursor guibg='. (len(synIDattr(synIDtrans(hlID(synIDattr(synID(line("."), col("."), 1), 'name'))), "fg")) ? synIDattr(synIDtrans(hlID(synIDattr(synID(line("."), col("."), 1), 'name'))), "fg") : 'fg'))
+				augroup end
+			endif
 		endif
 	endif
 endfun
@@ -194,9 +216,7 @@ augroup colorscheme_overrides
 	" autocmd ColorScheme * hi Comment gui=italic
 	autocmd ColorScheme * hi clear SignColumn
 	autocmd ColorScheme * hi CursorLine gui=underline
-	" autocmd ColorScheme * hi Cursor gui=NONE
-	" autocmd ColorScheme * hi Cursor guifg=bg guibg=fg
-	call s:kitty_term_custom()
+	autocmd ColorScheme * call s:kitty_term_custom()
 	autocmd ColorScheme * set guicursor=n-v-c-sm:block-Cursor/lCursor,i-ci-ve:ver25-Cursor/lCursor,r-cr-o:hor20
 	autocmd ColorScheme * hi clear ALEErrorSign
 	autocmd ColorScheme * hi clear ALEWarningSign
@@ -204,8 +224,6 @@ augroup END
 " hi Comment gui=italic
 hi clear SignColumn
 hi CursorLine gui=underline
-" hi Cursor gui=NONE
-" hi Cursor guifg=bg guibg=fg
 call s:kitty_term_custom()
 set guicursor=n-v-c-sm:block-Cursor/lCursor,i-ci-ve:ver25-Cursor/lCursor,r-cr-o:hor20-Cursor/lCursor
 hi clear ALEWarningSign
@@ -467,7 +485,7 @@ endif
 let g:airline_symbols.readonly = '[RO]'
 let g:airline_symbols.whitespace = ' '
 let g:airline#parts#ffenc#skip_expected_string = 'utf-8[unix]'
-function! s:airline_custom_settings()
+function! s:airline_custom_sections()
 " g:airline_section_x	" {{{1
 let g:airline_section_x = airline#section#create_right(['bookmark', 'tagbar', 'vista', 'gutentags', 'omnisharp', 'grepper'])
 " i.e. defaults with 'filetype' removed
@@ -479,7 +497,7 @@ let g:airline_section_z = airline#section#create(['windowswap', 'obsession']) . 
 " }}}
 AirlineRefresh!
 endfun
-au User AirlineAfterInit ++once call s:airline_custom_settings()
+au User AirlineAfterInit ++once call s:airline_custom_sections()
 
 " Show non-printable characters
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
