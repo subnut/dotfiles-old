@@ -23,8 +23,12 @@ super + {BackSpace,space}
 	~/.config/rofi/launcher.sh &> /dev/null
 
 # make sxhkd reload its configuration files:
+# super + Escape
+# 	pkill -USR1 -x sxhkd
+
+# Restart sxhkd
 super + Escape
-	pkill -USR1 -x sxhkd
+	killall sxhkd && exec sxhkd &> /dev/null
 
 # run some custom programs
 super + ctrl + Return ; {f,c,t,v,n,x,p}
@@ -61,16 +65,16 @@ super + shift + backslash
 super + p
 	; killall -q polybar; \
 	polybar mybar &> /dev/null &; \
-	polybar --list-monitors | cut -d':' -f1 | while IFS= read -r MONITOR; do if ! [[ $MONITOR == 'eDP' ]]; then MONITOR=$MONITOR polybar secondary &> /dev/null &; fi; done; \
-	bspc config top_padding 35
+	polybar --list-monitors | cut -d':' -f1 | while IFS= read -r MONITOR; do if ! [[ $MONITOR == $(polybar --list-monitors | grep primary | cut -d':' -f1) ]]; then MONITOR=$MONITOR polybar secondary &> /dev/null &; fi; done; \
+	bspc config top_padding $((`bspc config bottom_padding` + 35))
 super + ctrl + p
 	; killall -q polybar; \
 	polybar mybar_restack &> /dev/null &; \
-	polybar --list-monitors | cut -d':' -f1 | while IFS= read -r MONITOR; do if ! [[ $MONITOR == 'eDP' ]]; then MONITOR=$MONITOR polybar secondary_restack &> /dev/null &; fi; done; \
-	bspc config top_padding 35
+	polybar --list-monitors | cut -d':' -f1 | while IFS= read -r MONITOR; do if ! [[ $MONITOR == $(polybar --list-monitors | grep primary | cut -d':' -f1) ]]; then MONITOR=$MONITOR polybar secondary_restack &> /dev/null &; fi; done; \
+	bspc config top_padding $((`bspc config bottom_padding` + 35))
 super + shift + p
 	; killall -q polybar; \
-	bspc config top_padding 0
+	bspc config top_padding $(bspc config bottom_padding)
 
 
 #

@@ -61,7 +61,7 @@ brave-bin
 breeze-gtk
 brotli
 bspwc-git
-bspwm
+bspwm-git
 btrfs-progs
 bubblewrap
 bzip2
@@ -193,6 +193,7 @@ fontconfig
 foomatic-db
 freeglut
 freeoffice
+freerdp
 freetype2
 frei0r-plugins
 fribidi
@@ -508,6 +509,7 @@ libgphoto2
 libgpod
 libgrss
 libgsf
+libgssglue
 libgtop
 libgudev
 libgusb
@@ -806,7 +808,6 @@ nilfs-utils
 nm-connection-editor
 notify-send.sh
 noto-fonts
-noto-fonts-emoji
 npth
 nspr
 nss
@@ -856,6 +857,7 @@ pavucontrol
 pciutils
 pcre
 pcre2
+pcsclite
 pcurses
 perl
 perl-cgi
@@ -1012,6 +1014,7 @@ refind
 reflector
 reflector-simple
 reiserfsprogs
+remmina
 rest
 ripgrep
 ristretto
@@ -1075,6 +1078,7 @@ srt
 st
 stalonetray
 startup-notification
+strace
 subversion
 sudo
 suitesparse
@@ -1128,12 +1132,11 @@ ttf-bitstream-vera
 ttf-caladea
 ttf-carlito
 ttf-croscore
-ttf-dejavu
 ttf-ibm-plex
 ttf-jetbrains-mono
+ttf-joypixels
 ttf-liberation
 ttf-opensans
-ttf-twemoji-color
 ttf-ubuntu-font-family
 ttf-windows
 tty-clock-borderless

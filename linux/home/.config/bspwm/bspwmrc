@@ -3,11 +3,11 @@
 xinput set-button-map 'TPPS/2 Elan TrackPoint' 1 0 3
 xinput set-prop 'SynPS/2 Synaptics TouchPad' 'libinput Accel Speed' 0.001
 
-killall -q sxhkd &>/dev/null
-sxhkd &
+killall -q sxhkd
+sxhkd &> /dev/null &
 
-killall -q /usr/lib/gsd-xsettings &>/dev/null
-/usr/lib/gsd-xsettings &
+killall -q /usr/lib/gsd-xsettings
+/usr/lib/gsd-xsettings &> /dev/null &
 
 if ! [[ `bspc query --desktops --names` =~ "Desktop" ]]; then for MONITOR in $(bspc query -M --names); do bspc monitor $MONITOR -d I II III IV V VI VII VIII IX T XI XII XIII XIV XV XVI XVII XVIII XIX XX XXI XXII $(for y in $(bspc query -D -m $MONITOR --names | grep temp); do echo -n "$y "; done );done;else for MONITOR in $(bspc query -M --names); do bspc monitor $MONITOR -d I II III IV V VI VII VIII IX T XI XII XIII XIV XV XVI XVII XVIII XIX XX XXI XXI;done; fi
 
@@ -19,7 +19,7 @@ zsh -c "while read -r my_auto_something; do if [[ \$my_auto_something =~ 'T@' ]]
 bspc config border_width         0
 bspc config window_gap          10
 
-bspc config split_ratio          0.52
+bspc config split_ratio          0.50
 bspc config borderless_monocle   true
 bspc config gapless_monocle      true
 
@@ -56,9 +56,10 @@ sh -c "$(which safeeyes) -e &> /dev/null &"
 #if [[ $((10#$(date +'%H'))) -gt 5 && $((10#$(date +'%H'))) -lt 18 ]] ; then feh --bg-fill light.png; else feh --bg-fill dark.png; fi
 feh --bg-fill light.png  &
 
+killall -q polybar
 zsh -c "if ! [[ $(bspc config top_padding) -eq $((`bspc config bottom_padding` + 35)) ]]; then bspc config top_padding $((`bspc config bottom_padding` + 35)); fi &"
 # polybar mybar &
-zsh <<< "polybar --list-monitors | cut -d':' -f1 | while IFS= read -r MONITOR; do if ! [[ \$MONITOR == 'eDP' ]]; then MONITOR=\$MONITOR polybar secondary_restack &> /dev/null &; else polybar mybar_restack &> /dev/null &; fi; done &"
+zsh <<< "polybar --list-monitors | cut -d':' -f1 | while IFS= read -r MONITOR; do if ! [[ \$MONITOR == \$(polybar --list-monitors | grep primary | cut -d':' -f1) ]]; then MONITOR=\$MONITOR polybar secondary_restack &> /dev/null &; else polybar mybar_restack &> /dev/null &; fi; done &"
 
 zsh <<< 'if [[ $(bluetooth | cut -d"=" -f2 | cut -d" " -f2) =~ on ]] ; then notify-send.sh -u critical "Bluetooth is ON" -i bluetooth -t 0 -a Bluetooth $(if [[ -a bluetooth-on-notification.id ]] ; then echo -n "-r "; cat bluetooth-on-notification.id ; fi) -p > bluetooth-on-notification.id; fi'
 
@@ -69,6 +70,6 @@ if [[ -r /dev/video0 || -r /dev/video1 ]]; then zsh <<< "kitty sh -c 'echo \"Dis
 # if ! pidof dropbear; then zsh <<< "kitty sh -c 'echo \"Starting acpid ...\"; sudo acpid' &"; fi &
 
 killall -q picom
-exec picom
+exec picom &> /dev/null
 #exec picom -f --inactive-dim 0.3 --corner-radius 35 --vsync --backend glx --glx-no-stencil --fade-delta 1 --detect-rounded-corners --shadow-opacity=1 --blur-background --blur-method dual_kawase --blur-strength 10 &
 #exec picom  --inactive-dim 0.3 --corner-radius 35 --vsync --backend glx --glx-no-stencil --detect-rounded-corners --shadow-opacity=1 --blur-background --blur-method dual_kawase --blur-strength 10 &
