@@ -42,7 +42,7 @@ font-0 = fixed:pixelsize=11;1
 font-1 = unifont:fontformat=truetype:size=8:antialias=false;0
 font-2 = siji:fontformat=truetype:size=14:antialias=true;0
 font-3 = Work Sans:fontformat=truetype:size=32:weight=100:antialias=true;06
-font-4 = Comfortaa Bold:fontformat=truetype:size=12:weight=100:antialias=true;01
+font-4 = Comfortaa Bold:fontformat=truetype:size=13:weight=100:antialias=true;01
 ;font-4 = fixed:pixelsize=10;1
 font-5 = MesloLGS NF:fontformat=truetype:size=12:weight=100:antialias=true;03
 width = 100%

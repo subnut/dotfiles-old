@@ -20,6 +20,7 @@ aom
 apache
 apr
 apr-util
+arandr
 arc-gtk-theme
 archlinux-keyring
 argon2
@@ -144,7 +145,6 @@ efibootmgr
 efitools
 efivar
 electron
-electron7
 elfutils
 enca
 enchant
@@ -654,7 +654,6 @@ libusb
 libusb-compat
 libusbmuxd
 libutf8proc
-libutil-linux
 libuv
 libva
 libvdpau
@@ -900,7 +899,6 @@ playerctl
 polkit
 polkit-gnome
 polybar-git
-pomotroid-bin
 poppler
 poppler-data
 poppler-glib
@@ -1078,7 +1076,6 @@ srt
 st
 stalonetray
 startup-notification
-strace
 subversion
 sudo
 suitesparse
@@ -1132,12 +1129,12 @@ ttf-bitstream-vera
 ttf-caladea
 ttf-carlito
 ttf-croscore
-ttf-ibm-plex
 ttf-jetbrains-mono
 ttf-joypixels
 ttf-liberation
 ttf-opensans
 ttf-ubuntu-font-family
+ttf-vlgothic
 ttf-windows
 tty-clock-borderless
 tumbler
@@ -1155,6 +1152,7 @@ usb_modeswitch
 usbmuxd
 usbutils
 util-linux
+util-linux-libs
 v4l-utils
 vamp-plugin-sdk
 vi

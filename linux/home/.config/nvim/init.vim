@@ -41,6 +41,7 @@ Plug 'gruvbox-community/gruvbox'
 Plug 'reedes/vim-colors-pencil'
 Plug 'sonph/onehalf', {'rtp': 'vim'}
 Plug 'drewtempelmeyer/palenight.vim'
+Plug 'kyoz/purify', {'rtp': 'vim'}
 
 " File explorer
 Plug 'scrooloose/nerdtree'
@@ -71,6 +72,15 @@ Plug 'junegunn/gv.vim'		" Commit browser
 Plug 'bling/vim-bufferline'
 Plug 'vim-airline/vim-airline', { 'on': [] }
 
+" Python
+" -------
+Plug 'nvie/vim-flake8', { 'for': 'python' }					" Python linter
+Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'python' }	" Python PEP8 autoindent
+Plug 'kalekundert/vim-coiled-snake', { 'for': 'python' }	" Python folding
+Plug 'dense-analysis/ale'									" Auto-linter
+Plug 'psf/black', { 'branch': 'stable', 'on': [] }			" Auto-formatter
+Plug 'Yggdroot/indentLine'
+
 " Misc
 " ----
 Plug 'reedes/vim-pencil'
@@ -95,24 +105,19 @@ Plug 'mox-mox/vim-localsearch'
 Plug 'mtth/scratch.vim'
 Plug 'AndrewRadev/bufferize.vim'
 Plug 'sheerun/vim-polyglot'					" Polyglot => one who knows many languages
-Plug 'fedorenchik/vimcalc3'					" :Calc
 Plug 'norcalli/nvim-colorizer.lua'			" :ColorizerAttachToBuffer
 Plug 'subnut/vim-iawriter'
-Plug 'mattn/calendar-vim'					" :Calendar
 Plug 'kkoomen/vim-doge'						" (DO)cumentation (GE)nerator
 let g:doge_doc_standard_python = 'google'
 Plug 'RRethy/vim-illuminate'
 Plug 'justinmk/vim-sneak'					" s<char><char>
-Plug 'romainl/vim-cool'					" Remove search highlight automatically
+Plug 'romainl/vim-cool'						" Remove search highlight automatically
 
-" Python
-" -------
-Plug 'nvie/vim-flake8', { 'for': 'python' }					" Python linter
-Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'python' }	" Python PEP8 autoindent
-Plug 'kalekundert/vim-coiled-snake', { 'for': 'python' }	" Python folding
-Plug 'dense-analysis/ale'									" Auto-linter
-Plug 'psf/black', { 'branch': 'stable', 'on': [] }			" Auto-formatter
-Plug 'Yggdroot/indentLine'
+" Vanity
+" ------
+Plug 'fedorenchik/vimcalc3'					" :Calc
+Plug 'mattn/calendar-vim'					" :Calendar
+
 
 call plug#end()
 call timer_start(0, {id->execute("call plug#load('vim-airline')")})
@@ -144,7 +149,9 @@ if (has('termguicolors'))
 	set termguicolors
 endif
 syntax enable
-lua require'colorizer'.setup{''}
+if &termguicolors
+	lua require'colorizer'.setup{''}
+endif
 
 " Colorscheme
 " -----------
@@ -189,14 +196,14 @@ autocmd User GoyoLeave nested call <SID>goyo_leave()
 " Customize colorscheme
 " ---------------------
 let g:kitty_fancy_cursor = 0	" Somewhat successful 'inverse' cursor color in kitty
-func! s:kitty_term_custom()
-	if !exists('g:kitty_fancy_cursor')
+func! s:kitty_term_custom()	" {{{1
+	if !exists('g:kitty_fancy_cursor')	" {{{2
 		let g:kitty_fancy_cursor = 0
-	endif
+	endif	" }}}
 	if $TERM =~# 'kitty'
-		if synIDattr(synIDtrans(hlID('Cursor')), 'reverse')
+		if synIDattr(synIDtrans(hlID('Cursor')), 'reverse')	" {{{2
 			hi Cursor gui=NONE
-			if !g:kitty_fancy_cursor
+			if !g:kitty_fancy_cursor	" {{{3
 				hi Cursor guifg=bg guibg=fg
 				augroup kitty_term_custom
 					au!
@@ -207,10 +214,10 @@ func! s:kitty_term_custom()
 					au!
 					au CursorMoved * execute('hi Cursor guibg='. (len(synIDattr(synIDtrans(hlID(synIDattr(synID(line("."), col("."), 1), 'name'))), "fg")) ? synIDattr(synIDtrans(hlID(synIDattr(synID(line("."), col("."), 1), 'name'))), "fg") : 'fg'))
 				augroup end
-			endif
+			endif	" }}}
 		endif
-	endif
-endfun
+	endif	" }}}
+endfun	" }}}
 augroup colorscheme_overrides
 	autocmd!
 	" autocmd ColorScheme * hi Comment gui=italic
@@ -220,7 +227,7 @@ augroup colorscheme_overrides
 	autocmd ColorScheme * set guicursor=n-v-c-sm:block-Cursor/lCursor,i-ci-ve:ver25-Cursor/lCursor,r-cr-o:hor20
 	autocmd ColorScheme * hi clear ALEErrorSign
 	autocmd ColorScheme * hi clear ALEWarningSign
-augroup END
+augroup end
 " hi Comment gui=italic
 hi clear SignColumn
 hi CursorLine gui=underline
@@ -451,7 +458,7 @@ let g:coiled_snake_set_foldtext = 1
 " Highlighted yank
 " -----------------
 let g:highlightedyank_highlight_duration = -1			" A negative number makes the highlight persistent.
-" Other details		{{{1
+" Other configs		{{{1
 " let g:highlightedyank_highlight_duration = 1000		" Assign a number of time in milliseconds.
 " When a new text is yanked or user starts editing, the old highlighting shall be removed
 "
@@ -550,7 +557,10 @@ inoremap <expr> <down>			pumvisible() ? "<c-e><down>"	: "<down>"
 		inoremap <expr><CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 " enable ncm2 for all buffers
 " autocmd BufEnter * call ncm2#enable_for_buffer()
-		autocmd BufEnter * call timer_start(0, {id->execute("call ncm2#enable_for_buffer()")})
+		augroup enable_ncm2
+			au!
+			autocmd BufEnter * call timer_start(0, {id->execute("call ncm2#enable_for_buffer()")})
+		augroup end
 " IMPORTANT: :help Ncm2PopupOpen for more information
 		set completeopt=noinsert,menuone,noselect
 " Disable syntax hint after completion in python

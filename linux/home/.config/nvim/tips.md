@@ -59,7 +59,7 @@ Useful word motions
  `UPPERCASE` => word is anything between whitespace  
  `lowercase` => word is also delimited by `:,\.`
 
-|Motion | For  |
+| Motion | For  |
 |--------|---------|
 | `b` `B`	|	Prev word  |
 | `w` `W` |	Next word|
@@ -88,8 +88,21 @@ Important tips for `:s`
   *	When replacing - `\r`
 
 
-Moving around in Insert mode
+Temporary NORMAL mode in INSERT mode
 ----------------------------
  When in Insert mode
  press <kbd>Ctrl</kbd>+<kbd>o</kbd>  
- and then press the motion to move
+ Useful for moving around and running single commands
+
+Indentation
+-----------
+In __NORMAL__ mode -
+|||
+|-|-|
+|`<number>`<kbd>></kbd><kbd>></kbd> | Indent next `<number>` (including current) lines ONE level
+|`<number>`<kbd><</kbd><kbd><</kbd> | un-indent next `<number>` (including current) lines ONE level
+In __VISUAL__ mode-
+|||
+|-|-|
+|<kbd>></kbd>| Indent current line by one level
+|<kbd><</kbd>| un-indent current line by one level

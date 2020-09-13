@@ -102,8 +102,10 @@ super + m
 #
 
 # set the window state
-super + {t,shift + t,s,f}
-	bspc node -t {tiled,pseudo_tiled,floating || bspc node -t "~floating",fullscreen || bspc node -t "~fullscreen"}
+super + {t,s,f}
+	bspc node -t {tiled,floating || bspc node -t "~floating",fullscreen || bspc node -t "~fullscreen"}
+super + shift + {t,s}
+	bspc node -t pseudo_tiled || bspc node -t "~pseudo_tiled"
 
 # set the node flags
 # sticky  => show on all desktops (of current monitor)

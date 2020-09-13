@@ -252,7 +252,7 @@ alias gpull="git pull"
 
 alias cal3="cal -3"
 alias n=nvim
-alias icat="kitty +kitten icat"
+if [[ $TERM =~ 'kitty' ]]; then alias icat="kitty +kitten icat"; fi
 alias qr="qrencode -t UTF8"
 alias nvimvenv="source ~/.config/nvim/venv/bin/activate"
 

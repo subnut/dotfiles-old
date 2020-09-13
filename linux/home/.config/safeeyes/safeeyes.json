@@ -1,6 +1,6 @@
 {
     "allow_postpone": true,
-    "long_break_duration": 120,
+    "long_break_duration": 15,
     "long_break_interval": 20,
     "long_breaks": [
         {
@@ -103,8 +103,8 @@
     "postpone_duration": 5,
     "pre_break_warning_time": 30,
     "rpc_port": 7200,
-    "short_break_duration": 8,
-    "short_break_interval": 5,
+    "short_break_duration": 5,
+    "short_break_interval": 10,
     "short_breaks": [
         {
             "name": "Tightly close your eyes"
