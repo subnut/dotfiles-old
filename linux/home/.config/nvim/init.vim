@@ -264,26 +264,30 @@ nnoremap <silent> <C-g> :Goyo<CR>
 nnoremap <silent> <C-l> :set list!<CR>
 nnoremap <silent> <C-n> :call ToggleLineNrCustom()<CR>
 nnoremap <silent> <C-A-n> :call ToggleLineNrCustomLocal()<CR>
-nnoremap <silent> <C-N> :bnext<CR>
-nnoremap <silent> <C-P> :bprev<CR>
+" nnoremap <silent> <C-N> :bnext<CR>
+" nnoremap <silent> <C-P> :bprev<CR>
 
+" Advanced customization
+" ----------------------
+" Goto specific line-number using <LineNr>Enter
+	nmap <silent><expr> <CR> (v:count ? 'G' : '<CR>')
 
-" Goto specific line-number using <LineNr>Enter	" {{{1
-" ---------------------------------------------
-function! MyLineNrFunc() range
-	if v:count == 0
-		normal "\<CR>"
-	else
-		execute(':' . v:count)
-	endif
-	let s:last_message_invalid_range = execute(':1messages')
-	if s:last_message_invalid_range =~? 'invalid range'
-		:echo
-	endif
-endfunction
-nnoremap <silent> <CR> :call MyLineNrFunc()<CR>
-" }}}
+" Automatically close in markdown and html
+"
+"		*	"<" --> "<>" with cursor in between < and >
+"		*	check that the previous map does not interfere if I typed "<>"
+"		*	"`" --> "``" with cursor in between
+"		*	"```" mapping. ref: https://github.com/SidOfc/mkdx#insert-fenced-code-block
+"		*	If <CR> inside tag at beginning, "/", else if <CR> inside tag at end, directly goto next line
 
+augroup my_autoclose_au
+	au!
+	au BufEnter,FileType * if index(['markdown','html'], &ft) >= 0 | execute("inoremap <silent><buffer><expr> < ((col('.') >= col('$') - 1) ? '<><C-o>i' : '<><C-o>h')") | endif
+	au BufEnter,FileType * if index(['markdown','html'], &ft) >= 0 | execute("imap <silent><buffer> <> <>") | endif
+	au BufEnter,FileType * if &ft ==# 'markdown' | execute("inoremap <silent><buffer><expr> ` ((col('.') >= col('$') - 1) ? '``<C-o>i' : '``<C-o>h')") | endif
+	au BufEnter,FileType * if &ft ==# 'markdown' | execute("inoremap <buffer><silent> ``` ```<Enter>```<C-o>k<C-o>A") | endif
+	au BufEnter,FileType * if &ft ==# 'html' | execute("imap <buffer><silent><expr> <CR> ((getline('.')[col('.') - 2] == '<') ? '/' : ((getline('.')[col('.') - 1] == '>') ? '<C-o>A<CR>' : '<CR>'))") | endif
+augroup end
 
 " LineNr toggling functions
 " -------------------------
@@ -688,7 +692,7 @@ let g:Illuminate_ftHighlightGroups = {
 let g:Illuminate_ftblacklist = ['nerdtree', 'markdown', 'help']
 let g:Illuminate_delay = 250				" Time in milliseconds (default 250)
 let g:Illuminate_highlightUnderCursor = 1	" Highlight the word under cursor (default: 1)
-let g:Illuminate_insert_mode_highlight = 1	" Highlight in Insert mode too
+let g:Illuminate_insert_mode_highlight = 0	" Highlight in Insert mode too
 
 " Trying to implement my own finding function
 " -------------------------------------------
@@ -696,7 +700,7 @@ function! FindAll()
 	call inputsave()
 	let p = input('Enter pattern: ')
 	call inputrestore()
-	execute 'lvimgrep "'.p.'" % |lopen'
+	silent execute 'lvimgrep "'.p.'" % |lopen'
 endfunction
 
 " Automatically close if QuickFix is the only window

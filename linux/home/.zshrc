@@ -176,11 +176,12 @@ alias ":q"=exit
 alias ":Q"=exit
 alias "cd.."="cd .."
 
-vpn () { protonvpn $* && return true; echo "Running as root ..."; sudo protonvpn $* }
+vpn () { protonvpn $* && return true; echo "Running as root ..."; sudo protonvpn $*; timedatectl set-timezone Asia/Kolkata }
 vimman () { man $* | vim - }
 nvimman () { man $* | nvim - }
 
 export EDITOR=nvim
+export DIFFPROG="nvim -d"
 export PATH=/home/subhaditya/.local/bin:$PATH
 
 #pyenv global $(for x in $(pyenv version | cut -f1 -d' '); do echo -n "$x "; done)
@@ -255,6 +256,7 @@ alias n=nvim
 if [[ $TERM =~ 'kitty' ]]; then alias icat="kitty +kitten icat"; fi
 alias qr="qrencode -t UTF8"
 alias nvimvenv="source ~/.config/nvim/venv/bin/activate"
+alias nvimdiff="nvim -d"
 
 alias theme_light="gsettings set org.gnome.desktop.interface gtk-theme Layan-light && gsettings set org.gnome.desktop.interface icon-theme Tela-blue"
 alias theme_dark="gsettings set org.gnome.desktop.interface gtk-theme Layan-dark && gsettings set org.gnome.desktop.interface icon-theme Tela-blue-dark"
