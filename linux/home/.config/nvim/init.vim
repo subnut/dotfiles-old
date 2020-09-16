@@ -289,6 +289,14 @@ augroup my_autoclose_au
 	au BufEnter,FileType * if &ft ==# 'html' | execute("imap <buffer><silent><expr> <CR> ((getline('.')[col('.') - 2] == '<') ? '/' : ((getline('.')[col('.') - 1] == '>') ? '<C-o>A<CR>' : '<CR>'))") | endif
 augroup end
 
+" Change previewheight on terminal resize
+augroup my_auto_previewheight
+	au!
+	au VimEnter * ++once if !exists('g:preview_window_height_percentage') | let g:preview_window_height_percentage = 55 | endif
+	au VimEnter * ++once execute('set pvh=' . &lines*g:preview_window_height_percentage/100 )
+	au VimResized * execute('set pvh=' . &lines*g:preview_window_height_percentage/100 )
+augroup end
+
 " LineNr toggling functions
 " -------------------------
 fun ToggleLineNrCustom()	" {{{1

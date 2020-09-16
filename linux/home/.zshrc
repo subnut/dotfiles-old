@@ -107,11 +107,13 @@ source $ZSH/oh-my-zsh.sh
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 
 # To customize prompt, run `p10k configure` or edit ~/.p10k.zsh.
-if [[ $TERM = 'linux' ]]; then
-	[[ ! -f ~/.linuxterm.p10k.zsh ]] || source ~/.linuxterm.p10k.zsh
+if [[ $TERM == (dumb|linux) ]]; then
+  POWERLEVEL9K_CONFIG_FILE=~/.p10k-portable.zsh
 else
-	[[ ! -f ~/.p10k.zsh ]] || source ~/.p10k.zsh
+  POWERLEVEL9K_CONFIG_FILE=~/.p10k.zsh
 fi
+
+[[ ! -f $POWERLEVEL9K_CONFIG_FILE ]] || source $POWERLEVEL9K_CONFIG_FILE
 
 # Add Games to PATH
 export PATH=/usr/games:$PATH
