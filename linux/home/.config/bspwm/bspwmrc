@@ -17,7 +17,7 @@ zsh -c "while read -r my_auto_something; do if [[ \$my_auto_something =~ 'T@' ]]
 #else bspc monitor -d I II III IV V VI VII VIII IX T XI XII XIII XIV XV XVI XVII XVIII XIX XX XXI XXII; fi
 
 bspc config border_width         0
-bspc config window_gap          10
+bspc config window_gap          20
 
 bspc config split_ratio          0.50
 bspc config borderless_monocle   true
@@ -44,6 +44,7 @@ bspc rule -a Yad state=floating layer=above
 xsetroot -cursor_name left_ptr &
 bspc rule -a '*:*:Picture-in-Picture' state=floating layer=above sticky=on focus=off
 bspc rule -a '*:*:Picture-in-picture' state=floating layer=above sticky=on focus=off
+bspc rule -a Safeeyes state=floating layer=above fullscreen=false
 
 killall xmousepasteblock
 xmousepasteblock &> /dev/null &

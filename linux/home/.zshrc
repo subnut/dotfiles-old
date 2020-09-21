@@ -279,3 +279,9 @@ fi
 alias sql_start="systemctl start mariadb"
 alias sql_stop="systemctl stop mariadb"
 
+alias init.vim="nvim ~/.config/nvim/init.vim"
+alias bspwmrc="nvim ~/.config/bspwm/bspwmrc"
+alias sxhkdrc="nvim ~/.config/sxhkd/sxhkdrc"
+alias zshrc="nvim ~/.zshrc"
+
+

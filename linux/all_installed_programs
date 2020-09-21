@@ -156,7 +156,6 @@ eog
 eos-bash-shared
 eos-update-notifier
 epdfview
-epiphany
 etcher-bin
 ethtool
 evince
@@ -440,6 +439,7 @@ libasyncns
 libatasmart
 libatomic_ops
 libavc1394
+libavtp
 libblockdev
 libbluray
 libbs2b
@@ -548,6 +548,7 @@ libmatroska
 libmaxminddb
 libmediaart
 libmfx
+libmicrodns
 libmicrohttpd
 libmm-glib
 libmms
@@ -978,7 +979,6 @@ python-urllib3
 python-webencodings
 python-xlib
 python-yaml
-qca
 qmltermwidget
 qpdf
 qrencode
@@ -1066,6 +1066,7 @@ speex
 speexdsp
 spirv-tools
 spotify
+spotify-adblock-linux
 spotify-adkiller-git
 sqlite
 squashfs-tools
@@ -1079,6 +1080,7 @@ sudo
 suitesparse
 supertuxkart
 sushi
+svt-hevc
 sway-git
 swaybg-git
 swayidle-git
@@ -1289,4 +1291,5 @@ zlib
 zsh
 zstd
 zvbi
+zxing-cpp
 zziplib

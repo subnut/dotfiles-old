@@ -40,8 +40,6 @@ Plug 'subnut/ncm2-github-emoji', { 'do': 'python install.py' }
 Plug 'gruvbox-community/gruvbox'
 Plug 'reedes/vim-colors-pencil'
 Plug 'sonph/onehalf', {'rtp': 'vim'}
-Plug 'drewtempelmeyer/palenight.vim'
-Plug 'kyoz/purify', {'rtp': 'vim'}
 
 " File explorer
 Plug 'scrooloose/nerdtree'
@@ -70,7 +68,7 @@ Plug 'junegunn/gv.vim'		" Commit browser
 
 " Statusline
 Plug 'bling/vim-bufferline'
-Plug 'vim-airline/vim-airline', { 'on': [] }
+Plug 'subnut/vim-airline', { 'on': [] }
 
 " Python
 " -------
@@ -117,12 +115,16 @@ Plug 'romainl/vim-cool'						" Remove search highlight automatically
 " ------
 Plug 'fedorenchik/vimcalc3'					" :Calc
 Plug 'mattn/calendar-vim'					" :Calendar
+" Plug 'raghur/vim-ghost'
 
 
 call plug#end()
 call timer_start(0, {id->execute("call plug#load('vim-airline')")})
 call timer_start(0, {id->execute("call plug#load('ncm2-yoink')")})
-au BufEnter *.py call timer_start(0, {id->execute("call plug#load('black')")})
+augroup delayed_plug_load
+	au!
+	au BufEnter *.py call timer_start(0, {id->execute("call plug#load('black')")})
+augroup end
 augroup black_on_write
 	au!
 	autocmd BufWritePre *.py execute ':Black'
@@ -178,19 +180,22 @@ call My_bg_setter()
 let g:goyo_width='70%'
 fun! s:goyo_enter()
 	hi CursorLine gui=NONE
-	set ei+=FocusGained
+	set eventignore+=FocusGained
 	let s:saved_signcolumn_state = &scl
 	set scl=no
 endfun
 fun! s:goyo_leave()
 	hi CursorLine gui=underline
-	set ei-=FocusGained
+	set eventignore-=FocusGained
 	if exists('s:saved_signcolumn_state')
 		execute 'set scl=' . s:saved_signcolumn_state
 	endif
 endfun
-autocmd User GoyoEnter nested call <SID>goyo_enter()
-autocmd User GoyoLeave nested call <SID>goyo_leave()
+augroup goyo_customization
+	au!
+	autocmd User GoyoEnter nested call <SID>goyo_enter()
+	autocmd User GoyoLeave nested call <SID>goyo_leave()
+augroup end
 
 
 " Customize colorscheme
@@ -257,9 +262,11 @@ set shiftwidth=0				" i.e. tabstop value will be used for auto-indenting
 set autoread
 set autowrite
 "set nonumber nornu
-set nu rnu
+set number relativenumber
 " nnoremap <silent> <C-n> :set number!<CR>
 " nnoremap <silent> <C-A-n> :set relativenumber!<CR>
+nnoremap <silent> gB :bprev<CR>
+nnoremap <silent> gb :bnext<CR>
 nnoremap <silent> <C-g> :Goyo<CR>
 nnoremap <silent> <C-l> :set list!<CR>
 nnoremap <silent> <C-n> :call ToggleLineNrCustom()<CR>
@@ -270,7 +277,7 @@ nnoremap <silent> <C-A-n> :call ToggleLineNrCustomLocal()<CR>
 " Advanced customization
 " ----------------------
 " Goto specific line-number using <LineNr>Enter
-	nmap <silent><expr> <CR> (v:count ? 'G' : '<CR>')
+	nnoremap <silent><expr> <CR> (v:count ? 'G' : '<CR>')
 
 " Automatically close in markdown and html
 "
@@ -287,6 +294,7 @@ augroup my_autoclose_au
 	au BufEnter,FileType * if &ft ==# 'markdown' | execute("inoremap <silent><buffer><expr> ` ((col('.') >= col('$') - 1) ? '``<C-o>i' : '``<C-o>h')") | endif
 	au BufEnter,FileType * if &ft ==# 'markdown' | execute("inoremap <buffer><silent> ``` ```<Enter>```<C-o>k<C-o>A") | endif
 	au BufEnter,FileType * if &ft ==# 'html' | execute("imap <buffer><silent><expr> <CR> ((getline('.')[col('.') - 2] == '<') ? '/' : ((getline('.')[col('.') - 1] == '>') ? '<C-o>A<CR>' : '<CR>'))") | endif
+	au BufEnter,FileType * if &ft ==# 'markdown' | execute("imap <buffer><silent><expr> <CR> ((getline('.')[col('.') - 2] == '<') ? '/' : ((getline('.')[col('.') - 1] == '>') ? '<C-o>A<CR>' : '<CR>'))") | endif
 augroup end
 
 " Change previewheight on terminal resize
@@ -300,11 +308,11 @@ augroup end
 " LineNr toggling functions
 " -------------------------
 fun ToggleLineNrCustom()	" {{{1
-	if &nu == 0
+	if &number == 0
 		SetAll nu 1
 		SetAll rnu 0
 	else
-		if &rnu == 0
+		if &relativenumber == 0
 			SetAll rnu 1
 			SetAll nu 1
 		else
@@ -314,13 +322,13 @@ fun ToggleLineNrCustom()	" {{{1
 	endif
 endfun
 fun ToggleLineNrCustomLocal()	" {{{1
-	if &nu == 0
-		set nu
+	if &number == 0
+		set number
 	else
-		if &rnu == 0
-			set rnu
+		if &relativenumber == 0
+			set relativenumber
 		else
-			set nonu nornu
+			set nonumber norelativenumber
 		endif
 	endif
 endfun	" }}}
@@ -391,17 +399,23 @@ let g:NERDTreeMinimalUI = 1
 let g:NERDTreeIgnore = []
 let g:NERDTreeStatusline = ''
 " Automaticaly close nvim if NERDTree is only thing left open		" {{{1
-au bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif	" }}}
+augroup NERDTree_au
+au!
+au bufenter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
+augroup end	" }}}
 " Toggle
 " nnoremap <silent> <C-e> :NERDTreeToggle<CR>
 
 
 " Open file at last cursor position		" {{{1
 " ---------------------------------
+augroup file_open_last_pos
+au!
 autocmd BufReadPost *
 	\ if line("'\"") >= 1 && line("'\"") <= line("$") && &ft !~# 'commit'
 	\ |   exe "normal! g`\""
-	\ | endif	" }}}
+	\ | endif
+augroup end	" }}}
 
 
 " Live substitution (syntax: :%s/from/to)
@@ -497,6 +511,7 @@ let g:gitgutter_set_sign_backgrounds = 1
 set noshowmode
 let g:bufferline_echo = 0
 let g:bufferline_modified = ' +'
+let g:bufferline_solo_highlight = 1
 if !exists('g:airline_symbols')
 	let g:airline_symbols = {}
 endif
@@ -504,19 +519,35 @@ endif
 let g:airline_symbols.readonly = '[RO]'
 let g:airline_symbols.whitespace = ' '
 let g:airline#parts#ffenc#skip_expected_string = 'utf-8[unix]'
+let g:airline#extensions#localsearch#inverted = 1
+" let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#alt_sep = 1
 function! s:airline_custom_sections()
+call airline#parts#define_accent('mode', 'none')
+fun! CustomAirlineCursorPos()	" {{{1
+	return line('.') . ':' . col('.') . ' | '
+endfun
+call airline#parts#define_function('CustomCurPos', 'CustomAirlineCursorPos')
+call airline#parts#define_condition('CustomCurPos', 'mode() =~? "v"')	" }}}
 " g:airline_section_x	" {{{1
 let g:airline_section_x = airline#section#create_right(['bookmark', 'tagbar', 'vista', 'gutentags', 'omnisharp', 'grepper'])
 " i.e. defaults with 'filetype' removed
 " g:airline_section_y	{{{1
-let g:airline_section_y = '%{airline#util#wrap(airline#parts#filetype(),0)}%#__accent_bold#%{len(airline#util#prepend(airline#parts#ffenc(),0)) && len(airline#util#wrap(airline#parts#filetype(),0)) ? "  | " : ""}%#__restore__#%{trim(airline#util#prepend(airline#parts#ffenc(),0))}'	" }}}
+" let g:airline_section_y = '%{airline#util#wrap(airline#parts#filetype(),0)}%#__accent_bold#%{len(airline#util#prepend(airline#parts#ffenc(),0)) && len(airline#util#wrap(airline#parts#filetype(),0)) ? "  | " : ""}%#__restore__#%{trim(airline#util#prepend(airline#parts#ffenc(),0))}'
+let g:airline_section_y = "%{airline#util#wrap(airline#parts#filetype(),0)}%#__accent_bold#%{len(airline#util#prepend(airline#parts#ffenc(),0)) && len(airline#util#wrap(airline#parts#filetype(),0)) ? ' ' : ''}%#__restore__#%{trim(airline#util#prepend(airline#parts#ffenc(),0))}"
 " g:airline_section_z	{{{1
-let g:airline_section_z = airline#section#create(['windowswap', 'obsession']) . '%p%%%#__accent_bold# | %#__restore__#%L% '
+let g:airline_section_z = airline#section#create(['windowswap', 'obsession', 'CustomCurPos']) . '%p%%%#__accent_bold# | %#__restore__#%L% '
 " i.e. default  minus  [ '%p%%'.spc, 'linenr', 'maxlinenr', ':%v' ]
+" g:airline_section_warning		{{{1
+let g:airline_section_warning = airline#section#create(['ycm_warning_count',  'syntastic-warn', 'neomake_warning_count', 'ale_warning_count', 'lsp_warning_count', 'nvimlsp_warning_count', 'languageclient_warning_count', 'coc_warning_count']) . trim(airline#extensions#whitespace#check())
+" ie default minus 'whitespace', with trimmed whitespace at the end
 " }}}
 AirlineRefresh!
 endfun
-au User AirlineAfterInit ++once call s:airline_custom_sections()
+augroup airline_customization
+	au!
+	au User AirlineAfterInit ++once call s:airline_custom_sections()
+augroup end
 
 " Show non-printable characters
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
@@ -600,9 +631,9 @@ nmap <a-s-p> <plug>(YoinkPostPasteSwapForward)
 " Do not change cursor position after yanking
 nmap y <plug>(YoinkYankPreserveCursorPosition)
 xmap y <plug>(YoinkYankPreserveCursorPosition)
-" Remap p and P to yoink
-nmap p <plug>(YoinkPaste_p)
-nmap P <plug>(YoinkPaste_P)
+" Remap p and P to yoink, but not if macro is being recorded
+nmap <expr> p ((len(reg_recording()) == 0) ? '<plug>(YoinkPaste_p)' :  'p')
+nmap <expr> P ((len(reg_recording()) == 0) ? '<Plug>(YoinkPaste_P)' : 'P' )
 let g:yoinkIncludeDeleteOperations = 1
 let g:yoinkMoveCursorToEndOfPaste = 1		" ... after pasting
 let g:yoinkSwapClampAtEnds = 0				" Cycle thru the list while swapping
