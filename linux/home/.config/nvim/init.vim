@@ -271,8 +271,9 @@ nnoremap <silent> <C-g> :Goyo<CR>
 nnoremap <silent> <C-l> :set list!<CR>
 nnoremap <silent> <C-n> :call ToggleLineNrCustom()<CR>
 nnoremap <silent> <C-A-n> :call ToggleLineNrCustomLocal()<CR>
-" nnoremap <silent> <C-N> :bnext<CR>
-" nnoremap <silent> <C-P> :bprev<CR>
+" inoremap <C-w> <C-o>
+let mapleader = ';'
+
 
 " Advanced customization
 " ----------------------
@@ -748,3 +749,12 @@ aug QFClose
 	au!
 	au WinEnter * if winnr('$') == 1 && &buftype == "quickfix"|q|endif
 aug END
+
+" ShowTrailingWhitespace
+" ----------------------
+command! -bar ShowTrailingWhitespaceOn          call ShowTrailingWhitespace#Set(1,1)
+command! -bar ShowTrailingWhitespaceOff         call ShowTrailingWhitespace#Set(0,1)
+command! -bar ShowTrailingWhitespaceBufferOn    call ShowTrailingWhitespace#Set(1,0)
+command! -bar ShowTrailingWhitespaceBufferOff   call ShowTrailingWhitespace#Set(0,0)
+command! -bar ShowTrailingWhitespaceBufferReset call ShowTrailingWhitespace#Reset()
+

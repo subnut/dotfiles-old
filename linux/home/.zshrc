@@ -252,6 +252,7 @@ my_gcma () { git commit --amend -m "$*" }
 alias gcm=my_gcm
 alias gcma=my_gcma
 alias gpull="git pull"
+export GPG_TTY=$(tty)
 
 alias cal3="cal -3"
 alias n=nvim

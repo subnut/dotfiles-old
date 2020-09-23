@@ -48,8 +48,11 @@ bspc rule -a Safeeyes state=floating layer=above fullscreen=false
 
 killall xmousepasteblock
 xmousepasteblock &> /dev/null &
-killall clipster
-clipster -d &> /dev/null &
+# killall clipster
+# clipster -d &> /dev/null &
+killall clipit
+clipit -d &> /dev/null &
+
 
 # safeeyes -e &> /dev/null &
 sh -c "$(which safeeyes) -e &> /dev/null &"
