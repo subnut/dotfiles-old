@@ -1,11 +1,18 @@
-#### To Fix emoji problems in arch linux
-Install `ttf-twemoji-color` and setup the symlink as instructed in the post-install text  
+### To Fix emoji problems in arch linux
+:warning: **UNINSTALL ttf-dejavu** :warning:
+Install `ttf-twemoji-color` <strike>and setup the symlink as instructed in the post-install text  
 You can check if you have BitStream font installed by using
 ```sh
 fc-list | grep itstr
 ```
+</strike>
+</br>
+</br>
+
+**UPDATE:** Copy the fontconfig from `root/etc/fonts/conf.d/56-ttf-twemoji-color.conf` to `/etc/fonts/conf.d`
+
 That shall take care of emoji in Firefox  
-For chrome, install `noto-fonts-emoji`
+For chrome, install <strike> `noto-fonts-emoji` </strike> `ttf-joypixels`
 
 Also, I recommend installing `noto-fonts` for common Indian languages
 
