@@ -73,6 +73,7 @@ ca-certificates-utils
 cairo
 cairo-perl
 cairomm
+calf
 cantarell-fonts
 capitaine-cursors
 cava-git
@@ -225,7 +226,6 @@ gettext
 gfbgraph
 gftp
 ghostscript
-ghostwriter
 giblib
 gifcast
 giflib
@@ -291,7 +291,6 @@ gobject-introspection
 gobject-introspection-runtime
 gom
 google-chrome
-googler-git
 gpart
 gparted
 gpgme
@@ -373,7 +372,6 @@ hwloc
 hyphen
 i3-battery-popup-git
 i3lock-color-git
-i3lock-fancy-git
 iana-etc
 icu
 ijs
@@ -477,6 +475,7 @@ libdvdnav
 libdvdread
 libe-book
 libebml
+libebur128
 libedit
 libelf
 libepoxy
@@ -733,6 +732,7 @@ lmdb
 logrotate
 lpsolve
 lsb-release
+lsp-plugins
 lsscsi
 lua
 lua52
@@ -918,6 +918,7 @@ pulseaudio-bluetooth
 pulseaudio-equalizer
 pulseaudio-equalizer-ladspa
 pulseaudio-jack
+pulseeffects
 pygobject-devel
 python
 python-appdirs
@@ -1068,6 +1069,7 @@ spirv-tools
 spotify
 spotify-adblock-linux
 spotify-adkiller-git
+spotify-tray-git
 sqlite
 squashfs-tools
 sratom
@@ -1133,6 +1135,7 @@ ttf-jetbrains-mono
 ttf-joypixels
 ttf-liberation
 ttf-opensans
+ttf-twemoji-color
 ttf-ubuntu-font-family
 ttf-vlgothic
 ttf-windows
@@ -1143,8 +1146,6 @@ tzdata
 uchardet
 udisks2
 unibilium
-unicode-character-database
-unicode-emoji
 unrar
 unzip
 upower
@@ -1287,6 +1288,7 @@ zbar
 zenity
 zeromq
 zip
+zita-convolver
 zlib
 zsh
 zstd

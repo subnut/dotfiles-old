@@ -81,7 +81,7 @@ case "$1" in
             close)
                 logger 'LID closed';
                 logger 'Starting sleep timer';
-                sh -c 'sleep 5 && if pgrep i3lock &> /dev/null; then true; else i3lock -c 00000040 -k --pass-media-keys --pass-screen-keys  --radius 180 --ring-width 20 --linecolor 00000000 --ringcolor=ffffff --keyhlcolor=000000 --insidecolor=ffffff --indicator --ringwrongcolor ff2134  --separatorcolor 00000000 --ringvercolor 008cf7 --insidevercolor 008cf7 --insidewrongcolor ff2134 --pass-power-keys --refresh-rate=0.5 --bshlcolor=ff2134 --datestr="%A, %d %b %Y"; fi && sleep 5m && logger "Sleep timer finished. Sleeping now ..." && ( playerctl pause; systemctl suspend ) # This is a comment_sleep_timer ' &
+                sh -c 'sleep 5 && if pgrep i3lock &> /dev/null; then true; else i3lock -c 00000040 -k --pass-media-keys --pass-screen-keys  --radius 180 --ring-width 20 --linecolor 00000000 --ringcolor=ffffff --keyhlcolor=000000 --insidecolor=ffffff --indicator --ringwrongcolor ff2134  --separatorcolor 00000000 --ringvercolor 008cf7 --insidevercolor 008cf7 --insidewrongcolor ff2134 --pass-power-keys --refresh-rate=0.5 --bshlcolor=ff2134 --datestr="%A, %d %b %Y" --redraw-thread; fi && sleep 5m && logger "Sleep timer finished. Sleeping now ..." && ( playerctl pause; systemctl suspend ) # This is a comment_sleep_timer ' &
                 ;;
             open)
                 logger 'LID opened';
