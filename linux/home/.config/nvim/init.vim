@@ -1,6 +1,11 @@
 " vim: fdm=marker noet ts=4
 scriptencoding utf-8
 
+" Disable polyglot plasticboy markdown to avoid clashing with gabrielelana
+"	let g:polyglot_disabled = ['markdown.plugin']
+" NOTE: This configuration MUST be set before vim-polyglot is loaded
+
+
 let g:python3_host_prog = '/home/subhaditya/.config/nvim/venv/bin/python'
 if len($VIRTUAL_ENV) == 0
 	let $PATH = '/home/subhaditya/.config/nvim/venv/bin:' . $PATH
@@ -49,7 +54,7 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 
 " Markdown
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
-Plug 'gabrielelana/vim-markdown', { 'for': 'markdown' }
+" Plug 'gabrielelana/vim-markdown', { 'for': 'markdown' }
 Plug 'PratikBhusal/vim-grip'
 let g:grip_default_map = 0
 
@@ -81,6 +86,7 @@ Plug 'Yggdroot/indentLine'
 
 " Misc
 " ----
+Plug 'chaoren/vim-wordmotion'
 Plug 'reedes/vim-pencil'
 Plug 'majutsushi/tagbar'
 Plug 'Shougo/echodoc.vim'					" Echo function usage
@@ -273,6 +279,7 @@ nnoremap <silent> <C-n> :call ToggleLineNrCustom()<CR>
 nnoremap <silent> <C-A-n> :call ToggleLineNrCustomLocal()<CR>
 " inoremap <C-w> <C-o>
 let mapleader = ';'
+com! YankAll %y
 
 
 " Advanced customization

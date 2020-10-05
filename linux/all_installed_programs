@@ -252,7 +252,6 @@ gnome-calendar
 gnome-characters
 gnome-clocks
 gnome-color-manager
-gnome-contacts
 gnome-control-center
 gnome-desktop
 gnome-disk-utility
@@ -1075,7 +1074,6 @@ squashfs-tools
 sratom
 srt
 st
-stalonetray
 startup-notification
 subversion
 sudo

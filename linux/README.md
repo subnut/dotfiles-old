@@ -76,13 +76,13 @@ Run my_sleep_time_adder.py to patch powerlevel10k. Undo the patches everytime yo
 
 # A few tips:
 ### Pyenv:
-```
+```sh
 pyenv shell $( pyenv versions | fzf --tac --layout=reverse --height=40% )
 pyenv shell $( pyenv versions | fzf --tac --layout=reverse --height=40% --margin=0 )
 ```
 
 ### better i3lock
-```
+```sh
 i3lock -c 00000040 -k --pass-media-keys --pass-screen-keys  --radius 180 --ring-width 20 --linecolor 0
 0000000 --ringcolor=ffffff --keyhlcolor=000000 --insidecolor=ffffff --indicator --ringwrongcolor ff2134 --separatorcolor 00000000 --ringvercolor 008cf7 --insidevercolor 008cf7 --insidewrongcolor ff2134 --pass-power-keys --refresh-rate=1 --bshlcolor=ff2134 --redraw-thread
 ```

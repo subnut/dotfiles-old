@@ -193,7 +193,7 @@ alias notes=notes.sh
 
 if [[ -z $DISPLAY ]]; then export DISPLAY=:0; fi
 my_man () { if [[ $* = 'z' ]] ; then sh -c "man ~/.oh-my-zsh/plugins/z/z.1"; else sh -c "man $*"; fi }
-alias man=my_man
+# alias man=my_man
 export PATH=./:$PATH
 
 alias cameradisable="sudo chmod -r /dev/video*"
@@ -241,6 +241,7 @@ toggle_theme () {
 	echo -n "get_theme\n" | kitty @ send-text -t="title:subhaditya@EndeavourPad" --stdin
 }
 
+alias shrug="echo -n '¯\_(ツ)_/¯' | xsel -psb"
 alias to=toggle_theme
 alias py=python
 export PYTHONSTARTUP=~/.pythonrc
