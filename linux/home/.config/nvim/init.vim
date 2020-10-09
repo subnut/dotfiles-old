@@ -106,6 +106,7 @@ Plug 'Konfekt/FastFold'						" Better folding
 Plug 'inkarkat/vim-ShowTrailingWhitespace'	" Trailing whitespace
 Plug 'psliwka/vim-smoothie'					" Smooth-scroll
 Plug 'mox-mox/vim-localsearch'
+Plug 'wincent/scalpel'						" See before replacing
 Plug 'mtth/scratch.vim'
 Plug 'AndrewRadev/bufferize.vim'
 Plug 'sheerun/vim-polyglot'					" Polyglot => one who knows many languages
@@ -113,7 +114,7 @@ Plug 'norcalli/nvim-colorizer.lua'			" :ColorizerAttachToBuffer
 Plug 'subnut/vim-iawriter'
 Plug 'kkoomen/vim-doge'						" (DO)cumentation (GE)nerator
 let g:doge_doc_standard_python = 'google'
-Plug 'RRethy/vim-illuminate'
+" Plug 'RRethy/vim-illuminate'
 Plug 'justinmk/vim-sneak'					" s<char><char>
 Plug 'romainl/vim-cool'						" Remove search highlight automatically
 
@@ -526,6 +527,7 @@ endif
 " let g:airline#extensions#tabline#enabled = 1
 let g:airline_symbols.readonly = '[RO]'
 let g:airline_symbols.whitespace = ' '
+let g:airline_symbols.notexists = ' ?'
 let g:airline#parts#ffenc#skip_expected_string = 'utf-8[unix]'
 let g:airline#extensions#localsearch#inverted = 1
 " let g:airline#extensions#tabline#enabled = 1
@@ -729,10 +731,13 @@ let g:iawriter_force_defaults = 1
 
 " vim-illuminate
 " --------------
-exec 'hi illuminatedWord ' .
+augroup illuminate
+	au!
+	au ColorScheme * exec 'hi illuminatedWord ' .
 			\ ' guibg=' . synIDattr(synIDtrans(hlID('CursorLine')), 'bg', 'gui') .
 			\ ' ctermbg=' . synIDattr(synIDtrans(hlID('CursorLine')), 'bg', 'cterm') .
 			\ ' gui=bold'
+augroup end
 let g:Illuminate_ftHighlightGroups = {
 			\ '*:blacklist': ['Comment', 'String']
 			\ }

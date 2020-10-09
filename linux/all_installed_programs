@@ -8,6 +8,7 @@ acpica
 acpid
 adobe-source-code-pro-fonts
 adwaita-icon-theme
+alsa-card-profiles
 alsa-firmware
 alsa-lib
 alsa-plugins
@@ -44,8 +45,6 @@ bash
 bash-completion
 bat
 bc
-bemenu
-bemenu-wlroots
 bind
 binutils
 birdfont
@@ -58,11 +57,9 @@ bluez-tools
 bluez-utils
 bolt
 boost-libs
-brave-bin
 breeze-gtk
 brotli
-bspwc-git
-bspwm-git
+bspwm
 btrfs-progs
 bubblewrap
 bzip2
@@ -317,6 +314,7 @@ gsound
 gspell
 gssdp
 gssproxy
+gst-editing-services
 gst-libav
 gst-plugin-gtk
 gst-plugins-bad
@@ -401,7 +399,7 @@ jome-git
 jq
 jre-openjdk
 jre-openjdk-headless
-js68
+js78
 json-c
 json-glib
 jsoncpp
@@ -452,6 +450,7 @@ libcdio
 libcdio-paranoia
 libcdr
 libchamplain
+libcloudproviders
 libcmis
 libconfig
 libcroco
@@ -497,7 +496,6 @@ libgdm
 libgee
 libgepub
 libgexiv2
-libglade
 libglvnd
 libgme
 libgnomekbd
@@ -513,6 +511,7 @@ libgusb
 libgweather
 libgxps
 libhandy
+libhandy0
 libheif
 libibus
 libical
@@ -600,6 +599,7 @@ libpipeline
 libplacebo
 libplist
 libpng
+libportal
 libproxy
 libpsl
 libpulse
@@ -804,8 +804,12 @@ nfs-utils
 nfsidmap
 nilfs-utils
 nm-connection-editor
+node-gyp
+nodejs
+nodejs-localtunnel
 notify-send.sh
 noto-fonts
+npm
 npth
 nspr
 nss
@@ -918,7 +922,6 @@ pulseaudio-equalizer
 pulseaudio-equalizer-ladspa
 pulseaudio-jack
 pulseeffects
-pygobject-devel
 python
 python-appdirs
 python-asn1crypto
@@ -972,7 +975,6 @@ python-resolvelib
 python-retrying
 python-setproctitle
 python-setuptools
-python-sip
 python-six
 python-toml
 python-urllib3
@@ -1040,6 +1042,7 @@ sdl
 sdl2
 sdparm
 sed
+semver
 serd
 serf
 sg3_utils
@@ -1067,7 +1070,6 @@ speexdsp
 spirv-tools
 spotify
 spotify-adblock-linux
-spotify-adkiller-git
 spotify-tray-git
 sqlite
 squashfs-tools
@@ -1081,10 +1083,6 @@ suitesparse
 supertuxkart
 sushi
 svt-hevc
-sway-git
-swaybg-git
-swayidle-git
-swaylock-git
 swh-plugins
 sxhkd-git
 sysfsutils
@@ -1122,6 +1120,8 @@ tp_smapi
 tpacpi-bat
 tracker
 tracker-miners
+tracker3
+tracker3-miners
 transmission-gtk
 tree
 tslib
@@ -1184,8 +1184,6 @@ whois
 wildmidi
 windscribe-cli
 wireless-regdb
-wlroots-git
-wltrunk-git
 woff2
 wpa_supplicant
 wpebackend-fdo
