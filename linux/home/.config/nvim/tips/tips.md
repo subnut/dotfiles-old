@@ -1,3 +1,7 @@
+Vim variable scopes
+-------------------
+![](vim_variable_suffix.png)
+
 Some notable key shortcuts
 --------------------------
 <kbd>Ctrl</kbd>+<kbd>A</kbd>					increase the number(s)  

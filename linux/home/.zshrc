@@ -241,6 +241,7 @@ toggle_theme () {
 	echo -n "get_theme\n" | kitty @ send-text -t="title:subhaditya@EndeavourPad" --stdin
 }
 
+alias wifi="nmcli dev wifi list"
 alias telebit=~/telebit
 alias shrug="echo -n '¯\_(ツ)_/¯' | xsel -psb"
 alias to=toggle_theme

@@ -1,4 +1,4 @@
-" vim: fdm=marker noet ts=4
+" vim: fdm=marker noet ts=4 nowrap
 scriptencoding utf-8
 
 " Disable polyglot plasticboy markdown to avoid clashing with gabrielelana
@@ -45,6 +45,7 @@ Plug 'subnut/ncm2-github-emoji', { 'do': 'python install.py' }
 Plug 'gruvbox-community/gruvbox'
 Plug 'reedes/vim-colors-pencil'
 Plug 'sonph/onehalf', {'rtp': 'vim'}
+Plug 'kristijanhusak/vim-hybrid-material'
 
 " File explorer
 Plug 'scrooloose/nerdtree'
@@ -89,37 +90,39 @@ Plug 'Yggdroot/indentLine'
 Plug 'chaoren/vim-wordmotion'
 Plug 'reedes/vim-pencil'
 Plug 'majutsushi/tagbar'
-Plug 'Shougo/echodoc.vim'					" Echo function usage
+Plug 'Shougo/echodoc.vim'							" Echo function usage
 Plug 'alok/notational-fzf-vim'
 Plug 'mbbill/undotree'
 Plug 'simnalamburt/vim-mundo'
 let g:mundo_preview_bottom = 1
-Plug 'airblade/vim-rooter'					" Change root dir
-Plug 'airblade/vim-gitgutter'				" Git diff
+Plug 'airblade/vim-rooter'							" Change root dir
+Plug 'airblade/vim-gitgutter'						" Git diff
 Plug 'machakann/vim-highlightedyank'
 Plug 'tpope/vim-surround'
-Plug 'tpope/vim-abolish'					" (c)oe(rc)e to case-change
+Plug 'tpope/vim-abolish'							" (c)oe(rc)e to case-change
 Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-commentary'					" gc<motion> = toggle comment
-Plug 'svermeulen/vim-yoink'					" Clipboard
-Plug 'Konfekt/FastFold'						" Better folding
-Plug 'inkarkat/vim-ShowTrailingWhitespace'	" Trailing whitespace
-Plug 'psliwka/vim-smoothie'					" Smooth-scroll
+Plug 'tpope/vim-commentary'							" gc<motion> = toggle comment
+Plug 'svermeulen/vim-yoink'							" Clipboard
+Plug 'Konfekt/FastFold'								" Better folding
+Plug 'inkarkat/vim-ShowTrailingWhitespace'			" Trailing whitespace
+Plug 'psliwka/vim-smoothie'							" Smooth-scroll
 Plug 'mox-mox/vim-localsearch'
-Plug 'wincent/scalpel'						" See before replacing
+Plug 'wincent/scalpel'								" See before replacing
 Plug 'mtth/scratch.vim'
 Plug 'AndrewRadev/bufferize.vim'
-Plug 'sheerun/vim-polyglot'					" Polyglot => one who knows many languages
-Plug 'norcalli/nvim-colorizer.lua'			" :ColorizerAttachToBuffer
+Plug 'sheerun/vim-polyglot'							" Polyglot => one who knows many languages
+Plug 'norcalli/nvim-colorizer.lua'					" :ColorizerAttachToBuffer
 Plug 'subnut/vim-iawriter'
-Plug 'kkoomen/vim-doge'						" (DO)cumentation (GE)nerator
-let g:doge_doc_standard_python = 'google'
+Plug 'kkoomen/vim-doge', {'do':{->doge#install()}}	" (DO)cumentation (GE)nerator
 " Plug 'RRethy/vim-illuminate'
-Plug 'justinmk/vim-sneak'					" s<char><char>
-Plug 'romainl/vim-cool'						" Remove search highlight automatically
+Plug 'justinmk/vim-sneak'							" s<char><char>
+Plug 'romainl/vim-cool'								" Remove search highlight automatically
+Plug 'tpope/vim-dadbod'
+Plug 'kristijanhusak/vim-dadbod-completion'
 
 " Vanity
 " ------
+Plug 'lambdalisue/suda.vim'
 Plug 'fedorenchik/vimcalc3'					" :Calc
 Plug 'mattn/calendar-vim'					" :Calendar
 " Plug 'raghur/vim-ghost'
@@ -375,6 +378,7 @@ call SetupCommandAlias('darkmode','set bg=dark')
 call SetupCommandAlias('lightmode','set bg=light')
 call SetupCommandAlias('fzf','FZF!')
 call SetupCommandAlias('FZF!!','FZF')
+call SetupCommandAlias('H','History')
 call SetupCommandAlias('notes','NV!')
 call SetupCommandAlias('NV!!','NV')
 call SetupCommandAlias('~','cd ~')
@@ -513,7 +517,7 @@ let g:ale_python_flake8_options='--extend-ignore E231,E252,E501'
 " ----------
 set signcolumn=yes
 let g:gitgutter_set_sign_backgrounds = 1
-"hi clear SignColumn	" Included in colorscheme_overrides
+" hi clear SignColumn		" Included in colorscheme_overrides
 
 " vim-airline
 " -----------
@@ -532,13 +536,28 @@ let g:airline#parts#ffenc#skip_expected_string = 'utf-8[unix]'
 let g:airline#extensions#localsearch#inverted = 1
 " let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#alt_sep = 1
-function! s:airline_custom_sections()
+function! s:airline_custom()
+fun! Airline_bufferline_overrides()	"{{{1
+hi bufferline_selected gui=NONE
+if exists('$NVIM_AIRLINE_MODE_NONBOLD') | execute('hi bufferline_selected gui=NONE') | endif
+endfun
+call Airline_bufferline_overrides()
+fun! AirlineRemoveModeBold()	" {{{1
+let initial_value = airline#section#create_left(['mode'])
 call airline#parts#define_accent('mode', 'none')
+if len(split(g:airline_section_a,initial_value)) == 1
+let g:airline_section_a = airline#section#create_left(['mode']) . split(g:airline_section_a, initial_value)[0]
+else
+	let g:airline_section_a = join(split(g:airline_section_a,initial_value),airline#section#create_left(['mode']))
+	" See https://learnvimscriptthehardway.stevelosh.com/chapters/27.html#joining
+endif
+endfun
+if exists('$NVIM_AIRLINE_MODE_NONBOLD') | call AirlineRemoveModeBold() | endif
 fun! CustomAirlineCursorPos()	" {{{1
 	return line('.') . ':' . col('.') . ' | '
 endfun
 call airline#parts#define_function('CustomCurPos', 'CustomAirlineCursorPos')
-call airline#parts#define_condition('CustomCurPos', 'mode() =~? "v"')	" }}}
+call airline#parts#define_condition('CustomCurPos', 'mode() =~? "v" || mode() ==# "\<C-V>"')	" }}}
 " g:airline_section_x	" {{{1
 let g:airline_section_x = airline#section#create_right(['bookmark', 'tagbar', 'vista', 'gutentags', 'omnisharp', 'grepper'])
 " i.e. defaults with 'filetype' removed
@@ -552,11 +571,11 @@ let g:airline_section_z = airline#section#create(['windowswap', 'obsession', 'Cu
 let g:airline_section_warning = airline#section#create(['ycm_warning_count',  'syntastic-warn', 'neomake_warning_count', 'ale_warning_count', 'lsp_warning_count', 'nvimlsp_warning_count', 'languageclient_warning_count', 'coc_warning_count']) . trim(airline#extensions#whitespace#check())
 " ie default minus 'whitespace', with trimmed whitespace at the end
 " }}}
-AirlineRefresh!
+AirlineRefresh
 endfun
 augroup airline_customization
 	au!
-	au User AirlineAfterInit ++once call s:airline_custom_sections()
+	au User AirlineAfterInit ++once call s:airline_custom()
 augroup end
 
 " Show non-printable characters
@@ -642,8 +661,10 @@ nmap <a-s-p> <plug>(YoinkPostPasteSwapForward)
 nmap y <plug>(YoinkYankPreserveCursorPosition)
 xmap y <plug>(YoinkYankPreserveCursorPosition)
 " Remap p and P to yoink, but not if macro is being recorded
-nmap <expr> p ((len(reg_recording()) == 0) ? '<plug>(YoinkPaste_p)' :  'p')
-nmap <expr> P ((len(reg_recording()) == 0) ? '<Plug>(YoinkPaste_P)' : 'P' )
+" nmap <expr> p ((len(reg_recording()) == 0) ? '<plug>(YoinkPaste_p)' : 'p' )
+" nmap <expr> P ((len(reg_recording()) == 0) ? '<Plug>(YoinkPaste_P)' : 'P' )
+nmap p <plug>(YoinkPaste_p)
+nmap P <Plug>(YoinkPaste_P)
 let g:yoinkIncludeDeleteOperations = 1
 let g:yoinkMoveCursorToEndOfPaste = 1		" ... after pasting
 let g:yoinkSwapClampAtEnds = 0				" Cycle thru the list while swapping
@@ -770,3 +791,7 @@ command! -bar ShowTrailingWhitespaceBufferOn    call ShowTrailingWhitespace#Set(
 command! -bar ShowTrailingWhitespaceBufferOff   call ShowTrailingWhitespace#Set(0,0)
 command! -bar ShowTrailingWhitespaceBufferReset call ShowTrailingWhitespace#Reset()
 
+" vim-doge
+" --------
+let g:doge_doc_standard_python = 'google'
+let g:doge_parsers=['python']
