@@ -9,7 +9,7 @@ case "$1" in
         case "$2" in
             PBTN|PWRF)
                 logger 'PowerButton pressed'
-                playerctl pause &; if pgrep i3lock &> /dev/null; then true; else i3lock -c 00000040 -k --pass-media-keys --pass-screen-keys  --radius 180 --ring-width 20 --linecolor 00000000 --ringcolor=ffffff --keyhlcolor=000000 --insidecolor=ffffff --indicator --ringwrongcolor ff2134  --separatorcolor 00000000 --ringvercolor 008cf7 --insidevercolor 008cf7 --insidewrongcolor ff2134 --pass-power-keys --refresh-rate=0.5 --bshlcolor=ff2134 --datestr="%A, %d %b %Y" --redraw-thread; fi && systemctl suspend;
+                zsh -c 'playerctl pause & ; if pgrep i3lock &> /dev/null; then true; else i3lock -c 00000040 -k --pass-media-keys --pass-screen-keys  --radius 180 --ring-width 20 --linecolor 00000000 --ringcolor=ffffff --keyhlcolor=000000 --insidecolor=ffffff --indicator --ringwrongcolor ff2134  --separatorcolor 00000000 --ringvercolor 008cf7 --insidevercolor 008cf7 --insidewrongcolor ff2134 --pass-power-keys --refresh-rate=0.5 --bshlcolor=ff2134 --datestr="%A, %d %b %Y" --redraw-thread; fi && systemctl suspend;'
                 ;;
             *)
                 logger "ACPI action undefined: $2"

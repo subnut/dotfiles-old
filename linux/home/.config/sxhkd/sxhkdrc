@@ -89,7 +89,8 @@ super + alt + {q,r}
 	bspc {quit,wm -r}
 
 # close
-{super + q,alt + F4}
+# {super + q,alt + F4}
+super + q
 	bspc node -c
 
 # kill

@@ -142,7 +142,7 @@ e2fsprogs
 efibootmgr
 efitools
 efivar
-electron
+electron6
 elfutils
 enca
 enchant
@@ -807,12 +807,10 @@ nfs-utils
 nfsidmap
 nilfs-utils
 nm-connection-editor
-node-gyp
 nodejs
 nodejs-localtunnel
 notify-send.sh
 noto-fonts
-npm
 npth
 nspr
 nss
@@ -1046,7 +1044,6 @@ sdl
 sdl2
 sdparm
 sed
-semver
 serd
 serf
 sg3_utils
@@ -1059,6 +1056,7 @@ simple-scan
 simplenote-electron-bin
 simplescreenrecorder
 slang
+slop
 smartmontools
 smbclient
 smplayer

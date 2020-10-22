@@ -25,7 +25,7 @@ call plug#begin()	" Make sure you use single-quotes in all Plug commands below
 " -----------------------------------------------------------------------
 Plug 'ncm2/ncm2'
 Plug 'roxma/nvim-yarp'
-Plug 'ncm2/float-preview.nvim'
+" Plug 'ncm2/float-preview.nvim'
 
 " Subscope-detectors
 Plug 'ncm2/ncm2-markdown-subscope'
@@ -35,11 +35,24 @@ Plug 'ncm2/ncm2-html-subscope'
 " our wiki page for a list of sources: https://github.com/ncm2/ncm2/wiki
 Plug 'ncm2/ncm2-bufword'
 Plug 'ncm2/ncm2-path'
-Plug 'ncm2/ncm2-jedi'
+" Plug 'ncm2/ncm2-jedi'
 Plug 'ncm2/ncm2-vim' | Plug 'Shougo/neco-vim'
 Plug 'svermeulen/ncm2-yoink', { 'on': [] }
 Plug 'subnut/ncm2-github-emoji', { 'do': 'python install.py' }
 " -----------------------------------------------------------------------
+
+" LSP
+" -----------------------
+Plug 'subnut/vim-lsp'
+let g:lsp_documentation_float = 1
+let g:lsp_documentation_float_docked = 0
+let g:lsp_diagnostics_enabled = 1
+
+" Integration with ncm2
+Plug 'prabirshrestha/async.vim'
+Plug 'ncm2/ncm2-vim-lsp'
+
+" ----------------------
 
 " Colorschemes
 Plug 'gruvbox-community/gruvbox'
@@ -54,8 +67,8 @@ Plug 'Xuyuanp/nerdtree-git-plugin'
 
 
 " Markdown
-Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 " Plug 'gabrielelana/vim-markdown', { 'for': 'markdown' }
+Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
 Plug 'PratikBhusal/vim-grip'
 let g:grip_default_map = 0
 
@@ -78,15 +91,15 @@ Plug 'vim-airline/vim-airline', { 'on': [] }
 
 " Python
 " -------
-Plug 'nvie/vim-flake8', { 'for': 'python' }					" Python linter
+" Plug 'nvie/vim-flake8', { 'for': 'python' }					" Python linter
 Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'python' }	" Python PEP8 autoindent
 Plug 'kalekundert/vim-coiled-snake', { 'for': 'python' }	" Python folding
-Plug 'dense-analysis/ale'									" Auto-linter
 Plug 'psf/black', { 'branch': 'stable', 'on': [] }			" Auto-formatter
 Plug 'Yggdroot/indentLine'
 
 " Misc
 " ----
+Plug 'dense-analysis/ale'									" Auto-linter
 Plug 'chaoren/vim-wordmotion'
 Plug 'reedes/vim-pencil'
 Plug 'majutsushi/tagbar'
@@ -114,8 +127,8 @@ Plug 'sheerun/vim-polyglot'							" Polyglot => one who knows many languages
 Plug 'norcalli/nvim-colorizer.lua'					" :ColorizerAttachToBuffer
 Plug 'subnut/vim-iawriter'
 Plug 'kkoomen/vim-doge', {'do':{->doge#install()}}	" (DO)cumentation (GE)nerator
-" Plug 'RRethy/vim-illuminate'
-Plug 'justinmk/vim-sneak'							" s<char><char>
+Plug 'RRethy/vim-illuminate'
+Plug 'justinmk/vim-sneak'							" s<char><char> (z<char><char> for operator-pending mode)
 Plug 'romainl/vim-cool'								" Remove search highlight automatically
 Plug 'tpope/vim-dadbod'
 Plug 'kristijanhusak/vim-dadbod-completion'
@@ -242,6 +255,7 @@ augroup colorscheme_overrides
 	autocmd ColorScheme * set guicursor=n-v-c-sm:block-Cursor/lCursor,i-ci-ve:ver25-Cursor/lCursor,r-cr-o:hor20
 	autocmd ColorScheme * hi clear ALEErrorSign
 	autocmd ColorScheme * hi clear ALEWarningSign
+	autocmd ColorScheme gruvbox call MyGruvboxCustomizations()
 augroup end
 " hi Comment gui=italic
 hi clear SignColumn
@@ -250,6 +264,17 @@ call s:kitty_term_custom()
 set guicursor=n-v-c-sm:block-Cursor/lCursor,i-ci-ve:ver25-Cursor/lCursor,r-cr-o:hor20-Cursor/lCursor
 hi clear ALEWarningSign
 hi clear ALEErrorSign
+fun! MyGruvboxCustomizations()
+if g:colors_name !=# 'gruvbox'
+	return
+endif
+hi clear Visual
+execute('hi Visual ' .
+			\ ' guibg=' . synIDattr(synIDtrans(hlID('CursorLine')), 'bg', 'gui') .
+			\ ' ctermbg=' . synIDattr(synIDtrans(hlID('CursorLine')), 'bg', 'cterm'))
+			" \ ' gui=bold'
+endfun
+call MyGruvboxCustomizations()
 
 " Get the higlight group of the character under cursor
 " ----------------------------------------------------
@@ -260,6 +285,8 @@ command! GetHiGroup call Get_hi_group()
 
 " Custom settings
 " ---------------
+set ignorecase		" Ignore uppercase and lowercase
+set smartcase		" If search contains UPPERCASE letter, then set "noignorecase"
 set mouse=a
 set clipboard+=unnamedplus
 set cursorline
@@ -281,8 +308,10 @@ nnoremap <silent> <C-g> :Goyo<CR>
 nnoremap <silent> <C-l> :set list!<CR>
 nnoremap <silent> <C-n> :call ToggleLineNrCustom()<CR>
 nnoremap <silent> <C-A-n> :call ToggleLineNrCustomLocal()<CR>
+nnoremap <silent> yY :%y<CR>
 " inoremap <C-w> <C-o>
-let mapleader = ';'
+" let mapleader = ';'
+let mapleader = ' '
 com! YankAll %y
 
 
@@ -366,6 +395,7 @@ endif
 
 
 " Aliases
+" -------
 fun! SetupCommandAlias(from, to)	" {{{1
 	exec 'cnoreabbrev <expr> '.a:from
 			\ .' ((getcmdtype() is# ":" && getcmdline() is# "'.a:from.'")'
@@ -379,13 +409,13 @@ call SetupCommandAlias('lightmode','set bg=light')
 call SetupCommandAlias('fzf','FZF!')
 call SetupCommandAlias('FZF!!','FZF')
 call SetupCommandAlias('H','History')
+call SetupCommandAlias('Y','YankAll')
 call SetupCommandAlias('notes','NV!')
 call SetupCommandAlias('NV!!','NV')
 call SetupCommandAlias('~','cd ~')
 call SetupCommandAlias('python','python3')
 call SetupCommandAlias('colo','MyColorscheme')
 " call SetupCommandAlias("so","source ~/.config/nvim/init.vim")
-
 
 
 " SetAll - 'set' for all tabs and windows	" {{{1
@@ -455,17 +485,28 @@ let g:fzf_action = {
 	\ 'ctrl-v': 'vsplit' }
 " Prefix FZF commands
 " let g:fzf_command_prefix = 'FZF'
+if len(split($FZF_DEFAULT_OPTS,'hidden')) - len(split($FZF_DEFAULT_OPTS,'nohidden')) == 1
+let $FZF_DEFAULT_OPTS = join(split($FZF_DEFAULT_OPTS,'hidden'),'nohidden')
+endif
+
+augroup AutoFZFLayout
+	au!
+	" au VimResized * if &lines < 15 | let g:fzf_layout = { 'down': '~40%' } | else | execute(exists('g:fzf_layout') ? 'unlet g:fzf_layout' : '') | endif
+	" au VimEnter * ++once if &lines < 15 | let g:fzf_layout = { 'down': '~40%' } | else | execute(exists('g:fzf_layout') ? 'unlet g:fzf_layout' : '') | endif
+	au VimResized * if &lines < 15 | let g:fzf_layout = { 'down': '~40%' } | else | let g:fzf_layout = {'window': {'width': 0.9, 'height': 0.8}} | endif
+	au VimEnter * ++once if &lines < 15 | let g:fzf_layout = { 'down': '~40%' } | else | let g:fzf_layout = {'window': {'width': 0.9, 'height': 0.8}} | endif
+augroup end
 
 
 " Undo history
 " ------------	" {{{1
 if has('persistent_undo')										" guard for distributions lacking the persistent_undo feature.
-		let target_path = expand('~/.nvim-undo-history/')		" define a path to store persistent_undo files
-		if !isdirectory(target_path)							" if the location does not exist,
-			call system('mkdir -p ' . target_path)				" create the directory and any parent directories
-		endif
-		let &undodir = target_path								" point Vim to the defined undo directory
-		set undofile											" finally, enable undo persistence
+	let target_path = expand('~/.nvim-undo-history/')		" define a path to store persistent_undo files
+	if !isdirectory(target_path)							" if the location does not exist,
+		call system('mkdir -p ' . target_path)				" create the directory and any parent directories
+	endif
+	let &undodir = target_path								" point Vim to the defined undo directory
+	set undofile											" finally, enable undo persistence
 endif	" }}}
 
 
@@ -511,7 +552,20 @@ let g:flake8_quickfix_height=15		" Height of quickfix window
 let g:flake8_show_in_gutter=1		" show signs in gutter
 let g:flake8_error_marker='❌'		" set error marker to 'EE'
 let g:flake8_warning_marker='W'		" set warning marker to 'WW'
+
+" ALE
+" ---
+let g:ale_disable_lsp = 1
+let g:ale_completion_enabled = 0
+let g:ale_sign_error = '❌'
+" let g:ale_sign_info = ' i'
+" let g:ale_sign_warning = ' W'
+" let g:ale_sign_info = '💡'
+let g:ale_sign_info = '🔹'
+let g:ale_sign_warning = '🔸'
+
 let g:ale_python_flake8_options='--extend-ignore E231,E252,E501'
+
 
 " Git gutter
 " ----------
@@ -529,6 +583,7 @@ if !exists('g:airline_symbols')
 	let g:airline_symbols = {}
 endif
 " let g:airline#extensions#tabline#enabled = 1
+" let g:airline_symbols.space = "\ua0"
 let g:airline_symbols.readonly = '[RO]'
 let g:airline_symbols.whitespace = ' '
 let g:airline_symbols.notexists = ' ?'
@@ -536,28 +591,64 @@ let g:airline#parts#ffenc#skip_expected_string = 'utf-8[unix]'
 let g:airline#extensions#localsearch#inverted = 1
 " let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#alt_sep = 1
+let g:my_airline_sep = '|'
+let g:my_airline_sep_raw = '%#__accent_bold#'.g:my_airline_sep.'%#__restore__#'
+let g:my_airline_customcurpos_enabled = 0
+let g:my_airline_customcurpos_short = 0
 function! s:airline_custom()
+fun! MyAirlineSeparatorSpacerFunc()	" {{{1
+	return g:airline_symbols.space . g:my_airline_sep .g:airline_symbols.space
+endfun
+fun! MyAirlineSeparatorWrapper(name,side)	" {{{1
+	if empty(airline#parts#get(a:name))
+		return ''
+	endif
+	let side = toupper(a:side[0])
+	let part_name = 'MySep' . a:name . side
+	let condition = get(airline#parts#get(a:name),'condition','')
+	if !empty(airline#parts#get(part_name))
+		return airline#section#create([part_name])
+	endif
+	call airline#parts#define_function(part_name,'MyAirlineSeparatorSpacerFunc')
+	call airline#parts#define_accent(part_name,'bold')
+	if !empty(condition)
+		call airline#parts#define_condition(part_name,condition)
+	endif
+	if side ==# 'R'
+		return airline#section#create([a:name,part_name])
+	endif
+	if side ==# 'L'
+		return airline#section#create([part_name, a:name])
+	endif
+endfun	" }}}
 fun! Airline_bufferline_overrides()	"{{{1
-hi bufferline_selected gui=NONE
-if exists('$NVIM_AIRLINE_MODE_NONBOLD') | execute('hi bufferline_selected gui=NONE') | endif
+	" hi bufferline_selected gui=NONE
+	if exists('$NVIM_AIRLINE_MODE_NONBOLD') | execute('hi bufferline_selected gui=NONE') | endif
 endfun
 call Airline_bufferline_overrides()
 fun! AirlineRemoveModeBold()	" {{{1
-let initial_value = airline#section#create_left(['mode'])
-call airline#parts#define_accent('mode', 'none')
-if len(split(g:airline_section_a,initial_value)) == 1
-let g:airline_section_a = airline#section#create_left(['mode']) . split(g:airline_section_a, initial_value)[0]
-else
-	let g:airline_section_a = join(split(g:airline_section_a,initial_value),airline#section#create_left(['mode']))
-	" See https://learnvimscriptthehardway.stevelosh.com/chapters/27.html#joining
-endif
+	let initial_value = airline#section#create_left(['mode'])
+	call airline#parts#define_accent('mode', 'none')
+	if len(split(g:airline_section_a,initial_value)) == 1
+	let g:airline_section_a = airline#section#create_left(['mode']) . split(g:airline_section_a, initial_value)[0]
+	else
+		let g:airline_section_a = join(split(g:airline_section_a,initial_value),airline#section#create_left(['mode']))
+		" See https://learnvimscriptthehardway.stevelosh.com/chapters/27.html#joining
+	endif
 endfun
 if exists('$NVIM_AIRLINE_MODE_NONBOLD') | call AirlineRemoveModeBold() | endif
 fun! CustomAirlineCursorPos()	" {{{1
-	return line('.') . ':' . col('.') . ' | '
+	let g:my_airline_customcurpos_short = get(g:,'my_airline_customcurpos_short', 0)
+	if airline#util#winwidth() > 79 && !g:my_airline_customcurpos_short
+	return line('.') . ':' . col('.')
+	else
+	return ':' . col('.')
+	endif
 endfun
+let g:my_airline_customcurpos_enabled = get(g:,'my_airline_customcurpos_enabled',0)
 call airline#parts#define_function('CustomCurPos', 'CustomAirlineCursorPos')
-call airline#parts#define_condition('CustomCurPos', 'mode() =~? "v" || mode() ==# "\<C-V>"')	" }}}
+call airline#parts#define_condition('CustomCurPos', 'g:my_airline_customcurpos_enabled')
+" call airline#parts#define_condition('CustomCurPos', 'mode() =~? "v" || mode() ==# "\<C-V>"')	" }}}
 " g:airline_section_x	" {{{1
 let g:airline_section_x = airline#section#create_right(['bookmark', 'tagbar', 'vista', 'gutentags', 'omnisharp', 'grepper'])
 " i.e. defaults with 'filetype' removed
@@ -565,10 +656,12 @@ let g:airline_section_x = airline#section#create_right(['bookmark', 'tagbar', 'v
 " let g:airline_section_y = '%{airline#util#wrap(airline#parts#filetype(),0)}%#__accent_bold#%{len(airline#util#prepend(airline#parts#ffenc(),0)) && len(airline#util#wrap(airline#parts#filetype(),0)) ? "  | " : ""}%#__restore__#%{trim(airline#util#prepend(airline#parts#ffenc(),0))}'
 let g:airline_section_y = "%{airline#util#wrap(airline#parts#filetype(),0)}%#__accent_bold#%{len(airline#util#prepend(airline#parts#ffenc(),0)) && len(airline#util#wrap(airline#parts#filetype(),0)) ? ' ' : ''}%#__restore__#%{trim(airline#util#prepend(airline#parts#ffenc(),0))}"
 " g:airline_section_z	{{{1
-let g:airline_section_z = airline#section#create(['windowswap', 'obsession', 'CustomCurPos']) . '%p%%%#__accent_bold# | %#__restore__#%L% '
-" i.e. default  minus  [ '%p%%'.spc, 'linenr', 'maxlinenr', ':%v' ]
+" let g:airline_section_z = airline#section#create(['windowswap', 'obsession']) . '%p%% %#__accent_bold#|%#__restore__# %L' . airline#section#create(['CustomCurPos'])
+let g:airline_section_z = airline#section#create(['windowswap', 'obsession']) . '%p%% ' .g:my_airline_sep_raw.' %L' . MyAirlineSeparatorWrapper('CustomCurPos','l')
+" i.e. default	minus  [ '%p%%'.spc, 'linenr', 'maxlinenr', ':%v' ]
 " g:airline_section_warning		{{{1
-let g:airline_section_warning = airline#section#create(['ycm_warning_count',  'syntastic-warn', 'neomake_warning_count', 'ale_warning_count', 'lsp_warning_count', 'nvimlsp_warning_count', 'languageclient_warning_count', 'coc_warning_count']) . trim(airline#extensions#whitespace#check())
+" let g:airline_section_warning = airline#section#create(['ycm_warning_count',	'syntastic-warn', 'neomake_warning_count', 'ale_warning_count', 'lsp_warning_count', 'nvimlsp_warning_count', 'languageclient_warning_count', 'coc_warning_count']) . trim(airline#extensions#whitespace#check())
+" let g:airline_section_warning = join(split(g:airline_section_warning, airline#section#create(['whitespace']))) . trim(airline#extensions#whitespace#check())
 " ie default minus 'whitespace', with trimmed whitespace at the end
 " }}}
 AirlineRefresh
@@ -577,6 +670,22 @@ augroup airline_customization
 	au!
 	au User AirlineAfterInit ++once call s:airline_custom()
 augroup end
+nnoremap <silent> <leader>; :call CustomAirlineCursorPosToggler()<CR>
+nnoremap <silent> <leader>: :call CustomAirlineCursorPosLengthToggler()<CR>
+fun! CustomAirlineCursorPosToggler()	" {{{1
+	let g:my_airline_customcurpos_enabled += 1
+	let g:my_airline_customcurpos_enabled %= 2
+	if !g:my_airline_customcurpos_enabled
+		let g:my_airline_customcurpos_short = 0
+	endif
+endfun	" }}}
+fun! CustomAirlineCursorPosLengthToggler()	" {{{1
+	let g:my_airline_customcurpos_short+= 1
+	let g:my_airline_customcurpos_short%= 2
+	if !g:my_airline_customcurpos_enabled
+		let g:my_airline_customcurpos_enabled = 1
+	endif
+endfun	" }}}
 
 " Show non-printable characters
 set listchars=eol:$,tab:>-,trail:~,extends:>,precedes:<
@@ -615,10 +724,10 @@ endif
 
 " Navigate through suggestions using TAB and Arrows
 " ----------------------------------------
-inoremap <silent><expr><tab>	pumvisible() ? "\<c-n>"			: "\<tab>"
-inoremap <silent><expr><s-tab>	pumvisible() ? "\<c-p>"			: "\<s-tab>"
-inoremap <expr> <up>			pumvisible() ? "<c-e><up>"		: "<up>"
-inoremap <expr> <down>			pumvisible() ? "<c-e><down>"	: "<down>"
+inoremap <silent><expr>	<tab>	pumvisible() ? "\<c-n>"			: "\<tab>"
+inoremap <silent><expr> <s-tab>	pumvisible() ? "\<c-p>"			: "\<s-tab>"
+inoremap <silent><expr> <up>	pumvisible() ? "<c-e><up>"		: "<up>"
+inoremap <silent><expr> <down>	pumvisible() ? "<c-e><down>"	: "<down>"
 " inoremap <expr><Down>			pumvisible() ? "\<C-n>"			: "\<Down>"
 " inoremap <expr><Up>			pumvisible() ? "\<C-p>"			: "\<Up>"
 
@@ -626,7 +735,7 @@ inoremap <expr> <down>			pumvisible() ? "<c-e><down>"	: "<down>"
 " ----
 " When the <Enter> key is pressed while the popup menu is visible, it only
 " hides the menu. Use this mapping to close the menu and also start a newline.
-		inoremap <expr><CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
+		inoremap <silent><expr> <CR> (pumvisible() ? "\<c-y>\<cr>" : "\<CR>")
 " enable ncm2 for all buffers
 " autocmd BufEnter * call ncm2#enable_for_buffer()
 		augroup enable_ncm2
@@ -650,7 +759,7 @@ let g:indentLine_enabled = 0
 let g:indentLine_char = '│'
 " let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 let g:indentLine_setColors = 0
-nnoremap <silent> <C-i> :IndentLinesToggle <CR>
+" nnoremap <silent> <C-i> :IndentLinesToggle <CR>
 
 " vim-yoink
 " ---------
@@ -742,12 +851,12 @@ command! -nargs=1 -complete=color MyColorscheme call <SID>AccurateColorscheme(<q
 
 " vim-iawriter
 " ------------
-let g:iawriter_no_nospell = 0
-augroup Iawriter_autocmds
-	au!
-	au User IawriterPostPostEnter if !g:iawriter_no_nospell | set nospell | endif
-	au User IawriterPostLeave if &filetype ==# 'markdown' | set spell | endif
-augroup end
+" let g:iawriter_no_nospell = 0
+" augroup Iawriter_autocmds
+"	au!
+"	au User IawriterPostPostEnter if !g:iawriter_no_nospell | set nospell | endif
+"	au User IawriterPostLeave if &filetype ==# 'markdown' | set spell | endif
+" augroup end
 let g:iawriter_force_defaults = 1
 
 " vim-illuminate
@@ -756,13 +865,17 @@ augroup illuminate
 	au!
 	au ColorScheme * exec 'hi illuminatedWord ' .
 			\ ' guibg=' . synIDattr(synIDtrans(hlID('CursorLine')), 'bg', 'gui') .
-			\ ' ctermbg=' . synIDattr(synIDtrans(hlID('CursorLine')), 'bg', 'cterm') .
-			\ ' gui=bold'
+			\ ' ctermbg=' . synIDattr(synIDtrans(hlID('CursorLine')), 'bg', 'cterm')
+			" \ ' gui=bold'
 augroup end
+exec 'hi illuminatedWord ' .
+			\ ' guibg=' . synIDattr(synIDtrans(hlID('CursorLine')), 'bg', 'gui') .
+			\ ' ctermbg=' . synIDattr(synIDtrans(hlID('CursorLine')), 'bg', 'cterm')
+			" \ ' gui=bold'
 let g:Illuminate_ftHighlightGroups = {
 			\ '*:blacklist': ['Comment', 'String']
 			\ }
-let g:Illuminate_ftblacklist = ['nerdtree', 'markdown', 'help']
+let g:Illuminate_ftblacklist = ['nerdtree', 'markdown', 'help', 'vim-plug']
 let g:Illuminate_delay = 250				" Time in milliseconds (default 250)
 let g:Illuminate_highlightUnderCursor = 1	" Highlight the word under cursor (default: 1)
 let g:Illuminate_insert_mode_highlight = 0	" Highlight in Insert mode too
@@ -773,7 +886,11 @@ function! FindAll()
 	call inputsave()
 	let p = input('Enter pattern: ')
 	call inputrestore()
-	silent execute 'lvimgrep "'.p.'" % |lopen'
+	if get(g:,'my_findall_use_quickfix', 0)
+		silent execute 'vimgrep "'.p.'" '.expand('%:p').' |copen'
+	else " use location list
+		silent execute 'lvimgrep "'.p.'" '.expand('%:p').' |lopen'
+	endif
 endfunction
 
 " Automatically close if QuickFix is the only window
@@ -785,13 +902,104 @@ aug END
 
 " ShowTrailingWhitespace
 " ----------------------
-command! -bar ShowTrailingWhitespaceOn          call ShowTrailingWhitespace#Set(1,1)
-command! -bar ShowTrailingWhitespaceOff         call ShowTrailingWhitespace#Set(0,1)
-command! -bar ShowTrailingWhitespaceBufferOn    call ShowTrailingWhitespace#Set(1,0)
-command! -bar ShowTrailingWhitespaceBufferOff   call ShowTrailingWhitespace#Set(0,0)
+command! -bar ShowTrailingWhitespaceOn			call ShowTrailingWhitespace#Set(1,1)
+command! -bar ShowTrailingWhitespaceOff			call ShowTrailingWhitespace#Set(0,1)
+command! -bar ShowTrailingWhitespaceBufferOn	call ShowTrailingWhitespace#Set(1,0)
+command! -bar ShowTrailingWhitespaceBufferOff	call ShowTrailingWhitespace#Set(0,0)
 command! -bar ShowTrailingWhitespaceBufferReset call ShowTrailingWhitespace#Reset()
 
 " vim-doge
 " --------
-let g:doge_doc_standard_python = 'google'
+" let g:doge_doc_standard_python = 'google'
 let g:doge_parsers=['python']
+
+" My SudoWrite
+" -----------
+func! MySudoRootWriter()
+	if len(expand('%')) == 0
+		echohl ErrorMsg
+		echom 'No file name!'
+		echohl None
+		return
+	endif
+	if !&modified | return | endif
+	let l:password = inputsecret('Enter password: ')
+	echo
+	redraw!
+	silent! execute('!echo "' . l:password . '" | sudo -S -v')
+	if v:shell_error != 0
+		echohl ErrorMsg
+		echom 'Wrong password'
+		echohl None
+		return
+	endif
+	let l:buftype = &buftype
+	set buftype=acwrite
+	let l:autoread = &autoread
+	set noautoread
+	execute('silent! w !echo "' . l:password . '\n$(cat -)" | sudo -S tee > /dev/null %')
+	execute('set buftype=' . l:buftype)
+	if l:autoread | set autoread | endif
+	set nomodified
+	" e!
+	echo
+	redraw!
+endfun
+com! SudoWrite call MySudoRootWriter()
+
+
+" vim-lsp
+" -------
+let g:Illuminate_ftblacklist += ['markdown.lsp-hover']
+
+function! s:on_lsp_buffer_enabled() abort
+	" setlocal omnifunc=lsp#complete
+	setlocal signcolumn=yes
+	if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
+	nmap <buffer><silent> gd <plug>(lsp-definition)
+	" nmap <buffer><silent> gr <plug>(lsp-references)
+	" nmap <buffer><silent> gi <plug>(lsp-implementation)
+	" nmap <buffer><silent> gt <plug>(lsp-type-definition)
+	nmap <buffer><silent> <leader>rn <plug>(lsp-rename)
+	" nmap <buffer><silent> [g <Plug>(lsp-previous-diagnostic)
+	" nmap <buffer><silent> ]g <Plug>(lsp-next-diagnostic)
+	nmap <buffer><silent> K <plug>(lsp-hover)
+
+	" refer to doc to add more commands
+endfunction
+
+augroup lsp_install
+	au!
+	" call s:on_lsp_buffer_enabled only for languages that has the server registered.
+	autocmd User lsp_buffer_enabled call s:on_lsp_buffer_enabled()
+augroup END
+
+
+" Python
+if executable('pyls')
+	" pip install python-language-server
+	augroup vim_lsp_pyls
+	au!
+	au User lsp_setup call lsp#register_server({
+		\ 'name': 'pyls',
+		\ 'cmd': {server_info->['pyls']},
+		\ 'allowlist': ['python'],
+		\ })
+	augroup end
+endif
+let g:Illuminate_ftblacklist += ['python']
+
+
+" vim-sneak
+" ---------
+fun! SneakOmapOverride()
+	for mapping in getcompletion('ounmap z.','cmdline')
+		execute('ounmap ' . mapping)
+	endfor
+	omap <silent> z <Plug>Sneak_s
+endfun
+augroup SneakOmapOverride
+	au BufWinEnter * ++once call SneakOmapOverride()
+augroup end
+
+
