@@ -61,9 +61,10 @@ Plug 'sonph/onehalf', {'rtp': 'vim'}
 Plug 'kristijanhusak/vim-hybrid-material'
 
 " File explorer
-Plug 'scrooloose/nerdtree'
+" Plug 'scrooloose/nerdtree'
+" Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'ryanoasis/vim-devicons'
-Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': ':UpdateRemotePlugins'}
 
 
 " Markdown
@@ -99,7 +100,7 @@ Plug 'Yggdroot/indentLine'
 
 " Misc
 " ----
-Plug 'dense-analysis/ale'									" Auto-linter
+Plug 'dense-analysis/ale'							" Auto-linter
 Plug 'chaoren/vim-wordmotion'
 Plug 'reedes/vim-pencil'
 Plug 'majutsushi/tagbar'
@@ -314,6 +315,8 @@ nnoremap <silent> yY :%y<CR>
 let mapleader = ' '
 com! YankAll %y
 
+nmap <Leader>s <Plug>(Scalpel)
+nnoremap <leader>e <cmd>CHADopen<cr>
 
 " Advanced customization
 " ----------------------
@@ -875,7 +878,7 @@ exec 'hi illuminatedWord ' .
 let g:Illuminate_ftHighlightGroups = {
 			\ '*:blacklist': ['Comment', 'String']
 			\ }
-let g:Illuminate_ftblacklist = ['nerdtree', 'markdown', 'help', 'vim-plug']
+let g:Illuminate_ftblacklist = ['nerdtree', 'CHADTree', 'markdown', 'help', 'vim-plug', '']
 let g:Illuminate_delay = 250				" Time in milliseconds (default 250)
 let g:Illuminate_highlightUnderCursor = 1	" Highlight the word under cursor (default: 1)
 let g:Illuminate_insert_mode_highlight = 0	" Highlight in Insert mode too
