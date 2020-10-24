@@ -52,6 +52,8 @@ let g:lsp_diagnostics_enabled = 1
 Plug 'prabirshrestha/async.vim'
 Plug 'ncm2/ncm2-vim-lsp'
 
+" Server installer
+Plug 'mattn/vim-lsp-settings'
 " ----------------------
 
 " Colorschemes
@@ -310,6 +312,8 @@ nnoremap <silent> <C-l> :set list!<CR>
 nnoremap <silent> <C-n> :call ToggleLineNrCustom()<CR>
 nnoremap <silent> <C-A-n> :call ToggleLineNrCustomLocal()<CR>
 nnoremap <silent> yY :%y<CR>
+" NOTE: This one's pretty darn useful.
+		inoremap <a-o> <c-o>
 " inoremap <C-w> <C-o>
 " let mapleader = ';'
 let mapleader = ' '
@@ -642,7 +646,7 @@ endfun
 if exists('$NVIM_AIRLINE_MODE_NONBOLD') | call AirlineRemoveModeBold() | endif
 fun! CustomAirlineCursorPos()	" {{{1
 	let g:my_airline_customcurpos_short = get(g:,'my_airline_customcurpos_short', 0)
-	if airline#util#winwidth() > 79 && !g:my_airline_customcurpos_short
+	if airline#util#winwidth() > 79 || !g:my_airline_customcurpos_short
 	return line('.') . ':' . col('.')
 	else
 	return ':' . col('.')
@@ -955,6 +959,9 @@ com! SudoWrite call MySudoRootWriter()
 " -------
 let g:Illuminate_ftblacklist += ['markdown.lsp-hover']
 
+" let g:lsp_diagnostics_float_cursor = 1
+" let g:lsp_virtual_text_enabled = 0
+let g:lsp_virtual_text_prefix = '     '
 function! s:on_lsp_buffer_enabled() abort
 	" setlocal omnifunc=lsp#complete
 	setlocal signcolumn=yes
@@ -979,18 +986,30 @@ augroup END
 
 
 " Python
-if executable('pyls')
-	" pip install python-language-server
-	augroup vim_lsp_pyls
-	au!
-	au User lsp_setup call lsp#register_server({
-		\ 'name': 'pyls',
-		\ 'cmd': {server_info->['pyls']},
-		\ 'allowlist': ['python'],
-		\ })
-	augroup end
-endif
+
+" if executable('pyls')
+" 	" pip install python-language-server
+" 	augroup vim_lsp_pyls
+" 	au!
+" 	au User lsp_setup call lsp#register_server({
+" 		\ 'name': 'pyls',
+" 		\ 'cmd': {server_info->['pyls']},
+" 		\ 'allowlist': ['python'],
+" 		\ 'config': {'configurationSources': ['flake8']},
+" 		\ 'workspace_config': {'pyls': {'configurationSources': ['flake8'] }}
+" 		\ })
+" 	augroup end
+" endif
 let g:Illuminate_ftblacklist += ['python']
+" let g:lsp_settings = {
+" \   'pyls': {
+" \     'workspace_config': {
+" \       'pyls': {
+" \         'configurationSources': ['flake8']
+" \       }
+" \     }
+" \   },
+" \}
 
 
 " vim-sneak
@@ -1004,5 +1023,32 @@ endfun
 augroup SneakOmapOverride
 	au BufWinEnter * ++once call SneakOmapOverride()
 augroup end
+
+" vim-dadbod
+" ----------
+" First create user in MariaDB -
+" 	create user 'dadbod-user'@'localhost';
+" 	revoke all on *.* from 'dadbod-user'@'localhost';
+" 	grant usage,select on *.* to 'dadbod-user'@'localhost';
+"
+" Then define "g:db"
+" 	let g:db = 'mysql://dadbod-user@localhost/database'
+" Set completefunc
+" 	set completefunc=vim_dadbod_completion#omni
+" Now, you can trigger completions (of tables and columns only)
+" by pressing <C-x><C-u>
+
+" Not ready yet, was just testing, but was unsuccessful
+"	 au User Ncm2Plugin call ncm2#register_source({
+" 			\ 'name' : 'dadbod-omifunc',
+" 			\ 'priority': 9,
+" 			\ 'subscope_enable': 1,
+" 			\ 'scope': ['sql'],
+" 			\ 'mark': '',
+" 			\ 'word_pattern': '\w\ ',
+" 			\ 'complete_pattern': '',
+" 			\ 'on_complete': ['ncm2#on_complete#delay', 180,
+" 					\'ncm2#on_complete#omni', 'vim_dadbod_completion#omni'],
+" 			\ })
 
 

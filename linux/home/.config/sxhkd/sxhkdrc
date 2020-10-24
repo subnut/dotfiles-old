@@ -377,6 +377,25 @@ super + Print
 Print
 	flameshot gui &> /dev/null &
 
+# Notification history
 super + Home
 	kill -s USR1 $(pidof deadd-notification-center)
+
+
+#
+# Parent node commands
+#
+
+# Circulate children nodes
+~alt + {shift + ,_} + c
+	bspc query -N --node .focused.!window &> /dev/null && bspc node -C {backward,forward}
+
+# Rotate layout
+~alt + {_,shift} + r
+	bspc query -N --node .focused.!window &> /dev/null && bspc node -R {+,-}90
+
+# Flip layout
+~alt + {h,j,k,l}
+	bspc query -N --node .focused.!window &> /dev/null && bspc node -F {vertical,horizontal,horizontal,vertical}
+
 
