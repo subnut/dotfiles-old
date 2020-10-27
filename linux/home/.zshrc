@@ -240,9 +240,19 @@ toggle_theme () {
 	fi
 	echo -n "get_theme\n" | kitty @ send-text -t="title:subhaditya@EndeavourPad" --stdin
 }
+alias to=toggle_theme
+
 
 alias telebit=~/telebit
-alias to=toggle_theme
+telebit_share_cur_dir () {
+	trap 'echo; echo Stopping telebit; telebit disable' INT
+
+	echo "https://wicked-emu-8.telebit.io/" | xsel -psb
+	telebit http ./.
+	telebit enable
+	while sleep 1; do echo -n ''; done
+}
+alias telebit_share=telebit_share_cur_dir
 
 alias py=python
 export PYTHONSTARTUP=~/.pythonrc
@@ -290,4 +300,5 @@ alias zshrc="nvim ~/.zshrc"
 alias wifi="nmcli dev wifi list"
 alias shrug="echo -n '¯\_(ツ)_/¯' | xsel -psb"
 alias copy=clipcopy
+alias picom_restart="killall picom; sleep 0.5 && sh -c 'picom &'"
 

@@ -321,6 +321,8 @@ com! YankAll %y
 
 nmap <Leader>s <Plug>(Scalpel)
 nnoremap <leader>e <cmd>CHADopen<cr>
+nnoremap <silent> <leader>r :LspRename<cr>
+nnoremap <silent> <leader>m :MundoToggle<cr>
 
 " Advanced customization
 " ----------------------

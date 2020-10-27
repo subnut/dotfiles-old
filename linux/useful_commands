@@ -1,3 +1,11 @@
 fc-match
 fc-list
 fc-cache
+
+programs
+--------
+mycli `pip install mycli`
+github.com/localtunnel/localtunnel
+telebit (coolaj86/telebit) (telebit.io)
+protonvpn
+

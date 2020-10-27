@@ -152,6 +152,7 @@ endeavouros-theming
 endeavouros-xfce4-terminal-colors
 eog
 eos-bash-shared
+eos-translations
 eos-update-notifier
 epdfview
 etcher-bin
@@ -372,6 +373,7 @@ i3-battery-popup-git
 i3lock-color-git
 iana-etc
 icu
+iio-sensor-proxy
 ijs
 imagemagick
 imlib2
@@ -1077,7 +1079,6 @@ sqlite
 squashfs-tools
 sratom
 srt
-st
 startup-notification
 subversion
 sudo
