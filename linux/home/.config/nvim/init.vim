@@ -54,6 +54,7 @@ Plug 'ncm2/ncm2-vim-lsp'
 
 " Server installer
 Plug 'mattn/vim-lsp-settings'
+
 " ----------------------
 
 " Colorschemes
@@ -63,8 +64,8 @@ Plug 'sonph/onehalf', {'rtp': 'vim'}
 Plug 'kristijanhusak/vim-hybrid-material'
 
 " File explorer
-" Plug 'scrooloose/nerdtree'
-" Plug 'Xuyuanp/nerdtree-git-plugin'
+Plug 'scrooloose/nerdtree'
+Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'ryanoasis/vim-devicons'
 Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': ':UpdateRemotePlugins'}
 

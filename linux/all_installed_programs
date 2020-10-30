@@ -33,6 +33,8 @@ at-spi2-core
 atk
 atkmm
 attr
+audacious
+audacious-plugins
 audit
 autoconf
 automake
@@ -512,6 +514,7 @@ libgsf
 libgssglue
 libgtop
 libgudev
+libguess
 libgusb
 libgweather
 libgxps
@@ -624,6 +627,7 @@ libseccomp
 libsecret
 libshout
 libsidplay
+libsidplayfp
 libsigc++
 libsigsegv
 libsm

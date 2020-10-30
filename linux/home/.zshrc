@@ -248,7 +248,12 @@ telebit_share_cur_dir () {
 	trap 'echo; echo Stopping telebit; telebit disable' INT
 
 	echo "https://wicked-emu-8.telebit.io/" | xsel -psb
-	telebit http ./.
+	if [[ -z $* ]]
+	then
+		telebit http ./.
+	else
+		telebit http $*
+	fi
 	telebit enable
 	while sleep 1; do echo -n ''; done
 }
