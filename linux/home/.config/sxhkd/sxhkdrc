@@ -4,7 +4,7 @@
 
 # terminal emulator
 super + Return
-	kitty -o background_opacity=0.8 &> /dev/null
+	kitty &> /dev/null
 super + shift + Return
 	bspc config -d focused window_gap 0; kitty --single-instance --config .config/kitty/kittyIDE.conf --detach --class="kittyIDE"  &> /dev/null
 
@@ -297,10 +297,11 @@ XF86AudioMute
 XF86AudioMicMute
 	pactl set-source-mute @DEFAULT_SOURCE@ toggle &> /dev/null
 
+# First compensate for changes made by acpid, then act ourselves
 {_,ctrl +,shift +,}XF86MonBrightnessUp
-	light -A {5,1,1}
+	light -U 5; light -A {5,1,1}
 {_,ctrl +,shift + }XF86MonBrightnessDown
-	light -U {5,1,1}
+	light -A 5;	light -U {5,1,1}
 
 XF86Sleep
 	zsh <<< "playerctl pause &;i3lock -c 00000040 -k --pass-media-keys --pass-screen-keys  --radius 180 --ring-width 20 --linecolor 00000000 --ringcolor=ffffff --keyhlcolor=000000 --insidecolor=ffffff --indicator --ringwrongcolor ff2134  --separatorcolor 00000000 --ringvercolor 008cf7 --insidevercolor 008cf7 --insidewrongcolor ff2134 --pass-power-keys --refresh-rate=0.5 --bshlcolor=ff2134 --datestr='%A, %d %b %Y' --redraw-thread && systemctl suspend" &> /dev/null
@@ -399,3 +400,6 @@ super + Home
 	bspc query -N --node .focused.!window &> /dev/null && bspc node -F {vertical,horizontal,horizontal,vertical}
 
 
+# Equalize/Reset sizing of child nodes
+~alt + e
+	bspc query -N --node .focused.!window &> /dev/null && bspc node -E

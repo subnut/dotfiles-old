@@ -27,6 +27,7 @@ Flask                        1.1.2
 Flask-SocketIO               4.3.1
 greenlet                     0.4.17
 idna                         2.10
+imagesize                    1.2.0
 ipykernel                    5.3.4
 ipython                      7.18.1
 ipython-genutils             0.2.0
@@ -89,7 +90,7 @@ python-engineio              3.13.2
 python-socketio              4.6.0
 python-xlib                  0.27
 pythondialog                 3.5.1
-pytz                         2020.1
+pytz                         2020.4
 pywal                        3.3.0
 pywebview                    3.3.3
 pyxdg                        0.26
@@ -121,4 +122,4 @@ wcwidth                      0.2.5
 Werkzeug                     1.0.1
 wheel                        0.34.2
 wrapt                        1.12.1
-youtube-dl                   2020.9.20
+youtube-dl                   2020.11.1.1

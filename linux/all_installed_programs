@@ -727,6 +727,7 @@ light
 lightdm
 lightdm-gtk-greeter
 lightdm-gtk-greeter-settings
+lightdm-slick-greeter
 lilv
 linux
 linux-api-headers

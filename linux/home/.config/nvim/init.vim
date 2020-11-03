@@ -54,14 +54,26 @@ Plug 'ncm2/ncm2-vim-lsp'
 
 " Server installer
 Plug 'mattn/vim-lsp-settings'
-
 " ----------------------
+
+
+" Neovim nightly
+" --------------
+"  Treesitter
+" Plug 'nvim-treesitter/nvim-treesitter'
+
+
+" ---------------
+
 
 " Colorschemes
 Plug 'gruvbox-community/gruvbox'
 Plug 'reedes/vim-colors-pencil'
 Plug 'sonph/onehalf', {'rtp': 'vim'}
 Plug 'kristijanhusak/vim-hybrid-material'
+Plug 'romgrk/doom-one.vim'
+Plug 'sainnhe/sonokai'
+Plug 'Iron-E/nvim-highlite'
 
 " File explorer
 Plug 'scrooloose/nerdtree'
@@ -122,7 +134,8 @@ Plug 'tpope/vim-commentary'							" gc<motion> = toggle comment
 Plug 'svermeulen/vim-yoink'							" Clipboard
 Plug 'Konfekt/FastFold'								" Better folding
 Plug 'inkarkat/vim-ShowTrailingWhitespace'			" Trailing whitespace
-Plug 'psliwka/vim-smoothie'							" Smooth-scroll
+Plug 'subnut/vim-smoothie'							" Smooth-scroll
+" Plug 'psliwka/vim-smoothie'							" Smooth-scroll
 Plug 'mox-mox/vim-localsearch'
 Plug 'wincent/scalpel'								" See before replacing
 Plug 'mtth/scratch.vim'
@@ -273,10 +286,8 @@ if g:colors_name !=# 'gruvbox'
 	return
 endif
 hi clear Visual
-execute('hi Visual ' .
-			\ ' guibg=' . synIDattr(synIDtrans(hlID('CursorLine')), 'bg', 'gui') .
-			\ ' ctermbg=' . synIDattr(synIDtrans(hlID('CursorLine')), 'bg', 'cterm'))
-			" \ ' gui=bold'
+execute('hi Visual  guibg=' . synIDattr(synIDtrans(hlID('CursorLine')), 'bg', 'gui'))
+silent! execute('hi Visual  ctermbg=' . synIDattr(synIDtrans(hlID('CursorLine')), 'bg', 'cterm'))
 endfun
 call MyGruvboxCustomizations()
 
@@ -300,6 +311,7 @@ set shiftwidth=0				" i.e. tabstop value will be used for auto-indenting
 " au BufWinEnter *.py %retab!	" Replace all tabs with spaces when entering a python file
 " set foldmethod=marker
 " set nowrap
+set showbreak=¬\ 				" The backslash is used to escape the space after it
 set autoread
 set autowrite
 "set nonumber nornu
@@ -485,6 +497,7 @@ function MarkdownBrowserQute(url)	" {{{1
 	silent! execute '!qutebrowser' shellescape('--target') 'window' string(a:url) '&' | redraw!
 endfunction	" }}}
 let g:mkdp_browserfunc='MarkdownBrowserFirefox'
+let g:mkdp_auto_close = 0
 
 " FZF
 " ---
@@ -873,15 +886,13 @@ let g:iawriter_force_defaults = 1
 " --------------
 augroup illuminate
 	au!
-	au ColorScheme * exec 'hi illuminatedWord ' .
-			\ ' guibg=' . synIDattr(synIDtrans(hlID('CursorLine')), 'bg', 'gui') .
-			\ ' ctermbg=' . synIDattr(synIDtrans(hlID('CursorLine')), 'bg', 'cterm')
-			" \ ' gui=bold'
+	au ColorScheme * exec 'hi illuminatedWord  guibg=' . synIDattr(synIDtrans(hlID('CursorLine')), 'bg', 'gui')
+	au ColorScheme * silent! exec 'hi illuminatedWord  ctermbg=' . synIDattr(synIDtrans(hlID('CursorLine')), 'bg', 'cterm')
+	" au ColorScheme * exec 'hi illuminatedWord  gui=bold'
 augroup end
-exec 'hi illuminatedWord ' .
-			\ ' guibg=' . synIDattr(synIDtrans(hlID('CursorLine')), 'bg', 'gui') .
-			\ ' ctermbg=' . synIDattr(synIDtrans(hlID('CursorLine')), 'bg', 'cterm')
-			" \ ' gui=bold'
+exec 'hi illuminatedWord  guibg=' . synIDattr(synIDtrans(hlID('CursorLine')), 'bg', 'gui')
+silent! exec 'hi illuminatedWord  ctermbg=' . synIDattr(synIDtrans(hlID('CursorLine')), 'bg', 'cterm')
+" exec 'hi illuminatedWord  gui=bold'
 let g:Illuminate_ftHighlightGroups = {
 			\ '*:blacklist': ['Comment', 'String']
 			\ }
@@ -1055,3 +1066,35 @@ augroup end
 " 			\ })
 
 
+" treesitter
+" ----------
+" lua << EOF
+" require'nvim-treesitter.configs'.setup {
+"   ensure_installed = "python", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+"   highlight = {
+"     enable = true,              -- false will disable the whole extension
+"   },
+" }
+" EOF
+
+" transparent background
+" ----------------------
+let g:my_transparent_background = get(g:, 'my_transparent_background', 0)
+if !exists('$MY_NVIM_BG')
+	let g:my_transparent_background = 1
+endif
+if g:my_transparent_background
+	augroup my_transparent_background
+		au!
+		au ColorScheme * hi Normal guibg=none ctermbg=none
+		au ColorScheme * hi CursorLineNr guibg=none ctermbg=none
+		au ColorScheme * hi LineNr guibg=none ctermbg=none
+		au ColorScheme * set nocursorline
+		au ColorScheme * hi clear ALEWarningSign | hi link ALEWarningSign NONE | hi clear ALEErrorSign | hi link ALEErrorSign NONE | hi clear ALEInfoSign | hi link ALEInfoSign NONE
+	augroup end
+hi Normal guibg=none ctermbg=none
+hi CursorLineNr guibg=none ctermbg=none
+hi LineNr guibg=none ctermbg=none
+set nocursorline
+hi clear ALEWarningSign | hi link ALEWarningSign NONE | hi clear ALEErrorSign | hi link ALEErrorSign NONE | hi clear ALEInfoSign | hi link ALEInfoSign NONE
+endif

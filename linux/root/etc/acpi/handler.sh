@@ -93,9 +93,23 @@ case "$1" in
                 ;;
         esac
         ;;
-        *)
-            logger "ACPI group/action undefined: $1 / $2"
-            ;;
+    video/brightnessdown)
+        case "$2" in
+            BRTDN)
+                light -U 5
+                ;;
+        esac
+        ;;
+    video/brightnessup)
+        case "$2" in
+            BRTUP)
+                light -A 5
+                ;;
+        esac
+        ;;
+    *)
+        logger "ACPI group/action undefined: $1 / $2"
+        ;;
 esac
 
 # vim:set ts=4 sw=4 ft=sh et:

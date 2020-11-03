@@ -1,3 +1,26 @@
+### How to install lightdm-slick-greeter
+Run `yay -S lightdm-slick-greeter`
+```sh
+sudo touch /etc/lightdm/slick-greeter.conf
+```
+Contents of `/etc/lightdm/slick-greeter.conf`
+```
+[Greeter]
+draw-grid=false
+background=/etc/lightdm/light.png
+draw-user-backgrounds=false
+theme-name=Layan-dark
+icon-theme-name=Tela-circle-dark
+```
+Then -
+```sh
+cd /etc/lightdm
+cp -t . ~/light.png 	# Copying my background to here
+```
+Also ensure that `/etc/lightdm/lightdm.conf` contains the line `greeter-session=lightdm-slick-greeter` instead of `greeter-session=lightdm-gtk-greeter`
+
+For more information see [here](https://forum.endeavouros.com/t/want-to-experiment-with-lightdm-slick-greeter/298)
+
 ### To Fix emoji problems in arch linux
 :warning: **UNINSTALL ttf-dejavu** :warning:
 Install `ttf-twemoji-color` <strike>and setup the symlink as instructed in the post-install text  
