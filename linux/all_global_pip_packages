@@ -8,17 +8,16 @@ attrs                        20.2.0
 Babel                        2.8.0
 backcall                     0.2.0
 Brotli                       1.0.9
+btrfsutil                    5.9
 certifi                      2020.6.20
 cffi                         1.14.3
 chardet                      3.0.4
 cli-helpers                  2.1.0
 click                        7.1.2
-colorama                     0.4.4
 configobj                    5.0.6
 cryptography                 3.2.1
 decorator                    4.4.2
 deemix                       1.4.2
-distlib                      0.3.1
 dnspython                    1.16.0
 docopt                       0.6.2
 eventlet                     0.28.0
@@ -42,7 +41,6 @@ lazy-object-proxy            1.4.3
 lensfun                      0.3.95
 lightdm-gtk-greeter-settings 1.2.2
 louis                        3.15.0
-lxml                         4.6.1
 Markdown                     3.3
 MarkupSafe                   1.1.1
 mccabe                       0.6.1
@@ -60,7 +58,6 @@ ordered-set                  4.0.2
 packaging                    20.4
 parso                        0.7.1
 pathspec                     0.8.0
-pep517                       0.8.2
 pexpect                      4.8.0
 pickleshare                  0.7.5
 pip                          20.2.4

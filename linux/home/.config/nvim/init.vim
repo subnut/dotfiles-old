@@ -1,8 +1,13 @@
 " vim: fdm=marker noet ts=4 nowrap
 scriptencoding utf-8
 
+" Polyglot sets "noswapfile"
+" stop it from doing that
+let g:polyglot_disabled = ['sensible']
+" see ":h swapfile" for why not
+
 " Disable polyglot plasticboy markdown to avoid clashing with gabrielelana
-"	let g:polyglot_disabled = ['markdown.plugin']
+"	let g:polyglot_disabled += ['markdown.plugin']
 " NOTE: This configuration MUST be set before vim-polyglot is loaded
 
 
@@ -15,11 +20,11 @@ endif
 
 call plug#begin()	" Make sure you use single-quotes in all Plug commands below
 
-" YouCompleteMe	{{{1
-" -------------
-" Plug 'ycm-core/YouCompleteMe', { 'do': './install.py', 'on': [] }
-" Initialized later
-" }}}
+" " YouCompleteMe	{{{1
+" " -------------
+" " Plug 'ycm-core/YouCompleteMe', { 'do': './install.py', 'on': [] }
+" " Initialized later
+" " }}}
 
 " NCM2
 " -----------------------------------------------------------------------
@@ -43,7 +48,7 @@ Plug 'subnut/ncm2-github-emoji', { 'do': 'python install.py' }
 
 " LSP
 " -----------------------
-Plug 'subnut/vim-lsp'
+Plug 'prabirshrestha/vim-lsp'
 let g:lsp_documentation_float = 1
 let g:lsp_documentation_float_docked = 0
 let g:lsp_diagnostics_enabled = 1
@@ -74,6 +79,7 @@ Plug 'kristijanhusak/vim-hybrid-material'
 Plug 'romgrk/doom-one.vim'
 Plug 'sainnhe/sonokai'
 Plug 'Iron-E/nvim-highlite'
+Plug 'altercation/solarized', { 'rtp': 'vim-colors-solarized'}
 
 " File explorer
 Plug 'scrooloose/nerdtree'
@@ -149,6 +155,9 @@ Plug 'justinmk/vim-sneak'							" s<char><char> (z<char><char> for operator-pend
 Plug 'romainl/vim-cool'								" Remove search highlight automatically
 Plug 'tpope/vim-dadbod'
 Plug 'kristijanhusak/vim-dadbod-completion'
+Plug 'unblevable/quick-scope'
+Plug 'sgur/vim-editorconfig'
+Plug 'romgrk/winteract.vim'
 
 " Vanity
 " ------
@@ -325,10 +334,13 @@ nnoremap <silent> <C-l> :set list!<CR>
 nnoremap <silent> <C-n> :call ToggleLineNrCustom()<CR>
 nnoremap <silent> <C-A-n> :call ToggleLineNrCustomLocal()<CR>
 nnoremap <silent> yY :%y<CR>
-" NOTE: This one's pretty darn useful.
-		inoremap <a-o> <c-o>
+
+" NOTE: These are pretty darn useful.
+	inoremap <a-o> <c-o>
+	inoremap <A-Space> <Esc>
+
 " inoremap <C-w> <C-o>
-" let mapleader = ';'
+
 let mapleader = ' '
 com! YankAll %y
 
@@ -336,6 +348,7 @@ nmap <Leader>s <Plug>(Scalpel)
 nnoremap <leader>e <cmd>CHADopen<cr>
 nnoremap <silent> <leader>r :LspRename<cr>
 nnoremap <silent> <leader>m :MundoToggle<cr>
+nnoremap <silent> <leader>i :IndentLinesToggle<cr>
 
 " Advanced customization
 " ----------------------
@@ -770,6 +783,18 @@ inoremap <silent><expr> <down>	pumvisible() ? "<c-e><down>"	: "<down>"
 " Disable syntax hint after completion in python
 "	let g:ncm2_jedi#call_sig_hint = 0
 
+" My custom ncm2
+" --------------
+" set completeopt+=menu
+" set completeopt-=menuone
+" func! MyNCM2ForceTrigger()
+" 	set cot+=menuone
+" 	call ncm2#manual_trigger()
+" 	au CompleteDone * ++once set cot-=menuone
+" endfun
+" inoremap <silent> <c-p> <cmd>call MyNCM2ForceTrigger()<CR>
+
+
 " Gabrielana markdown
 " -------------------
 let g:markdown_enable_insert_mode_mappings = 0
@@ -980,14 +1005,14 @@ function! s:on_lsp_buffer_enabled() abort
 	" setlocal omnifunc=lsp#complete
 	setlocal signcolumn=yes
 	if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
-	nmap <buffer><silent> gd <plug>(lsp-definition)
+	nmap <buffer> gd <plug>(lsp-definition)
 	" nmap <buffer><silent> gr <plug>(lsp-references)
 	" nmap <buffer><silent> gi <plug>(lsp-implementation)
 	" nmap <buffer><silent> gt <plug>(lsp-type-definition)
-	nmap <buffer><silent> <leader>rn <plug>(lsp-rename)
+	nmap <buffer> <leader>r <plug>(lsp-rename)
 	" nmap <buffer><silent> [g <Plug>(lsp-previous-diagnostic)
 	" nmap <buffer><silent> ]g <Plug>(lsp-next-diagnostic)
-	nmap <buffer><silent> K <plug>(lsp-hover)
+	nmap <buffer> K <plug>(lsp-hover)
 
 	" refer to doc to add more commands
 endfunction
@@ -1080,9 +1105,9 @@ augroup end
 " transparent background
 " ----------------------
 let g:my_transparent_background = get(g:, 'my_transparent_background', 0)
-if !exists('$MY_NVIM_BG')
-	let g:my_transparent_background = 1
-endif
+" if !exists('$MY_NVIM_BG')
+" 	let g:my_transparent_background = 1
+" endif
 if g:my_transparent_background
 	augroup my_transparent_background
 		au!
@@ -1098,3 +1123,22 @@ hi LineNr guibg=none ctermbg=none
 set nocursorline
 hi clear ALEWarningSign | hi link ALEWarningSign NONE | hi clear ALEErrorSign | hi link ALEErrorSign NONE | hi clear ALEInfoSign | hi link ALEInfoSign NONE
 endif
+
+" quick-scope
+" -----------
+let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
+fun! MyQuickScopeColorSetter()
+	au ColorScheme ++once * call MyQuickScopeColorSetter()
+	hi clear QuickScopePrimary
+	exec 'hi QuickScopePrimary guibg=' . synIDattr(synIDtrans(hlID('Comment')), 'fg', 'gui')
+	hi QuickScopePrimary guifg=bg
+	hi clear QuickScopeSecondary
+	hi QuickScopeSecondary guibg=bg guifg=fg gui=bold
+	" hi QuickScopeSecondary guifg=fg guibg=bg
+	" hi QuickScopeSecondary guifg=bg guibg=fg
+	" exec 'hi QuickScopeSecondary guibg=' . synIDattr(synIDtrans(hlID('Comment')), 'fg', 'gui')
+	" exec 'hi QuickScopeSecondary guibg=' . synIDattr(synIDtrans(hlID('Normal')), 'fg', 'gui') . ' guibg=' . synIDattr(synIDtrans(hlID('Normal')), 'bg', 'gui') . ' gui=bold'
+	" hi QuickScopeSecondary guifg=bg
+	" hi QuickScopeSecondary gui=bold
+endfun
+call MyQuickScopeColorSetter()

@@ -20,6 +20,8 @@
 ;background = ${xrdb:color0:#222}
 ;background = #222
 background = #191919
+; In polybar, #AArrggbb, where AA is the transparency
+; background = #00191919
 background-alt = #444
 ;foreground = ${xrdb:color7:#222}
 foreground = #dfdfdf

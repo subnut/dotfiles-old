@@ -96,14 +96,14 @@ case "$1" in
     video/brightnessdown)
         case "$2" in
             BRTDN)
-                light -U 5
+                light -U 1
                 ;;
         esac
         ;;
     video/brightnessup)
         case "$2" in
             BRTUP)
-                light -A 5
+                light -A 1
                 ;;
         esac
         ;;
