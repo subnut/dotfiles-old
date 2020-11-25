@@ -75,11 +75,11 @@ Plug 'mattn/vim-lsp-settings'
 Plug 'gruvbox-community/gruvbox'
 Plug 'reedes/vim-colors-pencil'
 Plug 'sonph/onehalf', {'rtp': 'vim'}
-Plug 'kristijanhusak/vim-hybrid-material'
 Plug 'romgrk/doom-one.vim'
 Plug 'sainnhe/sonokai'
-Plug 'Iron-E/nvim-highlite'
-Plug 'altercation/solarized', { 'rtp': 'vim-colors-solarized'}
+let g:sonokai_enable_italic = 1
+" Plug 'Iron-E/nvim-highlite'
+Plug 'fenetikm/falcon'
 
 " File explorer
 Plug 'scrooloose/nerdtree'
@@ -118,6 +118,7 @@ Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'python' }	" Python PEP8 autoinde
 Plug 'kalekundert/vim-coiled-snake', { 'for': 'python' }	" Python folding
 Plug 'psf/black', { 'branch': 'stable', 'on': [] }			" Auto-formatter
 Plug 'Yggdroot/indentLine'
+Plug 'lukas-reineke/indent-blankline.nvim'
 
 " Misc
 " ----
@@ -140,7 +141,7 @@ Plug 'tpope/vim-commentary'							" gc<motion> = toggle comment
 Plug 'svermeulen/vim-yoink'							" Clipboard
 Plug 'Konfekt/FastFold'								" Better folding
 Plug 'inkarkat/vim-ShowTrailingWhitespace'			" Trailing whitespace
-Plug 'subnut/vim-smoothie'							" Smooth-scroll
+Plug 'subnut/vim-smoothie', {'branch': 'devel'}							" Smooth-scroll
 " Plug 'psliwka/vim-smoothie'							" Smooth-scroll
 Plug 'mox-mox/vim-localsearch'
 Plug 'wincent/scalpel'								" See before replacing
@@ -158,6 +159,7 @@ Plug 'kristijanhusak/vim-dadbod-completion'
 Plug 'unblevable/quick-scope'
 Plug 'sgur/vim-editorconfig'
 Plug 'romgrk/winteract.vim'
+" Plug 'romgrk/barbar.nvim'
 
 " Vanity
 " ------
@@ -275,28 +277,26 @@ endfun	" }}}
 augroup colorscheme_overrides
 	autocmd!
 	" autocmd ColorScheme * hi Comment gui=italic
-	autocmd ColorScheme * hi clear SignColumn
-	autocmd ColorScheme * hi CursorLine gui=underline
 	autocmd ColorScheme * call s:kitty_term_custom()
 	autocmd ColorScheme * set guicursor=n-v-c-sm:block-Cursor/lCursor,i-ci-ve:ver25-Cursor/lCursor,r-cr-o:hor20
-	autocmd ColorScheme * hi clear ALEErrorSign
-	autocmd ColorScheme * hi clear ALEWarningSign
+	" autocmd ColorScheme * hi clear ALEErrorSign
+	" autocmd ColorScheme * hi clear ALEWarningSign
 	autocmd ColorScheme gruvbox call MyGruvboxCustomizations()
 augroup end
 " hi Comment gui=italic
-hi clear SignColumn
-hi CursorLine gui=underline
 call s:kitty_term_custom()
 set guicursor=n-v-c-sm:block-Cursor/lCursor,i-ci-ve:ver25-Cursor/lCursor,r-cr-o:hor20-Cursor/lCursor
-hi clear ALEWarningSign
-hi clear ALEErrorSign
+" hi clear ALEWarningSign
+" hi clear ALEErrorSign
 fun! MyGruvboxCustomizations()
-if g:colors_name !=# 'gruvbox'
-	return
-endif
-hi clear Visual
-execute('hi Visual  guibg=' . synIDattr(synIDtrans(hlID('CursorLine')), 'bg', 'gui'))
-silent! execute('hi Visual  ctermbg=' . synIDattr(synIDtrans(hlID('CursorLine')), 'bg', 'cterm'))
+	if g:colors_name !=# 'gruvbox'
+		return
+	endif
+	hi clear Visual
+	execute('hi Visual  guibg=' . synIDattr(synIDtrans(hlID('CursorLine')), 'bg', 'gui'))
+	silent! execute('hi Visual  ctermbg=' . synIDattr(synIDtrans(hlID('CursorLine')), 'bg', 'cterm'))
+	hi clear SignColumn
+	hi CursorLine gui=underline
 endfun
 call MyGruvboxCustomizations()
 
@@ -309,6 +309,7 @@ command! GetHiGroup call Get_hi_group()
 
 " Custom settings
 " ---------------
+set tildeop			" use ~<motion> to change case of characters over <motion>
 set ignorecase		" Ignore uppercase and lowercase
 set smartcase		" If search contains UPPERCASE letter, then set "noignorecase"
 set mouse=a
@@ -1003,7 +1004,7 @@ let g:Illuminate_ftblacklist += ['markdown.lsp-hover']
 let g:lsp_virtual_text_prefix = '     '
 function! s:on_lsp_buffer_enabled() abort
 	" setlocal omnifunc=lsp#complete
-	setlocal signcolumn=yes
+	" setlocal signcolumn=yes
 	if exists('+tagfunc') | setlocal tagfunc=lsp#tagfunc | endif
 	nmap <buffer> gd <plug>(lsp-definition)
 	" nmap <buffer><silent> gr <plug>(lsp-references)

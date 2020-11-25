@@ -303,7 +303,27 @@ alias sxhkdrc="nvim ~/.config/sxhkd/sxhkdrc"
 alias zshrc="nvim ~/.zshrc"
 
 alias wifi="nmcli dev wifi list"
-alias shrug="echo -n '¯\_(ツ)_/¯' | xsel -psb"
+alias shrug="echo -n '¯\_(ツ)_/¯' | clipcopy"
 alias copy=clipcopy
 alias picom_restart="killall picom; sleep 0.5 && sh -c 'picom &'"
+
+alias winvm_4cpu="VBoxManage modifyvm Win10 --cpus 4 && VBoxManage startvm Win10"
+alias winvm_1cpu="VBoxManage modifyvm Win10 --cpus 1 && VBoxManage startvm Win10"
+
+bspwm_delete_monitor() {
+	echo $*
+	}
+
+_bspwm_delete_monitor() {
+	local state
+	local mon_id
+
+	compadd $(bspc query -M --names)
+	# for mon_id in $(bspc query -M)
+	# do
+	# 	_describe $mon_id "$mon_id:$(bspc query -M --names -m $mon_id)"
+	# done
+	}
+
+compdef _bspwm_delete_monitor bspwm_delete_monitor
 

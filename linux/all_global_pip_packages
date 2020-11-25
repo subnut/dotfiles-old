@@ -41,7 +41,7 @@ lazy-object-proxy            1.4.3
 lensfun                      0.3.95
 lightdm-gtk-greeter-settings 1.2.2
 louis                        3.15.0
-Markdown                     3.3
+Markdown                     3.3.3
 MarkupSafe                   1.1.1
 mccabe                       0.6.1
 monotonic                    1.5
@@ -120,4 +120,4 @@ wcwidth                      0.2.5
 Werkzeug                     1.0.1
 wheel                        0.34.2
 wrapt                        1.12.1
-youtube-dl                   2020.11.1.1
+youtube-dl                   2020.11.24

@@ -1,4 +1,4 @@
-#! /bin/sh
+#!/bin/sh
 
 xinput set-button-map 'TPPS/2 Elan TrackPoint' 1 0 3
 xinput set-prop 'SynPS/2 Synaptics TouchPad' 'libinput Accel Speed' 0.001
@@ -40,7 +40,7 @@ bspc rule -a Kupfer.py focus=on
 # bspc rule -a Screenkey manage=off
 
 bspc rule -a VirtualBoxVM state=floating
-bspc rule -a "VirtualBox Machine" state=floating
+bspc rule -a "VirtualBox Machine" state=tiled
 bspc rule -a jome state=floating
 bspc rule -a xdman-Main state=floating
 bspc rule -a my_zoom state=floating
