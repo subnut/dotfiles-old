@@ -158,11 +158,12 @@ alt + {_,shift + } + {_,ctrl} +Tab
 #	bspc {desktop -f,node -d} '^{1-9,10}'
 
 super + {_,shift + }{1-9}
-	bspc {desktop -f,node -d} focused:'^{1-9}'.local
+	bspc {desktop -f,node -d} focused:'^{1-9}'.local || if bspc query -N -n focused.sticky -d focused; then notify-send "Node sticky" -a "bspwm" -t 1000 -u critical; else notify-send "No node to send" -a "bspwm" -t 1000 -u critical; fi
+
 super + {_,shift + }F{1-9}
-	bspc {desktop -f,node -d} focused:'^1{1-9}'.local
+	bspc {desktop -f,node -d} focused:'^1{1-9}'.local || if bspc query -N -n focused.sticky -d focused; then notify-send "Node sticky" -a "bspwm" -t 1000 -u critical; else notify-send "No node to send" -a "bspwm" -t 1000 -u critical; fi
 super + {_,shift + }F1{0-2}
-	bspc {desktop -f,node -d} focused:'^2{0-2}'.local
+	bspc {desktop -f,node -d} focused:'^2{0-2}'.local || if bspc query -N -n focused.sticky -d focused; then notify-send "Node sticky" -a "bspwm" -t 1000 -u critical; else notify-send "No node to send" -a "bspwm" -t 1000 -u critical; fi
 
 
 # focus the prev/next unoccupied/occupied desktop

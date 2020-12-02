@@ -131,6 +131,7 @@ dleyna-connector-dbus
 dleyna-core
 dleyna-renderer
 dleyna-server
+dmd
 dmenu-xft-mouse-height-fuzzy-history
 dmidecode
 dmraid
@@ -818,8 +819,11 @@ nfs-utils
 nfsidmap
 nilfs-utils
 nm-connection-editor
+node-gyp
+nodejs
 notify-send.sh
 noto-fonts
+npm
 npth
 nspr
 nss
@@ -1038,6 +1042,7 @@ sdl
 sdl2
 sdparm
 sed
+semver
 serd
 serf
 sg3_utils

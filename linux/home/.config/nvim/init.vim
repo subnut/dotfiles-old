@@ -47,27 +47,30 @@ Plug 'subnut/ncm2-github-emoji', { 'do': 'python install.py' }
 " -----------------------------------------------------------------------
 
 " LSP
-" -----------------------
+" ------------------------------------------------------------------------
 Plug 'prabirshrestha/vim-lsp'
+let g:lsp_documentation_debounce = 0
 let g:lsp_documentation_float = 1
 let g:lsp_documentation_float_docked = 0
 let g:lsp_diagnostics_enabled = 1
 
 " Integration with ncm2
-Plug 'prabirshrestha/async.vim'
 Plug 'ncm2/ncm2-vim-lsp'
+let g:ncm2_vim_lsp_blocklist = ['vim-language-server']
 
 " Server installer
 Plug 'mattn/vim-lsp-settings'
-" ----------------------
+if !exists('g:Illuminate_ftblacklist')
+	let g:Illuminate_ftblacklist = []
+endif
+let g:Illuminate_ftblacklist += ['python', 'vim']
+" ------------------------------------------------------------------------
 
 
 " Neovim nightly
 " --------------
 "  Treesitter
 " Plug 'nvim-treesitter/nvim-treesitter'
-
-
 " ---------------
 
 
@@ -118,7 +121,7 @@ Plug 'Vimjas/vim-python-pep8-indent', { 'for': 'python' }	" Python PEP8 autoinde
 Plug 'kalekundert/vim-coiled-snake', { 'for': 'python' }	" Python folding
 Plug 'psf/black', { 'branch': 'stable', 'on': [] }			" Auto-formatter
 Plug 'Yggdroot/indentLine'
-Plug 'lukas-reineke/indent-blankline.nvim'
+" Plug 'lukas-reineke/indent-blankline.nvim'
 
 " Misc
 " ----
@@ -160,6 +163,8 @@ Plug 'unblevable/quick-scope'
 Plug 'sgur/vim-editorconfig'
 Plug 'romgrk/winteract.vim'
 " Plug 'romgrk/barbar.nvim'
+Plug 'subnut/nvim-ghost.nvim'
+let g:nvim_ghost_logging_enabled = 1
 
 " Vanity
 " ------
@@ -328,6 +333,7 @@ set autowrite
 set number relativenumber
 " nnoremap <silent> <C-n> :set number!<CR>
 " nnoremap <silent> <C-A-n> :set relativenumber!<CR>
+au User AirlineAfterInit ++once nnoremap <silent> <c-v> <cmd>set virtualedit=all<CR><c-v><cmd>au User AirlineModeChanged ++once set virtualedit=<CR>
 nnoremap <silent> gB :bprev<CR>
 nnoremap <silent> gb :bnext<CR>
 nnoremap <silent> <C-g> :Goyo<CR>
@@ -377,9 +383,9 @@ augroup end
 " Change previewheight on terminal resize
 augroup my_auto_previewheight
 	au!
-	au VimEnter * ++once if !exists('g:preview_window_height_percentage') | let g:preview_window_height_percentage = 55 | endif
-	au VimEnter * ++once execute('set pvh=' . &lines*g:preview_window_height_percentage/100 )
-	au VimResized * execute('set pvh=' . &lines*g:preview_window_height_percentage/100 )
+	au VimEnter * ++once if !exists('g:my_auto_preview_window_height_percentage') | let g:my_auto_preview_window_height_percentage = 30 | endif
+	au VimEnter * ++once execute('set pvh=' . &lines*g:my_auto_preview_window_height_percentage/100 )
+	au VimResized * execute('set pvh=' . &lines*g:my_auto_preview_window_height_percentage/100 )
 augroup end
 
 " LineNr toggling functions
@@ -922,7 +928,10 @@ silent! exec 'hi illuminatedWord  ctermbg=' . synIDattr(synIDtrans(hlID('CursorL
 let g:Illuminate_ftHighlightGroups = {
 			\ '*:blacklist': ['Comment', 'String']
 			\ }
-let g:Illuminate_ftblacklist = ['nerdtree', 'CHADTree', 'markdown', 'help', 'vim-plug', '']
+if !exists('g:Illuminate_ftblacklist')
+	let g:Illuminate_ftblacklist = []
+endif
+let g:Illuminate_ftblacklist += ['nerdtree', 'CHADTree', 'markdown', 'help', 'vim-plug', '']
 let g:Illuminate_delay = 250				" Time in milliseconds (default 250)
 let g:Illuminate_highlightUnderCursor = 1	" Highlight the word under cursor (default: 1)
 let g:Illuminate_insert_mode_highlight = 0	" Highlight in Insert mode too
@@ -1001,7 +1010,9 @@ let g:Illuminate_ftblacklist += ['markdown.lsp-hover']
 
 " let g:lsp_diagnostics_float_cursor = 1
 " let g:lsp_virtual_text_enabled = 0
-let g:lsp_virtual_text_prefix = '     '
+" let g:lsp_virtual_text_prefix = '     '
+let g:lsp_virtual_text_prefix = ''
+let g:lsp_highlight_references_delay = 200
 function! s:on_lsp_buffer_enabled() abort
 	" setlocal omnifunc=lsp#complete
 	" setlocal signcolumn=yes
@@ -1040,6 +1051,20 @@ augroup END
 " 		\ })
 " 	augroup end
 " endif
+
+" if executable('jedi-language-server')
+" 	" pip install jedi-language-server
+" 	augroup vim_lsp_jedi_ls
+" 	au!
+" 	au User lsp_setup call lsp#register_server({
+" 		\ 'name': 'jedi-ls',
+" 		\ 'cmd': {server_info->['jedi-language-server']},
+" 		\ 'allowlist': ['python'],
+" 		\ 'config': {"markupKindPreferred": "plaintext"},
+" 		\ })
+" 	augroup end
+" endif
+
 let g:Illuminate_ftblacklist += ['python']
 " let g:lsp_settings = {
 " \   'pyls': {

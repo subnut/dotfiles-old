@@ -247,7 +247,7 @@ alias telebit=~/telebit
 telebit_share_cur_dir () {
 	trap 'echo; echo Stopping telebit; telebit disable' INT
 
-	echo "https://wicked-emu-8.telebit.io/" | xsel -psb
+	echo "https://wicked-emu-8.telebit.io/" | clipcopy
 	if [[ -z $* ]]
 	then
 		telebit http ./.
