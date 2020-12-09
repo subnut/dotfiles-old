@@ -37,3 +37,5 @@ systemctl enable vnstat
 systemctl start vnstat
 ```
 Check usage anytime with `vnstat`, no root required 😉
+
+# In thinkpads, the PrtSc (PrintScreen) is the SysRq key
