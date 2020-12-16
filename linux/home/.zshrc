@@ -158,7 +158,7 @@ alias la1="la -1"
 yays () { yay -S $(yay -Ss $* | cut -d' ' --fields=1 | grep .  | fzf --multi) --needed }
 yayss () { yay -Ss $* }
 pacs () { sudo pacman -S $(pacman -Ss $* | cut -d' ' --fields=1 | grep . | cut --fields=2 -d'/' | fzf --multi) --needed }
-pacr () { sudo pacman -R $(pacman -Q $* | cut --fields=2 -d'/' | fzf --multi |	cut --fields=1 -d' ') }
+pacr () { sudo pacman -R $(pacman -Q $* | cut --fields=2 -d'/' | cut --fields=1 -d' '| fzf --multi --preview-window 'right:50%:nohidden:wrap' --preview 'pacman -Qi {} | grep "Name\|Version\|Description\|Required By\|Optional For\|Install Reason\|Size\|Groups" | cat') }
 alias ydl=youtube-dl
 alias pacss="pacman -Ss"
 mycal () { while true; do tput civis;clear; cal; sleep $(( 24*60*60 - `date +%H`*60*60 - `date +%M`*60 - `date +%S` )); done }
@@ -191,7 +191,7 @@ pyenv global system pypy3.6-7.3.1
 export PATH=/home/subhaditya/Notes/:$PATH
 alias notes=notes.sh
 
-if [[ -z $DISPLAY ]]; then export DISPLAY=:0; fi
+# if [[ -z $DISPLAY ]]; then export DISPLAY=:0; fi
 my_man () { if [[ $* = 'z' ]] ; then sh -c "man ~/.oh-my-zsh/plugins/z/z.1"; else sh -c "man $*"; fi }
 # alias man=my_man
 export PATH=./:$PATH
@@ -262,12 +262,20 @@ alias telebit_share=telebit_share_cur_dir
 alias py=python
 export PYTHONSTARTUP=~/.pythonrc
 
+alias g=git
+alias ga='git add'
+alias gaa='git add --all'
+alias gaav='git add --all --verbose'
+alias gc='git commit -v'
+alias gca='git commit -v -a'
+alias gp='git push'
+
 alias gcm=
-alias gcma=
+# alias gcma=
 my_gcm () { git commit -m "$*" }
-my_gcma () { git commit --amend -m "$*" }
+# my_gcma () { git commit --amend -m "$*" }
 alias gcm=my_gcm
-alias gcma=my_gcma
+# alias gcma=my_gcma
 alias gpull="git pull"
 export GPG_TTY=$(tty)
 

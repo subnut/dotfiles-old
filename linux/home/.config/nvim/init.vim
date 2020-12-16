@@ -71,11 +71,13 @@ let g:Illuminate_ftblacklist += ['python', 'vim']
 " --------------
 "  Treesitter
 " Plug 'nvim-treesitter/nvim-treesitter'
+" Plug 'romgrk/barbar.nvim'
 " ---------------
 
 
 " Colorschemes
 Plug 'gruvbox-community/gruvbox'
+Plug 'sainnhe/gruvbox-material'
 Plug 'reedes/vim-colors-pencil'
 Plug 'sonph/onehalf', {'rtp': 'vim'}
 Plug 'romgrk/doom-one.vim'
@@ -83,19 +85,19 @@ Plug 'sainnhe/sonokai'
 let g:sonokai_enable_italic = 1
 " Plug 'Iron-E/nvim-highlite'
 Plug 'fenetikm/falcon'
+Plug 'co1ncidence/mountaineer.vim'
 
 " File explorer
 Plug 'scrooloose/nerdtree'
 Plug 'Xuyuanp/nerdtree-git-plugin'
 Plug 'ryanoasis/vim-devicons'
+let g:webdevicons_enable_airline_statusline = 0
 Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': ':UpdateRemotePlugins'}
 
 
 " Markdown
 " Plug 'gabrielelana/vim-markdown', { 'for': 'markdown' }
 Plug 'iamcco/markdown-preview.nvim', { 'do': { -> mkdp#util#install() }, 'for': ['markdown', 'vim-plug']}
-Plug 'PratikBhusal/vim-grip'
-let g:grip_default_map = 0
 
 " Focus on code only
 Plug 'junegunn/goyo.vim'
@@ -123,55 +125,64 @@ Plug 'psf/black', { 'branch': 'stable', 'on': [] }			" Auto-formatter
 Plug 'Yggdroot/indentLine'
 " Plug 'lukas-reineke/indent-blankline.nvim'
 
+
+" Plugins that don't need interaction
+" -----------------------------------
+Plug 'tpope/vim-surround'
+Plug 'airblade/vim-rooter'							" Change root dir
+Plug 'Shougo/echodoc.vim'							" Echo function usage
+Plug 'machakann/vim-highlightedyank'
+Plug 'tpope/vim-repeat'
+Plug 'Konfekt/FastFold'								" Better folding
+Plug 'sheerun/vim-polyglot'							" Polyglot => one who knows many languages
+Plug 'norcalli/nvim-colorizer.lua'					" :ColorizerAttachToBuffer
+Plug 'romainl/vim-cool'								" Remove search highlight automatically
+Plug 'sgur/vim-editorconfig'
+Plug 'unblevable/quick-scope'
+
 " Misc
 " ----
+" Plug 'wincent/scalpel'								" See before replacing
+"
+" The above functionality can be accessed by simply using the /c switch
+
+" Plug 'chaoren/vim-wordmotion'
+" Plug 'majutsushi/tagbar'
+" Plug 'alok/notational-fzf-vim'
+" Plug 'lambdalisue/suda.vim'
+
+" Plug 'tpope/vim-dadbod'
+" Plug 'kristijanhusak/vim-dadbod-completion'
+
+Plug 'mtth/scratch.vim'
+Plug 'AndrewRadev/bufferize.vim'
+Plug 'AndrewRadev/inline_edit.vim'					" :InlineEdit
+
+Plug 'tpope/vim-commentary'							" gc<motion> = toggle comment
+Plug 'tpope/vim-abolish'							" (c)oe(rc)e to case-change
+Plug 'airblade/vim-gitgutter'						" Git diff
 Plug 'dense-analysis/ale'							" Auto-linter
-Plug 'chaoren/vim-wordmotion'
-Plug 'reedes/vim-pencil'
-Plug 'majutsushi/tagbar'
-Plug 'Shougo/echodoc.vim'							" Echo function usage
-Plug 'alok/notational-fzf-vim'
 Plug 'mbbill/undotree'
 Plug 'simnalamburt/vim-mundo'
 let g:mundo_preview_bottom = 1
-Plug 'airblade/vim-rooter'							" Change root dir
-Plug 'airblade/vim-gitgutter'						" Git diff
-Plug 'machakann/vim-highlightedyank'
-Plug 'tpope/vim-surround'
-Plug 'tpope/vim-abolish'							" (c)oe(rc)e to case-change
-Plug 'tpope/vim-repeat'
-Plug 'tpope/vim-commentary'							" gc<motion> = toggle comment
 Plug 'svermeulen/vim-yoink'							" Clipboard
-Plug 'Konfekt/FastFold'								" Better folding
 Plug 'inkarkat/vim-ShowTrailingWhitespace'			" Trailing whitespace
-Plug 'subnut/vim-smoothie', {'branch': 'devel'}							" Smooth-scroll
+Plug 'subnut/vim-smoothie', {'branch': 'devel'}		" Smooth-scroll
 " Plug 'psliwka/vim-smoothie'							" Smooth-scroll
 Plug 'mox-mox/vim-localsearch'
-Plug 'wincent/scalpel'								" See before replacing
-Plug 'mtth/scratch.vim'
-Plug 'AndrewRadev/bufferize.vim'
-Plug 'sheerun/vim-polyglot'							" Polyglot => one who knows many languages
-Plug 'norcalli/nvim-colorizer.lua'					" :ColorizerAttachToBuffer
-Plug 'subnut/vim-iawriter'
-Plug 'kkoomen/vim-doge', {'do':{->doge#install()}}	" (DO)cumentation (GE)nerator
-Plug 'RRethy/vim-illuminate'
 Plug 'justinmk/vim-sneak'							" s<char><char> (z<char><char> for operator-pending mode)
-Plug 'romainl/vim-cool'								" Remove search highlight automatically
-Plug 'tpope/vim-dadbod'
-Plug 'kristijanhusak/vim-dadbod-completion'
-Plug 'unblevable/quick-scope'
-Plug 'sgur/vim-editorconfig'
-Plug 'romgrk/winteract.vim'
-" Plug 'romgrk/barbar.nvim'
-Plug 'subnut/nvim-ghost.nvim'
+Plug 'subnut/nvim-ghost.nvim', {'do': ':call nvim_ghost#installer#install()', 'branch': 'devel'}
 let g:nvim_ghost_logging_enabled = 1
 
 " Vanity
 " ------
-Plug 'lambdalisue/suda.vim'
+Plug 'reedes/vim-pencil'
+Plug 'kkoomen/vim-doge', {'do':{->doge#install()}}	" (DO)cumentation (GE)nerator
+Plug 'RRethy/vim-illuminate'
+Plug 'rhysd/git-messenger.vim'				" :GitMessenger or <Plug>(git-messenger) to see git-blame of current line
+Plug 'subnut/vim-iawriter'
 Plug 'fedorenchik/vimcalc3'					" :Calc
 Plug 'mattn/calendar-vim'					" :Calendar
-" Plug 'raghur/vim-ghost'
 
 
 call plug#end()
@@ -211,19 +222,83 @@ if &termguicolors
 	lua require'colorizer'.setup{''}
 endif
 
-" Colorscheme
-" -----------
+" Customize colorscheme
+" ---------------------
+let g:kitty_fancy_cursor = 0	" Somewhat successful 'inverse' cursor color in kitty
+func! s:kitty_term_custom()	" {{{1
+	if !exists('g:kitty_fancy_cursor')	" {{{2
+		let g:kitty_fancy_cursor = 0
+	endif	" }}}
+	if $TERM =~# 'kitty'
+		if synIDattr(synIDtrans(hlID('Cursor')), 'reverse')	" {{{2
+			hi Cursor gui=NONE
+			if !g:kitty_fancy_cursor	" {{{3
+				hi Cursor guifg=bg guibg=fg
+				augroup kitty_term_custom
+					au!
+				augroup end
+			else
+				hi Cursor guifg=bg
+				augroup kitty_term_custom
+					au!
+					au CursorMoved * execute('hi Cursor guibg='. (len(synIDattr(synIDtrans(hlID(synIDattr(synID(line("."), col("."), 1), 'name'))), "fg")) ? synIDattr(synIDtrans(hlID(synIDattr(synID(line("."), col("."), 1), 'name'))), "fg") : 'fg'))
+				augroup end
+			endif	" }}}
+		endif
+	endif	" }}}
+endfun	" }}}
+augroup colorscheme_overrides
+	autocmd!
+	autocmd ColorScheme * call s:kitty_term_custom()
+	autocmd ColorScheme * set guicursor=n-v-c-sm:block-Cursor/lCursor,i-ci-ve:ver25-Cursor/lCursor,r-cr-o:hor20
+	" autocmd ColorScheme * hi clear ALEErrorSign
+	" autocmd ColorScheme * hi clear ALEWarningSign
+augroup end
+call s:kitty_term_custom()
+set guicursor=n-v-c-sm:block-Cursor/lCursor,i-ci-ve:ver25-Cursor/lCursor,r-cr-o:hor20-Cursor/lCursor
+" hi clear ALEWarningSign
+" hi clear ALEErrorSign
+
+" gruvbox
+" -------
 let g:gruvbox_contrast_dark = 'hard'
 let g:gruvbox_contrast_light = 'hard'
-let g:gruvbox_italic=1
-colorscheme gruvbox
-" set bg=dark
+let g:gruvbox_italic = 1
+fun! MyGruvboxCustomizations()
+	if g:colors_name !=# 'gruvbox'
+		return
+	endif
+	hi clear Visual
+	execute('hi Visual  guibg=' . synIDattr(synIDtrans(hlID('CursorLine')), 'bg', 'gui'))
+	silent! execute('hi Visual  ctermbg=' . synIDattr(synIDtrans(hlID('CursorLine')), 'bg', 'cterm'))
+	hi clear SignColumn
+	hi CursorLine gui=underline
+endfun
+" call MyGruvboxCustomizations()
+autocmd colorscheme_overrides ColorScheme gruvbox call MyGruvboxCustomizations()
+
+" gruvbox-material
+" ----------------
+let g:gruvbox_material_better_performance = 1
+let g:gruvbox_material_transparent_background = 0
+let g:gruvbox_material_sign_column_background = 'none'
+" let g:gruvbox_material_diagnostic_line_highlight = 1
+let g:gruvbox_material_background = 'hard'
+let g:gruvbox_material_palette = 'mix'
+let g:gruvbox_material_enable_italic = 1
+au colorscheme_overrides ColorScheme gruvbox-material hi CurrentWord gui=underline
+
+" set colorscheme
+" -----------
+" colorscheme gruvbox-material
 let g:my_env_bg = $MY_NVIM_BG
 fun My_bg_setter()
-	if g:my_env_bg ==? 'dark'
-		set background=dark
-	elseif g:my_env_bg ==? 'light'
+	if g:my_env_bg ==? 'light'
 		set background=light
+		colorscheme gruvbox-material
+	else
+		set background=dark
+		colorscheme gruvbox
 	endif
 endfun
 call My_bg_setter()
@@ -254,57 +329,6 @@ augroup goyo_customization
 augroup end
 
 
-" Customize colorscheme
-" ---------------------
-let g:kitty_fancy_cursor = 0	" Somewhat successful 'inverse' cursor color in kitty
-func! s:kitty_term_custom()	" {{{1
-	if !exists('g:kitty_fancy_cursor')	" {{{2
-		let g:kitty_fancy_cursor = 0
-	endif	" }}}
-	if $TERM =~# 'kitty'
-		if synIDattr(synIDtrans(hlID('Cursor')), 'reverse')	" {{{2
-			hi Cursor gui=NONE
-			if !g:kitty_fancy_cursor	" {{{3
-				hi Cursor guifg=bg guibg=fg
-				augroup kitty_term_custom
-					au!
-				augroup end
-			else
-				hi Cursor guifg=bg
-				augroup kitty_term_custom
-					au!
-					au CursorMoved * execute('hi Cursor guibg='. (len(synIDattr(synIDtrans(hlID(synIDattr(synID(line("."), col("."), 1), 'name'))), "fg")) ? synIDattr(synIDtrans(hlID(synIDattr(synID(line("."), col("."), 1), 'name'))), "fg") : 'fg'))
-				augroup end
-			endif	" }}}
-		endif
-	endif	" }}}
-endfun	" }}}
-augroup colorscheme_overrides
-	autocmd!
-	" autocmd ColorScheme * hi Comment gui=italic
-	autocmd ColorScheme * call s:kitty_term_custom()
-	autocmd ColorScheme * set guicursor=n-v-c-sm:block-Cursor/lCursor,i-ci-ve:ver25-Cursor/lCursor,r-cr-o:hor20
-	" autocmd ColorScheme * hi clear ALEErrorSign
-	" autocmd ColorScheme * hi clear ALEWarningSign
-	autocmd ColorScheme gruvbox call MyGruvboxCustomizations()
-augroup end
-" hi Comment gui=italic
-call s:kitty_term_custom()
-set guicursor=n-v-c-sm:block-Cursor/lCursor,i-ci-ve:ver25-Cursor/lCursor,r-cr-o:hor20-Cursor/lCursor
-" hi clear ALEWarningSign
-" hi clear ALEErrorSign
-fun! MyGruvboxCustomizations()
-	if g:colors_name !=# 'gruvbox'
-		return
-	endif
-	hi clear Visual
-	execute('hi Visual  guibg=' . synIDattr(synIDtrans(hlID('CursorLine')), 'bg', 'gui'))
-	silent! execute('hi Visual  ctermbg=' . synIDattr(synIDtrans(hlID('CursorLine')), 'bg', 'cterm'))
-	hi clear SignColumn
-	hi CursorLine gui=underline
-endfun
-call MyGruvboxCustomizations()
-
 " Get the higlight group of the character under cursor
 " ----------------------------------------------------
 fun Get_hi_group()
@@ -314,6 +338,12 @@ command! GetHiGroup call Get_hi_group()
 
 " Custom settings
 " ---------------
+" set colorcolumn=+1
+aug my_git_colorcolumn
+	au!
+	au BufEnter * if &ft == 'gitcommit' | let w:my_saved_cc=&cc | let &cc='+1' | endif
+	au BufLeave * if &ft == 'gitcommit' | let &cc=w:my_saved_cc | endif
+aug END
 set tildeop			" use ~<motion> to change case of characters over <motion>
 set ignorecase		" Ignore uppercase and lowercase
 set smartcase		" If search contains UPPERCASE letter, then set "noignorecase"
@@ -351,7 +381,7 @@ nnoremap <silent> yY :%y<CR>
 let mapleader = ' '
 com! YankAll %y
 
-nmap <Leader>s <Plug>(Scalpel)
+" nmap <Leader>s <Plug>(Scalpel)
 nnoremap <leader>e <cmd>CHADopen<cr>
 nnoremap <silent> <leader>r :LspRename<cr>
 nnoremap <silent> <leader>m :MundoToggle<cr>
@@ -818,17 +848,17 @@ let g:indentLine_setColors = 0
 
 " vim-yoink
 " ---------
-" Alt+P and Alt+Shift+P
+nmap p <plug>(YoinkPaste_p)
+nmap P <Plug>(YoinkPaste_P)
+" Rotate Yank ring
+nmap [y <plug>(YoinkRotateBack)
+nmap ]y <plug>(YoinkRotateForward)
+" Alt+P and Alt+Shift+P to change "current" paste
 nmap <a-p> <plug>(YoinkPostPasteSwapBack)
 nmap <a-s-p> <plug>(YoinkPostPasteSwapForward)
 " Do not change cursor position after yanking
 nmap y <plug>(YoinkYankPreserveCursorPosition)
 xmap y <plug>(YoinkYankPreserveCursorPosition)
-" Remap p and P to yoink, but not if macro is being recorded
-" nmap <expr> p ((len(reg_recording()) == 0) ? '<plug>(YoinkPaste_p)' : 'p' )
-" nmap <expr> P ((len(reg_recording()) == 0) ? '<Plug>(YoinkPaste_P)' : 'P' )
-nmap p <plug>(YoinkPaste_p)
-nmap P <Plug>(YoinkPaste_P)
 let g:yoinkIncludeDeleteOperations = 1
 let g:yoinkMoveCursorToEndOfPaste = 1		" ... after pasting
 let g:yoinkSwapClampAtEnds = 0				" Cycle thru the list while swapping
@@ -931,7 +961,7 @@ let g:Illuminate_ftHighlightGroups = {
 if !exists('g:Illuminate_ftblacklist')
 	let g:Illuminate_ftblacklist = []
 endif
-let g:Illuminate_ftblacklist += ['nerdtree', 'CHADTree', 'markdown', 'help', 'vim-plug', '']
+let g:Illuminate_ftblacklist += ['nerdtree', 'CHADTree', 'markdown', 'help', 'vim-plug', '', 'log']
 let g:Illuminate_delay = 250				" Time in milliseconds (default 250)
 let g:Illuminate_highlightUnderCursor = 1	" Highlight the word under cursor (default: 1)
 let g:Illuminate_insert_mode_highlight = 0	" Highlight in Insert mode too
@@ -1006,7 +1036,7 @@ com! SudoWrite call MySudoRootWriter()
 
 " vim-lsp
 " -------
-let g:Illuminate_ftblacklist += ['markdown.lsp-hover']
+let g:Illuminate_ftblacklist += ['\.lsp-hover']
 
 " let g:lsp_diagnostics_float_cursor = 1
 " let g:lsp_virtual_text_enabled = 0
@@ -1156,10 +1186,19 @@ let g:qs_highlight_on_keys = ['f', 'F', 't', 'T']
 fun! MyQuickScopeColorSetter()
 	au ColorScheme ++once * call MyQuickScopeColorSetter()
 	hi clear QuickScopePrimary
-	exec 'hi QuickScopePrimary guibg=' . synIDattr(synIDtrans(hlID('Comment')), 'fg', 'gui')
-	hi QuickScopePrimary guifg=bg
+	hi QuickScopePrimary gui=reverse
 	hi clear QuickScopeSecondary
-	hi QuickScopeSecondary guibg=bg guifg=fg gui=bold
+	exec 'hi QuickScopeSecondary guibg=' . synIDattr(synIDtrans(hlID('Comment')), 'fg', 'gui')
+	hi QuickScopeSecondary guifg=bg
+
+	" v2
+	" --
+	" hi QuickScopeSecondary guibg=bg guifg=fg gui=bold
+	" exec 'hi QuickScopePrimary guibg=' . synIDattr(synIDtrans(hlID('Comment')), 'fg', 'gui')
+	" hi QuickScopePrimary guifg=bg
+
+	" v1
+	" --
 	" hi QuickScopeSecondary guifg=fg guibg=bg
 	" hi QuickScopeSecondary guifg=bg guibg=fg
 	" exec 'hi QuickScopeSecondary guibg=' . synIDattr(synIDtrans(hlID('Comment')), 'fg', 'gui')
@@ -1168,3 +1207,13 @@ fun! MyQuickScopeColorSetter()
 	" hi QuickScopeSecondary gui=bold
 endfun
 call MyQuickScopeColorSetter()
+
+" vim-gitgutter
+" -------------
+set updatetime=1000
+let g:gitgutter_map_keys = 0
+nmap <leader>gp <Plug>(GitGutterPreviewHunk)
+nmap <leader>gs <Plug>(GitGutterStageHunk)
+nmap [g <Plug>(GitGutterPrevHunk)
+nmap ]g <Plug>(GitGutterNextHunk)
+

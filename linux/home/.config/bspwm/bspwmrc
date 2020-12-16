@@ -2,6 +2,7 @@
 
 xinput set-button-map 'TPPS/2 Elan TrackPoint' 1 0 3
 xinput set-prop 'SynPS/2 Synaptics TouchPad' 'libinput Accel Speed' 0.001
+xset r rate 250 30
 
 killall -q sxhkd
 sxhkd &> /dev/null &
@@ -52,6 +53,7 @@ bspc rule -a '*:*:Picture-in-picture' state=floating layer=above sticky=on focus
 bspc rule -a Safeeyes state=floating layer=above fullscreen=off focus=off
 bspc rule -a Clipster layer=above
 bspc rule -a mpv state=pseudo_tiled
+bspc rule -a Pulseaudio-equalizer-gtk state=floating
 
 killall xmousepasteblock
 xmousepasteblock &> /dev/null &

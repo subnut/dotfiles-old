@@ -79,6 +79,7 @@
     virtualenv              # python virtual environment (https://docs.python.org/3/library/venv.html)
     vim_shell               # vim shell indicator (:sh)
     vi_mode                 # vi mode (you don't need this if you've enabled prompt_char)
+	my_kernel_upgraded
 	my_z_path
     # =========================[ Line #2 ]=========================
     newline                 # \n
@@ -263,6 +264,19 @@
 
   function instant_prompt_my_prompt() {
       prompt_my_prompt
+  }
+
+  ################ [ my_kernel_upgraded: tell to reboot if kernel has been upgraded ] #######################
+
+  function prompt_my_kernel_upgraded() {
+    # On error: yellow ✘ on red background.
+	p10k segment -b 1 -f 0 -i 'REBOOT' -c "$(grep -qs '^ID=arch$' /etc/os-release && test -e /lib/modules/`uname -r` || echo 1)"
+  }
+
+  typeset -g POWERLEVEL9K_MY_PROMPT_LEFT_PROMPT_LAST_SEGMENT_END_SYMBOL=''
+
+  function instant_prompt_my_kernel_upgraded() {
+      prompt_my_kernel_upgraded
   }
 
   ##################################[ dir: current directory ]##################################
