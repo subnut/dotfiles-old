@@ -32,6 +32,7 @@ atkmm
 attr
 audacious
 audacious-plugins
+audacity
 audit
 avahi
 babl
@@ -105,6 +106,7 @@ desktop-file-utils
 device-mapper
 dhclient
 dhcpcd
+dialog
 diffutils
 ding-libs
 djvulibre
@@ -129,6 +131,7 @@ efitools
 efivar
 electron6
 elfutils
+ell
 enchant
 endeavouros-keyring
 endeavouros-mirrorlist
@@ -349,6 +352,7 @@ intltool
 iperf3
 iproute2
 iptables
+iputils
 iso-codes
 itstool
 iw
@@ -498,6 +502,7 @@ libkeybinder3
 libksba
 liblangtag
 liblastfm-qt5
+libldac
 libldap
 liblouis
 liblphobos
@@ -548,6 +553,7 @@ libodfgen
 libofa
 libogg
 libomxil-bellagio
+libopenaptx
 libopenraw
 liborcus
 libosinfo
@@ -674,6 +680,8 @@ libzapojit
 libzip
 libzmf
 light
+lightdm
+lightdm-gtk-greeter
 lilv
 linux
 linux-api-headers
@@ -741,6 +749,7 @@ mujs
 mutter
 mypaint-brushes1
 nautilus
+ncdu
 ncurses
 ndctl
 ndisc6
@@ -772,7 +781,7 @@ obs-studio
 ocl-icd
 onedrive-abraunegg
 onedrive_tray-git
-onefetch-git
+onefetch-bin
 openal
 opencl-headers
 opencore-amr
@@ -847,6 +856,7 @@ poppler-data
 poppler-glib
 popt
 portaudio
+portsmf
 potrace
 powertop
 ppp
@@ -997,6 +1007,7 @@ sratom
 srt
 startup-notification
 sudo
+suil
 suitesparse
 supertuxkart
 sushi
@@ -1097,6 +1108,8 @@ wlroots
 woff2
 wpa_supplicant
 wpebackend-fdo
+wxgtk-common
+wxgtk3
 x264
 x265
 xapp

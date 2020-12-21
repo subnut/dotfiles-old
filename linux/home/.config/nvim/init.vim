@@ -28,7 +28,7 @@ call plug#begin()	" Make sure you use single-quotes in all Plug commands below
 
 " NCM2
 " -----------------------------------------------------------------------
-Plug 'ncm2/ncm2'
+Plug 'ncm2/ncm2', {'on': []}
 Plug 'roxma/nvim-yarp'
 " Plug 'ncm2/float-preview.nvim'
 
@@ -59,38 +59,46 @@ Plug 'ncm2/ncm2-vim-lsp'
 let g:ncm2_vim_lsp_blocklist = ['vim-language-server']
 
 " Server installer
-Plug 'mattn/vim-lsp-settings'
+Plug 'mattn/vim-lsp-settings', {'on': []}
 if !exists('g:Illuminate_ftblacklist')
 	let g:Illuminate_ftblacklist = []
 endif
 let g:Illuminate_ftblacklist += ['python', 'vim']
 " ------------------------------------------------------------------------
 
-
 " Neovim nightly
 " --------------
+if has("nvim-0.5")
+
 "  Treesitter
-" Plug 'nvim-treesitter/nvim-treesitter'
+Plug 'nvim-treesitter/nvim-treesitter'
 " Plug 'romgrk/barbar.nvim'
+" Plug 'kyazdani42/nvim-web-devicons'
+
+" Colorschemes that support treesitter
+Plug 'vigoux/oak'
+Plug 'Th3Whit3Wolf/onebuddy'
+Plug 'mhartington/oceanic-next'
+Plug 'glepnir/zephyr-nvim'
+Plug 'Iron-E/nvim-highlite'
+endif
 " ---------------
+
+" Colorschemes that support Treesitter but also work in v0.4.4
+" ------------------------------------------------------------
+Plug 'sainnhe/sonokai'
+Plug 'sainnhe/edge'
 
 
 " Colorschemes
 Plug 'gruvbox-community/gruvbox'
 Plug 'sainnhe/gruvbox-material'
 Plug 'reedes/vim-colors-pencil'
-Plug 'sonph/onehalf', {'rtp': 'vim'}
-Plug 'romgrk/doom-one.vim'
-Plug 'sainnhe/sonokai'
-let g:sonokai_enable_italic = 1
-" Plug 'Iron-E/nvim-highlite'
-Plug 'fenetikm/falcon'
-Plug 'co1ncidence/mountaineer.vim'
 
 " File explorer
-Plug 'scrooloose/nerdtree'
-Plug 'Xuyuanp/nerdtree-git-plugin'
-Plug 'ryanoasis/vim-devicons'
+Plug 'scrooloose/nerdtree', {'on' : ['NERDTree', 'NERDTreeToggle']}
+Plug 'Xuyuanp/nerdtree-git-plugin', {'on' : ['NERDTree', 'NERDTreeToggle']}
+Plug 'ryanoasis/vim-devicons', {'on' : ['NERDTree', 'NERDTreeToggle', 'CHADopen']}
 let g:webdevicons_enable_airline_statusline = 0
 Plug 'ms-jpq/chadtree', {'branch': 'chad', 'do': ':UpdateRemotePlugins'}
 
@@ -106,10 +114,10 @@ Plug 'junegunn/limelight.vim'
 " Fuzzy-finder
 " Plug 'junegunn/fzf', { 'do': { -> fzf#install() } }
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --bin' }
-Plug 'junegunn/fzf.vim'
+Plug 'junegunn/fzf.vim', {'on': []}
 
 " Git
-Plug 'tpope/vim-fugitive'
+Plug 'tpope/vim-fugitive', {'on': []}
 Plug 'junegunn/gv.vim'		" Commit browser
 
 " Statusline
@@ -134,15 +142,16 @@ Plug 'Shougo/echodoc.vim'							" Echo function usage
 Plug 'machakann/vim-highlightedyank'
 Plug 'tpope/vim-repeat'
 Plug 'Konfekt/FastFold'								" Better folding
-Plug 'sheerun/vim-polyglot'							" Polyglot => one who knows many languages
+Plug 'sheerun/vim-polyglot', {'on': []}				" Polyglot => one who knows many languages
 Plug 'norcalli/nvim-colorizer.lua'					" :ColorizerAttachToBuffer
 Plug 'romainl/vim-cool'								" Remove search highlight automatically
 Plug 'sgur/vim-editorconfig'
-Plug 'unblevable/quick-scope'
+Plug 'unblevable/quick-scope', {'on': []}
+Plug 'subnut/visualstar.vim'
 
 " Misc
 " ----
-" Plug 'wincent/scalpel'								" See before replacing
+" Plug 'wincent/scalpel'
 "
 " The above functionality can be accessed by simply using the /c switch
 
@@ -159,42 +168,61 @@ Plug 'AndrewRadev/bufferize.vim'
 Plug 'AndrewRadev/inline_edit.vim'					" :InlineEdit
 
 Plug 'tpope/vim-commentary'							" gc<motion> = toggle comment
-Plug 'tpope/vim-abolish'							" (c)oe(rc)e to case-change
-Plug 'airblade/vim-gitgutter'						" Git diff
-Plug 'dense-analysis/ale'							" Auto-linter
-Plug 'mbbill/undotree'
-Plug 'simnalamburt/vim-mundo'
+Plug 'tpope/vim-abolish', {'on': []}				" (c)oe(rc)e to case-change
+Plug 'airblade/vim-gitgutter', {'on': []}			" Git diff
+Plug 'dense-analysis/ale', {'on': []}				" Auto-linter
+Plug 'mbbill/undotree', {'on': 'UndotreeToggle'}
+Plug 'simnalamburt/vim-mundo', {'on': 'MundoToggle'}
 let g:mundo_preview_bottom = 1
-Plug 'svermeulen/vim-yoink'							" Clipboard
-Plug 'inkarkat/vim-ShowTrailingWhitespace'			" Trailing whitespace
+Plug 'svermeulen/vim-yoink', {'on': []}				" Clipboard
+Plug 'inkarkat/vim-ShowTrailingWhitespace', {'on': []}			" Trailing whitespace
 Plug 'subnut/vim-smoothie', {'branch': 'devel'}		" Smooth-scroll
 " Plug 'psliwka/vim-smoothie'							" Smooth-scroll
 Plug 'mox-mox/vim-localsearch'
-Plug 'justinmk/vim-sneak'							" s<char><char> (z<char><char> for operator-pending mode)
-Plug 'subnut/nvim-ghost.nvim', {'do': ':call nvim_ghost#installer#install()', 'branch': 'devel'}
+Plug 'justinmk/vim-sneak', {'on': []}							" s<char><char> (z<char><char> for operator-pending mode)
+Plug 'subnut/nvim-ghost.nvim', {'on': [], 'do': ':call nvim_ghost#installer#install()', 'branch': 'devel'}
 let g:nvim_ghost_logging_enabled = 1
 
 " Vanity
 " ------
 Plug 'reedes/vim-pencil'
-Plug 'kkoomen/vim-doge', {'do':{->doge#install()}}	" (DO)cumentation (GE)nerator
+Plug 'kkoomen/vim-doge', {'do':{->doge#install()}, 'on': ['<Plug>(doge-generate)', 'DogeGenerate']}	" (DO)cumentation (GE)nerator
 Plug 'RRethy/vim-illuminate'
-Plug 'rhysd/git-messenger.vim'				" :GitMessenger or <Plug>(git-messenger) to see git-blame of current line
-Plug 'subnut/vim-iawriter'
-Plug 'fedorenchik/vimcalc3'					" :Calc
-Plug 'mattn/calendar-vim'					" :Calendar
+Plug 'rhysd/git-messenger.vim', {'on': ['GitMessenger', '<Plug>(git-messenger)']} " :GitMessenger or <Plug>(git-messenger) to see git-blame of current line
+Plug 'subnut/vim-iawriter', {'on': 'Iawriter'}
+Plug 'fedorenchik/vimcalc3', {'on': 'Calc'}					" :Calc
 
 
 call plug#end()
-call timer_start(0, {id->execute("call plug#load('vim-airline')")})
-call timer_start(0, {id->execute("call plug#load('ncm2-yoink')")})
 augroup delayed_plug_load
 	au!
-	au BufEnter *.py call timer_start(0, {id->execute("call plug#load('black')")})
+	au BufEnter *     ++once call timer_start(100, {id->execute("call plug#load('ncm2') | call ncm2#enable_for_buffer()")})
+	au VimEnter *     ++once call timer_start(0, {id->execute("call plug#load('vim-yoink') | au User Ncm2Plugin ++once call plug#load('ncm2-yoink')")})
+	au VimEnter *     ++once call timer_start(0, {id->execute("call plug#load('vim-polyglot')")})
+	au BufEnter *     ++once call timer_start(10, {id->execute("call plug#load('nvim-ghost.nvim')")})
+	au BufEnter *     ++once call timer_start(0, {id->execute("call plug#load('ale')")})
+	au BufEnter *     ++once call timer_start(100, {id->execute("call plug#load('vim-sneak')")})
+	au BufEnter *     ++once call timer_start(100, {id->execute("call plug#load('fzf.vim')")})
+	au BufEnter *     ++once call timer_start(0, {id->execute("call plug#load('vim-fugitive')")})
+	au BufEnter *     ++once call timer_start(0, {id->execute("call plug#load('vim-gitgutter')")})
+	au BufEnter *     ++once call timer_start(100, {id->execute("call plug#load('vim-airline')")})
+	au BufEnter *     ++once call timer_start(100, {id->execute("call plug#load('vim-ShowTrailingWhitespace')")})
+	au BufEnter *     ++once call timer_start(100, {id->execute("call plug#load('vim-abolish')")})
+	au BufEnter *     ++once call timer_start(100, {id->execute("call plug#load('quick-scope')")})
+	au BufEnter *     ++once call timer_start(100, {id->execute("call plug#load('black')")})
+	au User lsp_setup ++once call timer_start(0, {id->execute("call plug#load('vim-lsp-settings')")})
+
+	" because all of the above plugins were not fortunate enough to receive a
+	" VimEnter event, so we shall trigger one ourselves
+	"
+	" The value should be twice the maximum value above, to ensure all of them
+	" have properly loaded.
+	au BufEnter *     ++once call timer_start(200, {id->execute("doau VimEnter")})
+	au BufEnter *     ++once call timer_start(200, {id->execute("if !empty(nvim_list_uis()) | doau UIEnter | endif")})
 augroup end
 augroup black_on_write
 	au!
-	autocmd BufWritePre *.py execute ':Black'
+	autocmd BufWritePre * if &ft == "python" | execute ':Black' | endif
 augroup end
 
 " YouCompleteMe lazy loading
@@ -222,13 +250,13 @@ if &termguicolors
 	lua require'colorizer'.setup{''}
 endif
 
-" Customize colorscheme
-" ---------------------
-let g:kitty_fancy_cursor = 0	" Somewhat successful 'inverse' cursor color in kitty
+" kitty-terminal-specific configuration
+" -------------------------------------
+if $TERM =~# 'kitty'
+let g:_nvim_ghost_supports_focus = 1	" We already know it supports focus
+let g:kitty_fancy_cursor = 0			" Somewhat successful 'inverse' cursor color in kitty
 func! s:kitty_term_custom()	" {{{1
-	if !exists('g:kitty_fancy_cursor')	" {{{2
-		let g:kitty_fancy_cursor = 0
-	endif	" }}}
+	let g:kitty_fancy_cursor = get(g:, 'kitty_fancy_cursor', 0)
 	if $TERM =~# 'kitty'
 		if synIDattr(synIDtrans(hlID('Cursor')), 'reverse')	" {{{2
 			hi Cursor gui=NONE
@@ -247,7 +275,7 @@ func! s:kitty_term_custom()	" {{{1
 		endif
 	endif	" }}}
 endfun	" }}}
-augroup colorscheme_overrides
+augroup kitty_terminal customization
 	autocmd!
 	autocmd ColorScheme * call s:kitty_term_custom()
 	autocmd ColorScheme * set guicursor=n-v-c-sm:block-Cursor/lCursor,i-ci-ve:ver25-Cursor/lCursor,r-cr-o:hor20
@@ -256,8 +284,7 @@ augroup colorscheme_overrides
 augroup end
 call s:kitty_term_custom()
 set guicursor=n-v-c-sm:block-Cursor/lCursor,i-ci-ve:ver25-Cursor/lCursor,r-cr-o:hor20-Cursor/lCursor
-" hi clear ALEWarningSign
-" hi clear ALEErrorSign
+endif
 
 " gruvbox
 " -------
@@ -275,6 +302,9 @@ fun! MyGruvboxCustomizations()
 	hi CursorLine gui=underline
 endfun
 " call MyGruvboxCustomizations()
+augroup colorscheme_overrides
+	au!
+augroup END
 autocmd colorscheme_overrides ColorScheme gruvbox call MyGruvboxCustomizations()
 
 " gruvbox-material
@@ -298,7 +328,8 @@ fun My_bg_setter()
 		colorscheme gruvbox-material
 	else
 		set background=dark
-		colorscheme gruvbox
+		colorscheme gruvbox-material
+		" colorscheme gruvbox
 	endif
 endfun
 call My_bg_setter()
@@ -339,20 +370,22 @@ command! GetHiGroup call Get_hi_group()
 " Custom settings
 " ---------------
 " set colorcolumn=+1
-aug my_git_colorcolumn
-	au!
-	au BufEnter * if &ft == 'gitcommit' | let w:my_saved_cc=&cc | let &cc='+1' | endif
-	au BufLeave * if &ft == 'gitcommit' | let &cc=w:my_saved_cc | endif
-aug END
+" aug my_git_colorcolumn
+" 	au!
+" 	au BufEnter * if &ft == 'gitcommit' | let w:my_saved_cc=&cc | let &cc='+1' | endif
+" 	au BufLeave * if &ft == 'gitcommit' | let &cc=w:my_saved_cc | endif
+" aug END
+set splitright		" default split direction
+set splitbelow		" default split direction
 set tildeop			" use ~<motion> to change case of characters over <motion>
 set ignorecase		" Ignore uppercase and lowercase
 set smartcase		" If search contains UPPERCASE letter, then set "noignorecase"
 set mouse=a
 set clipboard+=unnamedplus
 set cursorline
-set noexpandtab					" DO NOT replace tabs with spaces
-set tabstop=4					" No. of spaces that <TAB> stands for
-set shiftwidth=0				" i.e. tabstop value will be used for auto-indenting
+" set noexpandtab					" DO NOT replace tabs with spaces
+" set tabstop=4					" No. of spaces that <TAB> stands for
+" set shiftwidth=0				" i.e. tabstop value will be used for auto-indenting
 " au BufWinEnter *.py %retab!	" Replace all tabs with spaces when entering a python file
 " set foldmethod=marker
 " set nowrap
@@ -361,6 +394,7 @@ set autoread
 set autowrite
 "set nonumber nornu
 set number relativenumber
+set signcolumn=yes
 " nnoremap <silent> <C-n> :set number!<CR>
 " nnoremap <silent> <C-A-n> :set relativenumber!<CR>
 au User AirlineAfterInit ++once nnoremap <silent> <c-v> <cmd>set virtualedit=all<CR><c-v><cmd>au User AirlineModeChanged ++once set virtualedit=<CR>
@@ -411,12 +445,17 @@ augroup my_autoclose_au
 augroup end
 
 " Change previewheight on terminal resize
+if !exists('g:my_auto_preview_window_height_percentage') | let g:my_auto_preview_window_height_percentage = 30 | endif
+execute('set pvh=' . &lines*g:my_auto_preview_window_height_percentage/100 )
 augroup my_auto_previewheight
 	au!
-	au VimEnter * ++once if !exists('g:my_auto_preview_window_height_percentage') | let g:my_auto_preview_window_height_percentage = 30 | endif
-	au VimEnter * ++once execute('set pvh=' . &lines*g:my_auto_preview_window_height_percentage/100 )
 	au VimResized * execute('set pvh=' . &lines*g:my_auto_preview_window_height_percentage/100 )
 augroup end
+
+" Built-in terminal emulator
+" -------------------------
+"  <leader><Esc> to exit Insert mode in terminal
+tnoremap <leader><Esc> <C-\><C-n>
 
 " LineNr toggling functions
 " -------------------------
@@ -562,12 +601,12 @@ if len(split($FZF_DEFAULT_OPTS,'hidden')) - len(split($FZF_DEFAULT_OPTS,'nohidde
 let $FZF_DEFAULT_OPTS = join(split($FZF_DEFAULT_OPTS,'hidden'),'nohidden')
 endif
 
+if &lines < 15 | let g:fzf_layout = { 'down': '~40%' } | else | let g:fzf_layout = {'window': {'width': 0.9, 'height': 0.8}} | endif
 augroup AutoFZFLayout
 	au!
 	" au VimResized * if &lines < 15 | let g:fzf_layout = { 'down': '~40%' } | else | execute(exists('g:fzf_layout') ? 'unlet g:fzf_layout' : '') | endif
 	" au VimEnter * ++once if &lines < 15 | let g:fzf_layout = { 'down': '~40%' } | else | execute(exists('g:fzf_layout') ? 'unlet g:fzf_layout' : '') | endif
 	au VimResized * if &lines < 15 | let g:fzf_layout = { 'down': '~40%' } | else | let g:fzf_layout = {'window': {'width': 0.9, 'height': 0.8}} | endif
-	au VimEnter * ++once if &lines < 15 | let g:fzf_layout = { 'down': '~40%' } | else | let g:fzf_layout = {'window': {'width': 0.9, 'height': 0.8}} | endif
 augroup end
 
 
@@ -593,8 +632,6 @@ let g:nv_ignore_pattern = ['*NVignore*', '*.sh']
 
 " Default split direction
 " -----------------------
-set splitright
-set splitbelow
 
 " Vim rooter
 " ----------
@@ -639,13 +676,6 @@ let g:ale_sign_warning = '🔸'
 
 let g:ale_python_flake8_options='--extend-ignore E231,E252,E501'
 
-
-" Git gutter
-" ----------
-set signcolumn=yes
-let g:gitgutter_set_sign_backgrounds = 1
-" hi clear SignColumn		" Included in colorscheme_overrides
-
 " vim-airline
 " -----------
 set noshowmode
@@ -660,8 +690,9 @@ endif
 let g:airline_symbols.readonly = '[RO]'
 let g:airline_symbols.whitespace = ' '
 let g:airline_symbols.notexists = ' ?'
-let g:airline#parts#ffenc#skip_expected_string = 'utf-8[unix]'
+let g:airline#extensions#hunks#non_zero_only = 1
 let g:airline#extensions#localsearch#inverted = 1
+let g:airline#parts#ffenc#skip_expected_string = 'utf-8[unix]'
 " let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#alt_sep = 1
 let g:my_airline_sep = '|'
@@ -813,8 +844,8 @@ inoremap <silent><expr> <down>	pumvisible() ? "<c-e><down>"	: "<down>"
 " autocmd BufEnter * call ncm2#enable_for_buffer()
 		augroup enable_ncm2
 			au!
-			autocmd BufEnter * call timer_start(0, {id->execute("call ncm2#enable_for_buffer()")})
 		augroup end
+		au User Ncm2Plugin ++once au enable_ncm2 BufEnter * call timer_start(0, {id->execute("silent! call ncm2#enable_for_buffer()")})
 " IMPORTANT: :help Ncm2PopupOpen for more information
 		set completeopt=noinsert,menuone,noselect
 " Disable syntax hint after completion in python
@@ -862,13 +893,14 @@ xmap y <plug>(YoinkYankPreserveCursorPosition)
 let g:yoinkIncludeDeleteOperations = 1
 let g:yoinkMoveCursorToEndOfPaste = 1		" ... after pasting
 let g:yoinkSwapClampAtEnds = 0				" Cycle thru the list while swapping
+let g:yoinkMaxItems = 25
 
 " vim-localsearch
 " ---------------
 " Toggle local search (leader is backlash \, the one beneath Backspace)
 " i.e. press \ /
 nmap <leader>/ <Plug>localsearch_toggle
-call localsearch#Toggle()	" Turn on by default
+call localsearch#Enable() " Turn on by default
 command! LocalSearch call localsearch#Toggle()
 
 
@@ -998,6 +1030,7 @@ command! -bar ShowTrailingWhitespaceBufferReset call ShowTrailingWhitespace#Rese
 " --------
 " let g:doge_doc_standard_python = 'google'
 let g:doge_parsers=['python']
+nmap <leader>d <Plug>(doge-generate)
 
 " My SudoWrite
 " -----------
@@ -1149,14 +1182,16 @@ augroup end
 
 " treesitter
 " ----------
-" lua << EOF
-" require'nvim-treesitter.configs'.setup {
-"   ensure_installed = "python", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
-"   highlight = {
-"     enable = true,              -- false will disable the whole extension
-"   },
-" }
-" EOF
+if has("nvim-0.5")
+lua << EOF
+require'nvim-treesitter.configs'.setup {
+  ensure_installed = "python", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  highlight = {
+    enable = true,              -- false will disable the whole extension
+  },
+}
+EOF
+endif
 
 " transparent background
 " ----------------------
@@ -1216,4 +1251,13 @@ nmap <leader>gp <Plug>(GitGutterPreviewHunk)
 nmap <leader>gs <Plug>(GitGutterStageHunk)
 nmap [g <Plug>(GitGutterPrevHunk)
 nmap ]g <Plug>(GitGutterNextHunk)
+let g:gitgutter_set_sign_backgrounds = 1
+let g:gitgutter_highlight_linenrs = 1
+
+" nvim-ghost.nvim
+" --------------
+aug nvim_ghost_user_autocommands
+	au!
+	au User www.reddit.com set filetype=markdown
+aug END
 

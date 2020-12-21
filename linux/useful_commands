@@ -1,12 +1,13 @@
 fc-match
 fc-list
 fc-cache
+pgrep --full
 
 programs
 --------
 mycli `pip install mycli`
 github.com/localtunnel/localtunnel
 telebit (coolaj86/telebit) (telebit.io)
-protonvpn
+protonvpn `pip install -U protonvpn-cli`
 lxappearance (lxappearance-gtk)
-
+ncdu (for checking file and folder sizes)

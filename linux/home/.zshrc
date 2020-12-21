@@ -315,8 +315,9 @@ alias shrug="echo -n '¯\_(ツ)_/¯' | clipcopy"
 alias copy=clipcopy
 alias picom_restart="killall picom; sleep 0.5 && sh -c 'picom &'"
 
-alias winvm_4cpu="VBoxManage modifyvm Win10 --cpus 4 && VBoxManage startvm Win10"
-alias winvm_1cpu="VBoxManage modifyvm Win10 --cpus 1 && VBoxManage startvm Win10"
+alias winvm_1cpu="bspc desktop --layout monocle; VBoxManage modifyvm Win10 --cpus 1 && exec VBoxManage startvm Win10"
+alias winvm_2cpu="bspc desktop --layout monocle; VBoxManage modifyvm Win10 --cpus 2 && exec VBoxManage startvm Win10"
+alias winvm_4cpu="bspc desktop --layout monocle; VBoxManage modifyvm Win10 --cpus 4 && exec VBoxManage startvm Win10"
 
 bspwm_delete_monitor() {
 	echo $*

@@ -34,13 +34,19 @@ super + Escape
 super + ctrl + Return ; {f,c,t,v,n,x,p}
 	{firefox,google-chrome-stable,thunar,vlc,nautilus,xdman,pavucontrol} &> /dev/null
 
+# exclude rounded corners current window
 super + {Delete,shift + BackSpace}
-	if [[ $(xprop -id $(bspc query -N -n focused) | grep "_PICOM_ROUND_EXCLUDE" | cut -d'=' -f2 | cut -c2) =~ '1' ]];then xprop -id $(bspc query -N -n focused) -f _PICOM_BLUR_EXCLUDE 32c -set _PICOM_ROUND_EXCLUDE 0;else xprop -id $(bspc query -N -n focused) -f _PICOM_ROUND_EXCLUDE 32c -set _PICOM_ROUND_EXCLUDE 1;fi
-	# if [[ $(xprop -id $(bspc query -N -n focused) | grep "_PICOM_ROUND_EXCLUDE" | cut -d'=' -f2 | cut -c2) =~ '1' ]];then xprop -id $(bspc query -N -n focused) -remove _PICOM_ROUND_EXCLUDE;else xprop -id $(bspc query -N -n focused) -f _PICOM_ROUND_EXCLUDE 32c -set _PICOM_ROUND_EXCLUDE 1;fi && picom-trans -c 100
+	if [[ $(xprop -id $(bspc query -N -n focused) | grep "_PICOM_ROUND_EXCLUDE" | cut -d'=' -f2 | cut -c2) =~ '1' ]];then xprop -id $(bspc query -N -n focused) -remove _PICOM_ROUND_EXCLUDE;else xprop -id $(bspc query -N -n focused) -f _PICOM_ROUND_EXCLUDE 32c -set _PICOM_ROUND_EXCLUDE 1;fi && picom-trans -c 100
 
+# exclude blur current window
 super + shift + Delete
 	if [[ $(xprop -id $(bspc query -N -n focused) | grep "_PICOM_BLUR_EXCLUDE" | cut -d'=' -f2 | cut -c2) =~ '1' ]];then xprop -id $(bspc query -N -n focused) -f _PICOM_BLUR_EXCLUDE 32c -set _PICOM_BLUR_EXCLUDE 0;else xprop -id $(bspc query -N -n focused) -f _PICOM_BLUR_EXCLUDE 32c -set _PICOM_BLUR_EXCLUDE 1;fi
 	# if [[ $(xprop -id $(bspc query -N -n focused) | grep "_PICOM_BLUR_EXCLUDE" | cut -d'=' -f2 | cut -c2) =~ '1' ]];then xprop -id $(bspc query -N -n focused) -remove _PICOM_BLUR_EXCLUDE;else xprop -id $(bspc query -N -n focused) -f _PICOM_BLUR_EXCLUDE 32c -set _PICOM_BLUR_EXCLUDE 1;fi && picom-trans -c 100
+
+# exclude focus-unfocus current window
+super + ctrl + Delete
+	if [[ $(xprop -id $(bspc query -N -n focused) | grep "_PICOM_FOCUS_EXCLUDE" | cut -d'=' -f2 | cut -c2) =~ '1' ]];then xprop -id $(bspc query -N -n focused) -f _PICOM_FOCUS_EXCLUDE 32c -set _PICOM_FOCUS_EXCLUDE 0;else xprop -id $(bspc query -N -n focused) -f _PICOM_FOCUS_EXCLUDE 32c -set _PICOM_FOCUS_EXCLUDE 1;fi
+
 
 # clipboard selection - clipster
 super + Insert
