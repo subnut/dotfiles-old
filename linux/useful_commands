@@ -11,3 +11,7 @@ telebit (coolaj86/telebit) (telebit.io)
 protonvpn `pip install -U protonvpn-cli`
 lxappearance (lxappearance-gtk)
 ncdu (for checking file and folder sizes)
+
+umount: /mnt/temp: target is busy
+---------------------------------
+lsof | grep '/mnt/temp'
