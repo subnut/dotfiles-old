@@ -270,7 +270,7 @@
 
   function prompt_my_kernel_upgraded() {
     # On error: yellow ✘ on red background.
-	p10k segment -b 1 -f 0 -i 'REBOOT' -c "$(grep -qs '^ID=arch$' /etc/os-release && test -e /lib/modules/`uname -r` || echo 1)"
+		p10k segment -b 1 -f 0 -i 'REBOOT' -c "$(grep -qs '^ID=arch$\|^ID=artix$' /etc/os-release && test -e /lib/modules/`uname -r` || echo 1)"
   }
 
   typeset -g POWERLEVEL9K_MY_PROMPT_LEFT_PROMPT_LAST_SEGMENT_END_SYMBOL=''

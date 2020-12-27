@@ -126,8 +126,8 @@ export PYENV_ROOT="$HOME/.pyenv"
 export PATH="$PYENV_ROOT/bin:$PATH"
 
 # colorls
-export PATH="$PATH:/home/subhaditya/.gem/ruby/2.7.0/bin/"
-alias ls="colorls"
+# export PATH="$PATH:/home/subhaditya/.gem/ruby/2.7.0/bin/"
+# alias ls="colorls"
 
 # my_run_bat () { cat $1 | powershell.exe -Command "& {cmd.exe}" - }
 # my_run_bat_2 () { cat $1 | powershell.exe -Command "& {cd c:; cmd.exe /Q}" - }
@@ -186,8 +186,8 @@ export EDITOR=nvim
 export DIFFPROG="nvim -d"
 export PATH=/home/subhaditya/.local/bin:$PATH
 
-#pyenv global $(for x in $(pyenv version | cut -f1 -d' '); do echo -n "$x "; done)
-pyenv global system pypy3.6-7.3.1
+# pyenv global $(for x in $(pyenv version | cut -f1 -d' '); do echo -n "$x "; done)
+# pyenv global system pypy3.6-7.3.1
 export PATH=/home/subhaditya/Notes/:$PATH
 alias notes=notes.sh
 

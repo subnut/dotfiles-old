@@ -10,6 +10,7 @@ let g:polyglot_disabled = ['sensible']
 "	let g:polyglot_disabled += ['markdown.plugin']
 " NOTE: This configuration MUST be set before vim-polyglot is loaded
 
+let g:polyglot_disabled += ['conf']
 
 let g:python3_host_prog = '/home/subhaditya/.config/nvim/venv/bin/python'
 if len($VIRTUAL_ENV) == 0
