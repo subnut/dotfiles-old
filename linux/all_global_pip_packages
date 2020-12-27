@@ -47,7 +47,7 @@ mysqlclient               2.0.2
 netsnmp-python            1.0a1
 numpy                     1.19.4
 ordered-set               4.0.2
-packaging                 20.7
+packaging                 20.8
 pep517                    0.9.1
 Pillow                    8.0.1
 pip                       20.2.3
@@ -95,8 +95,8 @@ tabulate                  0.8.7
 team                      1.0
 terminaltables            3.1.0
 toml                      0.10.2
-urllib3                   1.25.10
+urllib3                   1.25.11
 wcwidth                   0.2.5
 webencodings              0.5.1
 yapf                      0.30.0
-youtube-dl                2020.12.14
+youtube-dl                2020.12.22

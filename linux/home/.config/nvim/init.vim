@@ -150,6 +150,7 @@ Plug 'sgur/vim-editorconfig'
 Plug 'unblevable/quick-scope', {'on': []}
 Plug 'subnut/visualstar.vim'
 
+
 " Misc
 " ----
 " Plug 'wincent/scalpel'
@@ -985,7 +986,7 @@ augroup illuminate
 	au ColorScheme * silent! exec 'hi illuminatedWord  ctermbg=' . synIDattr(synIDtrans(hlID('CursorLine')), 'bg', 'cterm')
 	" au ColorScheme * exec 'hi illuminatedWord  gui=bold'
 augroup end
-exec 'hi illuminatedWord  guibg=' . synIDattr(synIDtrans(hlID('CursorLine')), 'bg', 'gui')
+silent! exec 'hi illuminatedWord  guibg=' . synIDattr(synIDtrans(hlID('CursorLine')), 'bg', 'gui')
 silent! exec 'hi illuminatedWord  ctermbg=' . synIDattr(synIDtrans(hlID('CursorLine')), 'bg', 'cterm')
 " exec 'hi illuminatedWord  gui=bold'
 let g:Illuminate_ftHighlightGroups = {
@@ -1262,3 +1263,7 @@ aug nvim_ghost_user_autocommands
 	au User www.reddit.com set filetype=markdown
 aug END
 
+" visualstar.vim
+" -------------
+xmap <leader>* <Plug>(VisualstarSearchReplace)
+nmap <leader>* <Plug>(VisualstarSearchReplace)

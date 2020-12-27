@@ -71,7 +71,6 @@ cdparanoia
 celt
 cheese
 chromaprint
-chrono-date
 cifs-utils
 clementine
 clipster-git
@@ -142,6 +141,7 @@ eos-translations
 eos-update-notifier
 epdfview
 etcher-bin
+ethtool
 evince
 evolution-data-server
 exempi
@@ -166,7 +166,6 @@ flac
 flameshot
 flex
 fluidsynth
-fmt
 folks
 font-victor-mono
 fontconfig
@@ -301,7 +300,6 @@ gst-plugins-ugly
 gstreamer
 gtk-engine-murrine
 gtk-engines
-gtk-layer-shell
 gtk-sharp-2
 gtk-update-icon-cache
 gtk2
@@ -341,7 +339,6 @@ hyphen
 i3lock-color-git
 iana-etc
 icu
-iio-sensor-proxy
 ijs
 imagemagick
 imlib2
@@ -783,7 +780,6 @@ onedrive-abraunegg
 onedrive_tray-git
 onefetch-bin
 openal
-opencl-headers
 opencore-amr
 openexr
 openjpeg2
@@ -860,6 +856,7 @@ portsmf
 potrace
 powertop
 ppp
+prettier
 procps-ng
 projectm
 protobuf
@@ -994,7 +991,6 @@ sord
 sound-theme-freedesktop
 soundtouch
 spandsp
-spdlog
 speech-dispatcher
 speex
 speexdsp
@@ -1104,7 +1100,6 @@ which
 whois
 wildmidi
 wireless-regdb
-wlroots
 woff2
 wpa_supplicant
 wpebackend-fdo
@@ -1117,7 +1112,6 @@ xautolock
 xcb-proto
 xcb-util
 xcb-util-cursor
-xcb-util-errors
 xcb-util-image
 xcb-util-keysyms
 xcb-util-renderutil
