@@ -1,3 +1,7 @@
+# Keep this ABOVE p10k instant prompt
+# Otherwise it gets set to "not a tty"
+export GPG_TTY=$(tty)
+
 # Enable Powerlevel10k instant prompt. Should stay close to the top of ~/.zshrc.
 # Initialization code that may require console input (password prompts, [y/n]
 # confirmations, etc.) must go above this block; everything else may go below.
@@ -277,7 +281,6 @@ my_gcm () { git commit -m "$*" }
 alias gcm=my_gcm
 # alias gcma=my_gcma
 alias gpull="git pull"
-export GPG_TTY=$(tty)
 
 alias cal3="cal -3"
 alias n=nvim
