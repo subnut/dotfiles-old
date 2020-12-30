@@ -322,20 +322,18 @@ alias winvm_1cpu="bspc desktop --layout monocle; VBoxManage modifyvm Win10 --cpu
 alias winvm_2cpu="bspc desktop --layout monocle; VBoxManage modifyvm Win10 --cpus 2 && exec VBoxManage startvm Win10"
 alias winvm_4cpu="bspc desktop --layout monocle; VBoxManage modifyvm Win10 --cpus 4 && exec VBoxManage startvm Win10"
 
+_bspwm_delete_monitor() { compadd $(bspc query -M -m .!focused --names) }
 bspwm_delete_monitor() {
-	echo $*
-	}
-
-_bspwm_delete_monitor() {
-	local state
-	local mon_id
-
-	compadd $(bspc query -M --names)
-	# for mon_id in $(bspc query -M)
-	# do
-	# 	_describe $mon_id "$mon_id:$(bspc query -M --names -m $mon_id)"
-	# done
-	}
-
+	local monitor
+	local desktop
+	for monitor in "$@"
+	do
+		for desktop in $(bspc query -D -m "$monitor")
+		do
+			bspc desktop "$desktop".occupied --to-monitor focused
+		done
+		bspc monitor "$monitor" --remove
+	done
+}
 compdef _bspwm_delete_monitor bspwm_delete_monitor
 
