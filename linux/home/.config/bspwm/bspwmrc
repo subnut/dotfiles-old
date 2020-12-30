@@ -3,6 +3,7 @@
 xinput set-button-map 'TPPS/2 Elan TrackPoint' 1 0 3
 xinput set-prop 'SynPS/2 Synaptics TouchPad' 'libinput Accel Speed' 0.001
 xinput set-prop 'SynPS/2 Synaptics TouchPad' 'libinput Tapping Enabled' 1
+xsetroot -cursor_name left_ptr &
 xset r rate 250 30
 
 killall -q sxhkd
@@ -11,7 +12,23 @@ sxhkd &> /dev/null &
 killall -q /usr/lib/gsd-xsettings
 /usr/lib/gsd-xsettings &> /dev/null &
 
-if ! [[ `bspc query --desktops --names` =~ "Desktop" ]]; then for MONITOR in $(bspc query -M --names); do bspc monitor $MONITOR -d I II III IV V VI VII VIII IX T XI XII XIII XIV XV XVI XVII XVIII XIX XX XXI XXII $(for y in $(bspc query -D -m $MONITOR --names | grep temp); do echo -n "$y "; done );done;else for MONITOR in $(bspc query -M --names); do bspc monitor $MONITOR -d I II III IV V VI VII VIII IX T XI XII XIII XIV XV XVI XVII XVIII XIX XX XXI XXI;done; fi
+if ! [[ `bspc query --desktops --names` =~ "Desktop" ]]
+then
+	for MONITOR in $(bspc query -M --names)
+	do
+		bspc monitor $MONITOR -d I II III IV V VI VII VIII IX T XI XII XIII XIV XV XVI XVII XVIII XIX XX XXI XXII $(
+		for y in $(bspc query -D -m $MONITOR --names | grep temp)
+		do
+				echo -n "$y "
+		done
+)
+	done
+else
+	for MONITOR in $(bspc query -M --names)
+	do
+		bspc monitor $MONITOR -d I II III IV V VI VII VIII IX T XI XII XIII XIV XV XVI XVII XVIII XIX XX XXI XXI
+	done
+fi
 
 kill $(pgrep --full "this is a comment for my borderer")
 zsh -c "while read -r my_auto_something; do if [[ \$my_auto_something =~ 'T@' ]];then bspc config border_width 10;else bspc config border_width 0;fi ;done < <(bspc subscribe); # this is a comment for my borderer" &
@@ -48,7 +65,7 @@ bspc rule -a xdman-Main state=floating
 bspc rule -a my_zoom state=floating
 bspc rule -a Git-gui--askpass state=floating layer=above
 bspc rule -a Yad state=floating layer=above
-xsetroot -cursor_name left_ptr &
+
 bspc rule -a '*:*:Picture-in-Picture' state=floating layer=above sticky=on focus=off
 bspc rule -a '*:*:Picture-in-picture' state=floating layer=above sticky=on focus=off
 bspc rule -a Safeeyes state=floating layer=above fullscreen=off focus=off
