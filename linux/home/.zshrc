@@ -54,10 +54,10 @@ ZSH_THEME="powerlevel10k/powerlevel10k"
 # DISABLE_AUTO_TITLE="true"
 
 # Uncomment the following line to enable command auto-correction.
-# ENABLE_CORRECTION="true"
+ENABLE_CORRECTION="true"
 
 # Uncomment the following line to display red dots whilst waiting for completion.
-# COMPLETION_WAITING_DOTS="true"
+COMPLETION_WAITING_DOTS="true"
 
 # Uncomment the following line if you want to disable marking untracked files
 # under VCS as dirty. This makes repository status check for large repositories
@@ -137,7 +137,7 @@ export PATH="$PYENV_ROOT/bin:$PATH"
 # my_run_bat_2 () { cat $1 | powershell.exe -Command "& {cd c:; cmd.exe /Q}" - }
 # my_run_bat_3 () { powershell.exe "cd c:; & \"$( wslpath -w $1)\"" }
 
-my_run_bat_4 () {
+my_run_bat_4 () { # {{{
 	if [[ $* =~ (-h) || -z $* ]]
 	then echo "Execute Windows Batch files from WSL
 
@@ -149,7 +149,7 @@ Executes the specified file at the C: drive.
 If C: is unavailable, then executes at the CMD default (Windows) directory."
 	return; fi
 	powershell.exe "cd c:; & \"$( wslpath -w $1)\""
-}
+} # }}}
 
 alias runbat=my_run_bat_4
 alias gaav="git add --all --verbose"
@@ -162,10 +162,11 @@ alias la1="la -1"
 yays () { yay -S $(yay -Ss $* | cut -d' ' --fields=1 | grep .  | fzf --multi) --needed }
 yayss () { yay -Ss $* }
 pacs () { sudo pacman -S $(pacman -Ss $* | cut -d' ' --fields=1 | grep . | cut --fields=2 -d'/' | fzf --multi) --needed }
-pacr () { sudo pacman -R $(pacman -Q $* | cut --fields=2 -d'/' | cut --fields=1 -d' '| fzf --multi --preview-window 'right:50%:nohidden:wrap' --preview 'pacman -Qi {} | grep "Name\|Version\|Description\|Required By\|Optional For\|Install Reason\|Size\|Groups" | cat') }
+pacr () { sudo pacman -R $(pacman -Qe $* | cut --fields=2 -d'/' | cut --fields=1 -d' '| fzf --multi --preview-window 'right:50%:nohidden:wrap' --preview 'pacman -Qi {} | grep "Name\|Version\|Description\|Required By\|Optional For\|Install Reason\|Size\|Groups" | cat') }
+pacrr () { sudo pacman -R $(pacman -Q $* | cut --fields=2 -d'/' | cut --fields=1 -d' '| fzf --multi --preview-window 'right:50%:nohidden:wrap' --preview 'pacman -Qi {} | grep "Name\|Version\|Description\|Required By\|Optional For\|Install Reason\|Size\|Groups" | cat') }
 alias ydl=youtube-dl
 alias pacss="pacman -Ss"
-mycal () { while true; do tput civis;clear; cal; sleep $(( 24*60*60 - `date +%H`*60*60 - `date +%M`*60 - `date +%S` )); done }
+my_calendar () { while true; do tput civis;clear; cal; sleep $(( 24*60*60 - `date +%H`*60*60 - `date +%M`*60 - `date +%S` )); done }
 emojiinputtool () { while true; do
 	codepoints="$(jome -f cp -p U)"
 	if [ $? -ne 0 ]; then
@@ -226,7 +227,7 @@ fi
 get_theme () { source ~/.config/kitty/custom_zsh_source }
 if ! [[ -z $MY_NVIM_BG ]]; then source ~/.config/kitty/custom_zsh_source; fi
 
-toggle_theme () {
+toggle_theme () { # {{{
 	get_theme
 	if [[ $MY_NVIM_BG == 'dark' ]]
 	then export MY_NVIM_BG='light'
@@ -242,8 +243,8 @@ toggle_theme () {
 		echo 'if [[ $MY_NVIM_BG == "light" ]];then export MY_NVIM_BG="dark"; alias colorls="colorls"; export BAT_THEME="gruvbox (Dark) (Hard)"; fi' > ~/.config/kitty/custom_zsh_source
 	fi
 	fi
-	echo -n "get_theme\n" | kitty @ send-text -t="title:subhaditya@EndeavourPad" --stdin
-}
+	echo -n "get_theme\n" | kitty @ send-text -t="title:subhaditya@$(cat /proc/sys/kernel/hostname)" --stdin
+} # }}}
 alias to=toggle_theme
 
 
@@ -317,13 +318,13 @@ alias wifi="nmcli dev wifi list"
 alias shrug="echo -n '¯\_(ツ)_/¯' | clipcopy"
 alias copy=clipcopy
 alias picom_restart="killall picom; sleep 0.5 && sh -c 'picom &'"
+alias lock="i3lock -c 00000040 -k --pass-media-keys --pass-screen-keys  --radius 180 --ring-width 20 --linecolor 00000000 --ringcolor=ffffff --keyhlcolor=000000 --insidecolor=ffffff --indicator --ringwrongcolor ff2134  --separatorcolor 00000000 --ringvercolor 008cf7 --insidevercolor 008cf7 --insidewrongcolor ff2134 --pass-power-keys --refresh-rate=0.5 --bshlcolor=ff2134 --datestr='%A, %d %b %Y' --redraw-thread &> /dev/null"
 
 alias winvm_1cpu="bspc desktop --layout monocle; VBoxManage modifyvm Win10 --cpus 1 && exec VBoxManage startvm Win10"
 alias winvm_2cpu="bspc desktop --layout monocle; VBoxManage modifyvm Win10 --cpus 2 && exec VBoxManage startvm Win10"
 alias winvm_4cpu="bspc desktop --layout monocle; VBoxManage modifyvm Win10 --cpus 4 && exec VBoxManage startvm Win10"
 
-_bspwm_delete_monitor() { compadd $(bspc query -M -m .!focused --names) }
-bspwm_delete_monitor() {
+bspwm_delete_monitor() { #{{{
 	local monitor
 	local desktop
 	for monitor in "$@"
