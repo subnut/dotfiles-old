@@ -22,36 +22,36 @@
 
 () {
  function p10k-on-post-widget() {
-	if [[ $my_command_line_contents != $PREBUFFER$BUFFER ]]; then
-	typeset -g my_command_line_contents=$PREBUFFER$BUFFER
-	fi
- 	my_z_updater_function
-	() {	# my_qrcode_displayer	{{{
-		typeset -g my_qr_args=$(echo $my_command_line_contents | cut -d' ' -f2)
-		if [[ $my_command_line_contents =~ '^qr\ \S' ]]
-			then
-			if ! [[ $my_qr_prev_args = $my_qr_args ]]
-				then zle -M "$(qrencode -t UTF8 $my_qr_args)"
-				typeset -g my_qr_prev_args=$my_qr_args
-			fi
-		elif [[ $my_command_line_contents =~ '^qr\ ' ]] && ! [[ -z $my_qr_prev_args ]]
-		then
-			zle -M ''
-			typeset -g my_qr_prev_args=''
-		fi
-		}	# }}}
+    if [[ $my_command_line_contents != $PREBUFFER$BUFFER ]]; then
+    typeset -g my_command_line_contents=$PREBUFFER$BUFFER
+    fi
+    my_z_updater_function
+    () {    # my_qrcode_displayer   {{{
+        typeset -g my_qr_args=$(echo $my_command_line_contents | cut -d' ' -f2)
+        if [[ $my_command_line_contents =~ '^qr\ \S' ]]
+            then
+            if ! [[ $my_qr_prev_args = $my_qr_args ]]
+                then zle -M "$(qrencode -t UTF8 $my_qr_args)"
+                typeset -g my_qr_prev_args=$my_qr_args
+            fi
+        elif [[ $my_command_line_contents =~ '^qr\ ' ]] && ! [[ -z $my_qr_prev_args ]]
+        then
+            zle -M ''
+            typeset -g my_qr_prev_args=''
+        fi
+        }   # }}}
  }
 
  function my_z_updater_function() {
-	typeset -g my_z_args=$(echo $my_command_line_contents | cut -d'z' -f2 | cut -d' ' -f2)
- 	if [[ $my_command_line_contents =~ '^z\ \S' ]]
- 	then typeset -g my_z_text=$(_z 2>&1 -e $my_z_args)
- 	else typeset -g my_z_text=''
- 	fi
+    typeset -g my_z_args=$(echo $my_command_line_contents | cut -d'z' -f2 | cut -d' ' -f2)
+    if [[ $my_command_line_contents =~ '^z\ \S' ]]
+    then typeset -g my_z_text=$(_z 2>&1 -e $my_z_args)
+    else typeset -g my_z_text=''
+    fi
     if ! [[ $my_z_prev_text = $my_z_text ]]
     then
-	   p10k display -r
-	   typeset -g my_z_prev_text=$my_z_text
+       p10k display -r
+       typeset -g my_z_prev_text=$my_z_text
     fi
 }
 
@@ -79,8 +79,8 @@
     virtualenv              # python virtual environment (https://docs.python.org/3/library/venv.html)
     vim_shell               # vim shell indicator (:sh)
     vi_mode                 # vi mode (you don't need this if you've enabled prompt_char)
-	my_kernel_upgraded
-	my_z_path
+    my_kernel_upgraded
+    my_z_path
     # =========================[ Line #2 ]=========================
     newline                 # \n
     # prompt_char           # prompt symbol
@@ -112,26 +112,26 @@
     # laravel_version       # laravel php framework version (https://laravel.com/)
     # java_version          # java version (https://www.java.com/)
     # package               # name@version from package.json (https://docs.npmjs.com/files/package.json)
-    rbenv                   # ruby version from rbenv (https://github.com/rbenv/rbenv)
-    rvm                     # ruby version from rvm (https://rvm.io)
-    fvm                     # flutter version management (https://github.com/leoafarias/fvm)
-    luaenv                  # lua version from luaenv (https://github.com/cehoffman/luaenv)
-    jenv                    # java version from jenv (https://github.com/jenv/jenv)
-    plenv                   # perl version from plenv (https://github.com/tokuhirom/plenv)
-    phpenv                  # php version from phpenv (https://github.com/phpenv/phpenv)
-    haskell_stack           # haskell version from stack (https://haskellstack.org/)
-    kubecontext             # current kubernetes context (https://kubernetes.io/)
-    terraform               # terraform workspace (https://www.terraform.io)
-    aws                     # aws profile (https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)
-    aws_eb_env              # aws elastic beanstalk environment (https://aws.amazon.com/elasticbeanstalk/)
-    azure                   # azure account name (https://docs.microsoft.com/en-us/cli/azure)
-    gcloud                  # google cloud cli account and project (https://cloud.google.com/)
-    google_app_cred         # google application credentials (https://cloud.google.com/docs/authentication/production)
+    # rbenv                 # ruby version from rbenv (https://github.com/rbenv/rbenv)
+    # rvm                   # ruby version from rvm (https://rvm.io)
+    # fvm                   # flutter version management (https://github.com/leoafarias/fvm)
+    # luaenv                # lua version from luaenv (https://github.com/cehoffman/luaenv)
+    # jenv                  # java version from jenv (https://github.com/jenv/jenv)
+    # plenv                 # perl version from plenv (https://github.com/tokuhirom/plenv)
+    # phpenv                # php version from phpenv (https://github.com/phpenv/phpenv)
+    # haskell_stack         # haskell version from stack (https://haskellstack.org/)
+    # kubecontext           # current kubernetes context (https://kubernetes.io/)
+    # terraform             # terraform workspace (https://www.terraform.io)
+    # aws                   # aws profile (https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-profiles.html)
+    # aws_eb_env            # aws elastic beanstalk environment (https://aws.amazon.com/elasticbeanstalk/)
+    # azure                 # azure account name (https://docs.microsoft.com/en-us/cli/azure)
+    # gcloud                # google cloud cli account and project (https://cloud.google.com/)
+    # google_app_cred       # google application credentials (https://cloud.google.com/docs/authentication/production)
     context                 # user@hostname
-    nordvpn                 # nordvpn connection status, linux only (https://nordvpn.com/)
+    # nordvpn               # nordvpn connection status, linux only (https://nordvpn.com/)
     ranger                  # ranger shell (https://github.com/ranger/ranger)
     nnn                     # nnn shell (https://github.com/jarun/nnn)
-    midnight_commander      # midnight commander shell (https://midnight-commander.org/)
+    # midnight_commander    # midnight commander shell (https://midnight-commander.org/)
     nix_shell               # nix shell (https://nixos.org/nixos/nix-pills/developing-with-nix-shell.html)
     # vpn_ip                # virtual private network indicator
     # load                  # CPU load
@@ -270,7 +270,7 @@
 
   function prompt_my_kernel_upgraded() {
     # On error: yellow ✘ on red background.
-		p10k segment -b 1 -f 0 -i 'REBOOT' -c "$(grep -qs '^ID=arch$\|^ID=artix$' /etc/os-release && test -e /lib/modules/`uname -r` || echo 1)"
+        p10k segment -b 1 -f 0 -i 'REBOOT' -c "$(grep -qs '^ID=arch$\|^ID=artix$' /etc/os-release && test -e /lib/modules/`uname -r` || echo 1)"
   }
 
   typeset -g POWERLEVEL9K_MY_PROMPT_LEFT_PROMPT_LAST_SEGMENT_END_SYMBOL=''
@@ -282,10 +282,10 @@
   ##################################[ dir: current directory ]##################################
   # Current directory background color.
   # typeset -g POWERLEVEL9K_DIR_BACKGROUND=4
-  typeset -g POWERLEVEL9K_DIR_BACKGROUND=33
+  typeset -g POWERLEVEL9K_DIR_BACKGROUND=99
   # Default current directory foreground color.
-  typeset -g POWERLEVEL9K_DIR_FOREGROUND=254
-  typeset -g POWERLEVEL9K_DIR_FOREGROUND=233
+  # typeset -g POWERLEVEL9K_DIR_FOREGROUND=254
+  typeset -g POWERLEVEL9K_DIR_FOREGROUND=232
   # If directory is too long, shorten some of its segments to the shortest possible unique
   # prefix. The shortened directory can be tab-completed to the original.
   typeset -g POWERLEVEL9K_SHORTEN_STRATEGY=truncate_to_unique
@@ -859,7 +859,7 @@
   # Text and color for visual vi mode.
   typeset -g POWERLEVEL9K_VI_VISUAL_MODE_STRING=VISUAL
   #typeset -g POWERLEVEL9K_VI_MODE_VISUAL_BACKGROUND=4
-  typeset -g POWERLEVEL9K_VI_MODE_VISUAL_BACKGROUND=14
+  typeset -g POWERLEVEL9K_VI_MODE_VISUAL_BACKGROUND=87
   # Text and color for overtype (a.k.a. overwrite and replace) vi mode.
   typeset -g POWERLEVEL9K_VI_OVERWRITE_MODE_STRING=OVERTYPE
   #typeset -g POWERLEVEL9K_VI_MODE_OVERWRITE_BACKGROUND=3
@@ -1682,7 +1682,7 @@
   # typeset -g POWERLEVEL9K_TIME_PREFIX='at '
 
   # Real-time clock
-  typeset -g POWERLEVEL9K_EXPERIMENTAL_TIME_REALTIME=true
+  # typeset -g POWERLEVEL9K_EXPERIMENTAL_TIME_REALTIME=true
 
 
 
